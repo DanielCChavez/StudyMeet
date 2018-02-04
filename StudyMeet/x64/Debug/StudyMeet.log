@@ -1,12 +1,8 @@
-﻿  Moc'ing studymeet.h...
-  Uic'ing studymeet.ui...
-  Rcc'ing studymeet.qrc...
-RCC : warning : No resources in 'c:\Users\FINAL\documents\visual studio 2015\Projects\StudyMeet\StudyMeet\studymeet.qrc'.
-  
+﻿  Uic'ing studymeet.ui...
+C:\Users\dguer_000\Desktop\SM\StudyMeet\StudyMeet\studymeet.ui : warning : The name 'layoutWidget' (QWidget) is already in use, defaulting to 'layoutWidget1'.
   moc_studymeet.cpp
   main.cpp
   studymeet.cpp
   Generating Code...
-  qrc_studymeet.cpp
-  StudyMeet.vcxproj -> c:\users\final\documents\visual studio 2015\Projects\StudyMeet\x64\Debug\StudyMeet.exe
-  StudyMeet.vcxproj -> c:\users\final\documents\visual studio 2015\Projects\StudyMeet\x64\Debug\StudyMeet.pdb (Full PDB)
+  StudyMeet.vcxproj -> C:\Users\dguer_000\Desktop\SM\StudyMeet\x64\Debug\StudyMeet.exe
+  StudyMeet.vcxproj -> C:\Users\dguer_000\Desktop\SM\StudyMeet\x64\Debug\StudyMeet.pdb (Full PDB)
