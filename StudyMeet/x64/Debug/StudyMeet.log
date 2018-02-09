@@ -1,12 +1,3 @@
-﻿  Moc'ing studymeet.h...
-  Uic'ing studymeet.ui...
-  Rcc'ing studymeet.qrc...
-RCC : warning : No resources in 'c:\Users\FINAL\documents\visual studio 2015\Projects\StudyMeet\StudyMeet\studymeet.qrc'.
-  
-  moc_studymeet.cpp
-  main.cpp
-  studymeet.cpp
-  Generating Code...
-  qrc_studymeet.cpp
-  StudyMeet.vcxproj -> c:\users\final\documents\visual studio 2015\Projects\StudyMeet\x64\Debug\StudyMeet.exe
-  StudyMeet.vcxproj -> c:\users\final\documents\visual studio 2015\Projects\StudyMeet\x64\Debug\StudyMeet.pdb (Full PDB)
+﻿  main.cpp
+  StudyMeet.vcxproj -> C:\Users\FINAL\documents\visual studio 2015\Projects\StudyMeet\x64\Debug\StudyMeet.exe
+  StudyMeet.vcxproj -> C:\Users\FINAL\documents\visual studio 2015\Projects\StudyMeet\x64\Debug\StudyMeet.pdb (Full PDB)
