@@ -27,6 +27,7 @@ void StudyMeet::on_insertButton_clicked()
 									// to give name of the db we want
 	db.setUserName("studymeet");	//each database has an user name and password
 	db.setPassword("studymeet");	//to have access to it 
+	//db.setPort(3306);
 	bool ok = db.open();
 
 	//if DB opened correctly, open a small window that lists all tables 
