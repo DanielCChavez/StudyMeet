@@ -17,8 +17,10 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
@@ -46,6 +48,17 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *exitButton;
     QSpacerItem *verticalSpacer_2;
+    QWidget *layoutWidget2;
+    QGridLayout *gridLayout_3;
+    QGridLayout *gridLayout;
+    QLabel *name_label;
+    QLineEdit *petName;
+    QLabel *age_label;
+    QLineEdit *petAge;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *insertButton;
+    QSpacerItem *verticalSpacer_3;
+    QPlainTextEdit *outputText;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -126,10 +139,59 @@ public:
 
         verticalLayout_2->addItem(verticalSpacer_2);
 
+        layoutWidget2 = new QWidget(centralWidget);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(250, 80, 258, 323));
+        gridLayout_3 = new QGridLayout(layoutWidget2);
+        gridLayout_3->setSpacing(6);
+        gridLayout_3->setContentsMargins(11, 11, 11, 11);
+        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
+        gridLayout_3->setContentsMargins(0, 0, 0, 0);
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        name_label = new QLabel(layoutWidget2);
+        name_label->setObjectName(QStringLiteral("name_label"));
+
+        gridLayout->addWidget(name_label, 0, 0, 1, 1);
+
+        petName = new QLineEdit(layoutWidget2);
+        petName->setObjectName(QStringLiteral("petName"));
+
+        gridLayout->addWidget(petName, 0, 1, 1, 1);
+
+        age_label = new QLabel(layoutWidget2);
+        age_label->setObjectName(QStringLiteral("age_label"));
+
+        gridLayout->addWidget(age_label, 1, 0, 1, 1);
+
+        petAge = new QLineEdit(layoutWidget2);
+        petAge->setObjectName(QStringLiteral("petAge"));
+
+        gridLayout->addWidget(petAge, 1, 1, 1, 1);
+
+        horizontalSpacer_3 = new QSpacerItem(58, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_3, 2, 0, 1, 1);
+
+        insertButton = new QPushButton(layoutWidget2);
+        insertButton->setObjectName(QStringLiteral("insertButton"));
+
+        gridLayout->addWidget(insertButton, 2, 1, 1, 1);
+
+
+        gridLayout_3->addLayout(gridLayout, 0, 0, 1, 1);
+
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_3->addItem(verticalSpacer_3, 1, 0, 1, 1);
+
+        outputText = new QPlainTextEdit(layoutWidget2);
+        outputText->setObjectName(QStringLiteral("outputText"));
+
+        gridLayout_3->addWidget(outputText, 2, 0, 1, 1);
+
         StudyMeetClass->setCentralWidget(centralWidget);
-        layoutWidget->raise();
-        layoutWidget->raise();
-        heyButton->raise();
         menuBar = new QMenuBar(StudyMeetClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 582, 21));
@@ -153,6 +215,9 @@ public:
         label->setText(QApplication::translate("StudyMeetClass", "Hi", 0));
         heyButton->setText(QApplication::translate("StudyMeetClass", "Hey", 0));
         exitButton->setText(QApplication::translate("StudyMeetClass", "exit", 0));
+        name_label->setText(QApplication::translate("StudyMeetClass", "Pet Name:", 0));
+        age_label->setText(QApplication::translate("StudyMeetClass", "Pet Age:", 0));
+        insertButton->setText(QApplication::translate("StudyMeetClass", "Insert into (test) DB", 0));
     } // retranslateUi
 
 };

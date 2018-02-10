@@ -2,6 +2,12 @@
 #define STUDYMEET_H
 
 #include <QtWidgets/QMainWindow>
+#include <QtSql>
+#include <QtSql/qsqldatabase.h>
+#include <qsqlerror.h>
+//#include <QtSql/
+//#include <qdebug.h>
+
 #include "ui_studymeet.h"
 
 class StudyMeet : public QMainWindow
@@ -14,7 +20,7 @@ public:
 
 public slots:
 	void on_heyButton_clicked();
-	//id on_exitButton_clicked();
+	void on_insertButton_clicked();
 
 private:
 	Ui::StudyMeetClass ui;
