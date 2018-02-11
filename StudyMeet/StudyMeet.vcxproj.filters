@@ -59,6 +59,24 @@
     <ClCompile Include="GeneratedFiles\qrc_studymeet.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="createaccount.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_createaccount.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_createaccount.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="login.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_login.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_login.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="studymeet.h">
@@ -76,7 +94,16 @@
     <CustomBuild Include="dialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="Login.ui">
+    <CustomBuild Include="createaccount.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="createaccount.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="login.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="login.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -87,7 +114,10 @@
     <ClInclude Include="GeneratedFiles\ui_dialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_Login.h">
+    <ClInclude Include="GeneratedFiles\ui_createaccount.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_login.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

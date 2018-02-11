@@ -20,7 +20,6 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
@@ -58,7 +57,7 @@ public:
     QSpacerItem *horizontalSpacer_3;
     QPushButton *insertButton;
     QSpacerItem *verticalSpacer_3;
-    QPlainTextEdit *outputText;
+    QPushButton *getStartedButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -186,11 +185,9 @@ public:
 
         gridLayout_3->addItem(verticalSpacer_3, 1, 0, 1, 1);
 
-        outputText = new QPlainTextEdit(layoutWidget2);
-        outputText->setObjectName(QStringLiteral("outputText"));
-
-        gridLayout_3->addWidget(outputText, 2, 0, 1, 1);
-
+        getStartedButton = new QPushButton(centralWidget);
+        getStartedButton->setObjectName(QStringLiteral("getStartedButton"));
+        getStartedButton->setGeometry(QRect(190, 420, 75, 23));
         StudyMeetClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(StudyMeetClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -218,6 +215,7 @@ public:
         name_label->setText(QApplication::translate("StudyMeetClass", "Pet Name:", 0));
         age_label->setText(QApplication::translate("StudyMeetClass", "Pet Age:", 0));
         insertButton->setText(QApplication::translate("StudyMeetClass", "Insert into (test) DB", 0));
+        getStartedButton->setText(QApplication::translate("StudyMeetClass", "Get Started", 0));
     } // retranslateUi
 
 };

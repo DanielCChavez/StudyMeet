@@ -5,8 +5,7 @@
 #include <QtSql>
 #include <QtSql/qsqldatabase.h>
 #include <qsqlerror.h>
-//#include <QtSql/
-//#include <qdebug.h>
+#include <qtextedit.h>
 
 #include "ui_studymeet.h"
 
@@ -21,6 +20,7 @@ public:
 public slots:
 	void on_heyButton_clicked();
 	void on_insertButton_clicked();
+	//void on_getStartedButton_clicked();
 
 private:
 	Ui::StudyMeetClass ui;
