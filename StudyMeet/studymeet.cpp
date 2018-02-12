@@ -1,5 +1,6 @@
 #include "studymeet.h"
 #include "dialog.h"
+#include "login.h"
 
 StudyMeet::StudyMeet(QWidget *parent)
 	: QMainWindow(parent)
@@ -93,4 +94,11 @@ void StudyMeet::on_insertButton_clicked()
 
 	db.close();
 	db.removeDatabase("QMYSQL");
+}
+
+// When "Get Started" button clicked, open up the Login UI
+void StudyMeet::on_getStartedButton_clicked()
+{
+	Login login(this);
+	login.exec();
 }

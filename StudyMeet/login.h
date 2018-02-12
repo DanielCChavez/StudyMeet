@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "ui_login.h"
+#include "createaccount.h"
 
 class Login : public QDialog, public Ui::Login
 {
@@ -11,6 +12,10 @@ class Login : public QDialog, public Ui::Login
 public:
 	Login(QWidget *parent = 0);
 	~Login();
+
+public slots:
+	void on_createAccount_clicked();
+
 };
 
 #endif // LOGIN_H

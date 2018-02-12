@@ -1,5 +1,6 @@
 #include "login.h"
 
+
 Login::Login(QWidget *parent)
 	: QDialog(parent)
 {
@@ -9,4 +10,10 @@ Login::Login(QWidget *parent)
 Login::~Login()
 {
 
+}
+
+void Login::on_createAccount_clicked()
+{
+	CreateAccount acc(this);
+	acc.exec();
 }

@@ -27,7 +27,7 @@ QT_BEGIN_NAMESPACE
 class Ui_CreateAccount
 {
 public:
-    QWidget *widget;
+    QWidget *layoutWidget;
     QGridLayout *gridLayout_2;
     QGridLayout *gridLayout;
     QLabel *usernameLabel;
@@ -42,10 +42,10 @@ public:
         if (CreateAccount->objectName().isEmpty())
             CreateAccount->setObjectName(QStringLiteral("CreateAccount"));
         CreateAccount->resize(400, 300);
-        widget = new QWidget(CreateAccount);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(90, 90, 201, 79));
-        gridLayout_2 = new QGridLayout(widget);
+        layoutWidget = new QWidget(CreateAccount);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(90, 90, 201, 79));
+        gridLayout_2 = new QGridLayout(layoutWidget);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
@@ -53,22 +53,22 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        usernameLabel = new QLabel(widget);
+        usernameLabel = new QLabel(layoutWidget);
         usernameLabel->setObjectName(QStringLiteral("usernameLabel"));
 
         gridLayout->addWidget(usernameLabel, 0, 0, 1, 1);
 
-        emailEdit = new QLineEdit(widget);
+        emailEdit = new QLineEdit(layoutWidget);
         emailEdit->setObjectName(QStringLiteral("emailEdit"));
 
         gridLayout->addWidget(emailEdit, 0, 1, 1, 1);
 
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         gridLayout->addWidget(label_2, 1, 0, 1, 1);
 
-        passwordEdit = new QLineEdit(widget);
+        passwordEdit = new QLineEdit(layoutWidget);
         passwordEdit->setObjectName(QStringLiteral("passwordEdit"));
         passwordEdit->setEchoMode(QLineEdit::Password);
 
@@ -81,7 +81,7 @@ public:
 
         gridLayout_2->addItem(horizontalSpacer, 1, 0, 1, 1);
 
-        enterButton = new QPushButton(widget);
+        enterButton = new QPushButton(layoutWidget);
         enterButton->setObjectName(QStringLiteral("enterButton"));
 
         gridLayout_2->addWidget(enterButton, 1, 1, 1, 1);
