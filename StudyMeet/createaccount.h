@@ -4,8 +4,8 @@
 #include <QDialog>
 #include <QCryptographicHash>
 #include "ui_createaccount.h"
-#include <QtSql>
-#include <QMessageBox>
+
+#include "DatabaseHandler.h"
 
 class CreateAccount : public QDialog, public Ui::CreateAccount
 {

@@ -77,6 +77,12 @@
     <ClCompile Include="GeneratedFiles\Release\moc_login.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="DatabaseHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="studymeet.h">
@@ -119,6 +125,12 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_login.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorHandler.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,10 +3,10 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QtSql>
-//#include <QtSql/qsqldatabase.h>
-//#include <qsqlerror.h>
 #include <QTextEdit>
-//#include <qtextedit.h>
+
+#include "DatabaseHandler.h"
+
 
 #include "ui_studymeet.h"
 

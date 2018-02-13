@@ -27,29 +27,18 @@ void CreateAccount::on_enterButton_clicked()
 
 void CreateAccount::add_account(QString user, QString pw)
 {
-	QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-	db.setHostName("studymeet.cswura1xfuzk.us-west-1.rds.amazonaws.com");
-	db.setDatabaseName("users");
-	db.setUserName("studymeet");
-	db.setPassword("studymeet");
+	DatabaseHandler db;
+	ErrorHandler err;
 
-	if (db.open())
-	{
-		QSqlQuery query(db);
-		query.prepare("INSERT INTO users (username, password_hash) "
-			"VALUES (?, ?)");
-		query.addBindValue(user);
-		query.addBindValue(pw);
+	if (!db.open())
+		return;
+	
+	QSqlQuery query(db.get_db());
+	query.prepare("INSERT INTO users (username, password_hash) "
+		"VALUES (?, ?)");
+	query.addBindValue(user);
+	query.addBindValue(pw);
 
-		if (!query.exec())
-		{
-			QMessageBox box;
-			box.setWindowTitle("Error");
-			box.setText(query.lastError().text());
-			box.setStandardButtons(QMessageBox::Ok);
-			box.exec();
-		}
-	}
-	db.close();
-	db.removeDatabase("QMYSQL");
+	if (!query.exec())
+		err.display_error(query.lastError().text());
 }
