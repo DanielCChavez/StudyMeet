@@ -1,4 +1,14 @@
-﻿  studymeet.cpp
+﻿  Moc'ing studymeet.h...
+  Uic'ing studymeet.ui...
+  Rcc'ing studymeet.qrc...
+RCC : warning : No resources in 'C:\Users\dguer_000\Desktop\SM\StudyMeet\StudyMeet\studymeet.qrc'.
+  
+  DatabaseHandler.cpp
+  ErrorHandler.cpp
+  moc_studymeet.cpp
+  main.cpp
+  studymeet.cpp
+  Generating Code...
   qrc_studymeet.cpp
   StudyMeet.vcxproj -> C:\Users\dguer_000\Desktop\SM\StudyMeet\x64\Debug\StudyMeet.exe
   StudyMeet.vcxproj -> C:\Users\dguer_000\Desktop\SM\StudyMeet\x64\Debug\StudyMeet.pdb (Full PDB)

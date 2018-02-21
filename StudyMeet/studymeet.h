@@ -19,9 +19,7 @@ public:
 	~StudyMeet();
 
 public slots:
-	void on_heyButton_clicked();
-	void on_insertButton_clicked();
-	void on_getStartedButton_clicked();
+
 
 private:
 	Ui::StudyMeetClass ui;
