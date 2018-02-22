@@ -1,15 +1,7 @@
-﻿  Moc'ing studymeet.h...
-  Uic'ing studymeet.ui...
-  Rcc'ing studymeet.qrc...
-RCC : warning : No resources in 'C:\Users\FINAL\documents\visual studio 2015\Projects\StudyMeet\StudyMeet\studymeet.qrc'.
-  
-  DatabaseHandler.cpp
-  ErrorHandler.cpp
-  moc_studymeet.cpp
-  main.cpp
-  studymeet.cpp
+﻿  Moc'ing createnewsession.h...
+  Uic'ing createnewsession.ui...
+  createnewsession.cpp
+  moc_createnewsession.cpp
   Generating Code...
-  qrc_studymeet.cpp
-  LINK : C:\Users\FINAL\documents\visual studio 2015\Projects\StudyMeet\x64\Debug\\StudyMeet.exe not found or not built by the last incremental link; performing full link
   StudyMeet.vcxproj -> C:\Users\FINAL\documents\visual studio 2015\Projects\StudyMeet\x64\Debug\StudyMeet.exe
   StudyMeet.vcxproj -> C:\Users\FINAL\documents\visual studio 2015\Projects\StudyMeet\x64\Debug\StudyMeet.pdb (Full PDB)
