@@ -9,5 +9,12 @@ StudyMeet::StudyMeet(QWidget *parent)
 
 StudyMeet::~StudyMeet()
 {
+	
+}
 
+void StudyMeet::on_toDSWButton_clicked()
+{
+	DetailedStudySession *ds = new DetailedStudySession;
+	ds->show();
+	this->close();
 }

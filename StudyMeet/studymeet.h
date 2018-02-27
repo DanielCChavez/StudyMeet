@@ -6,6 +6,7 @@
 #include <QTextEdit>
 
 #include "DatabaseHandler.h"
+#include "detailedstudysession.h"
 
 
 #include "ui_studymeet.h"
@@ -19,6 +20,7 @@ public:
 	~StudyMeet();
 
 public slots:
+	void on_toDSWButton_clicked();
 
 
 private:

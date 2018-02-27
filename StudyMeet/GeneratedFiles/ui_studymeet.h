@@ -16,6 +16,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -26,6 +27,7 @@ class Ui_StudyMeetClass
 {
 public:
     QWidget *centralWidget;
+    QPushButton *toDSWButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -37,6 +39,9 @@ public:
         StudyMeetClass->resize(582, 590);
         centralWidget = new QWidget(StudyMeetClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        toDSWButton = new QPushButton(centralWidget);
+        toDSWButton->setObjectName(QStringLiteral("toDSWButton"));
+        toDSWButton->setGeometry(QRect(150, 120, 201, 23));
         StudyMeetClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(StudyMeetClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -57,6 +62,7 @@ public:
     void retranslateUi(QMainWindow *StudyMeetClass)
     {
         StudyMeetClass->setWindowTitle(QApplication::translate("StudyMeetClass", "StudyMeet", 0));
+        toDSWButton->setText(QApplication::translate("StudyMeetClass", "To Detailed Session Window", 0));
     } // retranslateUi
 
 };
