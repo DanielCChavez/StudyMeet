@@ -15,6 +15,13 @@ StudyMeet::~StudyMeet()
 	
 }
 
+void StudyMeet::on_toVSWButton_clicked()
+{
+	ViewSessions *vs = new ViewSessions;
+	vs->show();
+	this->close();
+}
+
 void StudyMeet::on_toDSWButton_clicked()
 {
 	DatabaseHandler *db = DatabaseHandler::get_instance();

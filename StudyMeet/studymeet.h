@@ -7,6 +7,7 @@
 
 #include "DatabaseHandler.h"
 #include "detailedstudysession.h"
+#include "viewsessions.h"
 
 
 #include "ui_studymeet.h"
@@ -21,6 +22,7 @@ public:
 
 public slots:
 	void on_toDSWButton_clicked();
+	void on_toVSWButton_clicked();
 
 
 private:
