@@ -5,7 +5,7 @@ DetailedStudySession::DetailedStudySession(QWidget *parent)
 {
 	setupUi(this);
 
-	hostEdit->setText("host name here");
+	hostEdit->setText("host name here ---");
 	subjectEdit->setText("subject here");
 	timeEdit->setText("time goes here");
 	locationEdit->setText("location goes here");

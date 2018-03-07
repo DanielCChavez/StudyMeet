@@ -7,11 +7,14 @@ class DatabaseHandler
 {
 private:
 	QSqlDatabase db;
-public:
 	DatabaseHandler();
+public:
+	static DatabaseHandler* get_instance();
 	~DatabaseHandler();
-	QSqlDatabase get_db() const { return db; };
+	void connect();
+	//QSqlDatabase get_db() const { return db; };
 	bool open();
-
+protected:
+	static DatabaseHandler *inst;
 };
 

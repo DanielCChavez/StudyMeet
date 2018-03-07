@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'studymeet.ui'
 **
-** Created by: Qt User Interface Compiler version 5.6.3
+** Created by: Qt User Interface Compiler version 5.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -61,8 +61,8 @@ public:
 
     void retranslateUi(QMainWindow *StudyMeetClass)
     {
-        StudyMeetClass->setWindowTitle(QApplication::translate("StudyMeetClass", "StudyMeet", Q_NULLPTR));
-        toDSWButton->setText(QApplication::translate("StudyMeetClass", "To Detailed Session Window", Q_NULLPTR));
+        StudyMeetClass->setWindowTitle(QApplication::translate("StudyMeetClass", "StudyMeet", 0));
+        toDSWButton->setText(QApplication::translate("StudyMeetClass", "To Detailed Session Window", 0));
     } // retranslateUi
 
 };

@@ -2,7 +2,7 @@
 #define STUDYMEET_H
 
 #include <QtWidgets/QMainWindow>
-#include <QtSql>
+//#include <QtSql>
 #include <QTextEdit>
 
 #include "DatabaseHandler.h"
