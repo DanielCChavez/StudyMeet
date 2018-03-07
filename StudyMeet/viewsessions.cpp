@@ -8,5 +8,5 @@ ViewSessions::ViewSessions(QWidget *parent)
 
 ViewSessions::~ViewSessions()
 {
-
+	
 }
