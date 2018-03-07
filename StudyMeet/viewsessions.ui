@@ -6,24 +6,93 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>485</width>
-    <height>367</height>
+    <width>576</width>
+    <height>463</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ViewSessions</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="createSessionButton">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>240</y>
+     <x>390</x>
+     <y>20</y>
+     <width>161</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Create Session</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="hostNameSearch">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hostNameLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>101</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Host Name</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="subjecLabel">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>50</y>
+     <width>68</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Subject</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="subjectComboBox">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>80</y>
+     <width>191</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
      <width>112</width>
      <height>34</height>
     </rect>
    </property>
    <property name="text">
-    <string>BUTTON</string>
+    <string>Details</string>
+   </property>
+  </widget>
+  <widget class="QTableView" name="viewSessionTable">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>130</y>
+     <width>421</width>
+     <height>321</height>
+    </rect>
    </property>
   </widget>
  </widget>
