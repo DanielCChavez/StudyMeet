@@ -92,6 +92,12 @@
     <ClCompile Include="GeneratedFiles\Release\moc_viewsessions.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Account.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="studymeet.h">
@@ -149,6 +155,12 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_viewsessions.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Account.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

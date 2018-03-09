@@ -67,7 +67,7 @@ public:
     {
         StudyMeetClass->setWindowTitle(QApplication::translate("StudyMeetClass", "StudyMeet", 0));
         toDSWButton->setText(QApplication::translate("StudyMeetClass", "To Detailed Session Window", 0));
-        toVSWButton->setText(QApplication::translate("StudyMeetClass", "To View Session Window", Q_NULLPTR));
+        toVSWButton->setText(QApplication::translate("StudyMeetClass", "To View Session Window", 0));
     } // retranslateUi
 
 };

@@ -22,7 +22,7 @@ DatabaseHandler* DatabaseHandler::get_instance()
 	return inst;
 }
 
-void DatabaseHandler::connect()
+int DatabaseHandler::connect()
 {
 	db = QSqlDatabase::addDatabase("QMYSQL");
 	db.setHostName("studymeet.cswura1xfuzk.us-west-1.rds.amazonaws.com");
@@ -31,7 +31,7 @@ void DatabaseHandler::connect()
 	db.setPassword("studymeet");
 }
 
-bool DatabaseHandler::open()
+int DatabaseHandler::is_open()
 {
 	if(!db.open())
 	{

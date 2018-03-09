@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_StudyMeet_t {
     QByteArrayData data[4];
-    char stringdata0[56];
+    char stringdata0[57];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,11 +32,11 @@ static const qt_meta_stringdata_StudyMeet_t qt_meta_stringdata_StudyMeet = {
 QT_MOC_LITERAL(0, 0, 9), // "StudyMeet"
 QT_MOC_LITERAL(1, 10, 22), // "on_toDSWButton_clicked"
 QT_MOC_LITERAL(2, 33, 0), // ""
-QT_MOC_LITERAL(3, 34, 21) // "on_toVSWButto_clicked"
+QT_MOC_LITERAL(3, 34, 22) // "on_toVSWButton_clicked"
 
     },
     "StudyMeet\0on_toDSWButton_clicked\0\0"
-    "on_toVSWButto_clicked"
+    "on_toVSWButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -71,7 +71,7 @@ void StudyMeet::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_toDSWButton_clicked(); break;
-        case 1: _t->on_toVSWButto_clicked(); break;
+        case 1: _t->on_toVSWButton_clicked(); break;
         default: ;
         }
     }

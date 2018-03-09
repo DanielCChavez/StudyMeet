@@ -5,9 +5,10 @@ StudyMeet::StudyMeet(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+
 	DatabaseHandler *db = DatabaseHandler::get_instance();
 	db->connect();
-	db->open();
+	db->is_open();
 }
 
 StudyMeet::~StudyMeet()
@@ -25,8 +26,7 @@ void StudyMeet::on_toVSWButton_clicked()
 void StudyMeet::on_toDSWButton_clicked()
 {
 	DatabaseHandler *db = DatabaseHandler::get_instance();
-	db->connect();
-	db->open();
+	db->is_open();
 
 
 	DetailedStudySession *ds = new DetailedStudySession;

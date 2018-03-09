@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Account.cpp" />
     <ClCompile Include="createaccountwindow.cpp" />
     <ClCompile Include="createnewsession.cpp" />
     <ClCompile Include="DatabaseHandler.cpp" />
@@ -205,6 +206,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Session.cpp" />
     <ClCompile Include="studymeet.cpp" />
     <ClCompile Include="viewsessions.cpp" />
   </ItemGroup>
@@ -269,7 +271,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Account.h" />
     <ClInclude Include="GeneratedFiles\ui_viewsessions.h" />
+    <ClInclude Include="Session.h" />
     <CustomBuild Include="viewsessions.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing viewsessions.h...</Message>

@@ -11,6 +11,10 @@ class CreateAccountWindow : public QWidget, public Ui::CreateAccountWindow
 public:
 	CreateAccountWindow(QWidget *parent = 0);
 	~CreateAccountWindow();
+
+	//account.name = 
+	//create account button
+	//db.add_to_database(Acc)
 };
 
 #endif // CREATEACCOUNTWINDOW_H
