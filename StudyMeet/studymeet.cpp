@@ -1,5 +1,5 @@
 #include "studymeet.h"
-
+#include "Account.h"
 
 StudyMeet::StudyMeet(QWidget *parent)
 	: QMainWindow(parent)
@@ -9,11 +9,15 @@ StudyMeet::StudyMeet(QWidget *parent)
 	DatabaseHandler *db = DatabaseHandler::get_instance();
 	db->connect();
 	db->is_open();
+
+	Account a;
+	DatabaseHandler *d = DatabaseHandler::get_instance();
+	d->add_to_database(a);
 }
 
 StudyMeet::~StudyMeet()
 {
-	
+
 }
 
 void StudyMeet::on_toVSWButton_clicked()

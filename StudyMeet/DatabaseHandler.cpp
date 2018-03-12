@@ -29,6 +29,8 @@ int DatabaseHandler::connect()
 	db.setDatabaseName("users");
 	db.setUserName("studymeet");
 	db.setPassword("studymeet");
+
+	return 0;
 }
 
 int DatabaseHandler::is_open()
@@ -40,4 +42,26 @@ int DatabaseHandler::is_open()
 		return false;
 	}
 	return true;
+}
+
+int DatabaseHandler::add_to_database(Account acc)
+{
+	DatabaseHandler *d = DatabaseHandler::get_instance();
+	QSqlQuery query(db);
+	QString name = "name500";//acc.get_username();
+	QString pass = "pass";//acc.get_password();
+
+	QString query_string = "INSERT INTO users VALUES ('" + name + "', '" + pass + "')";
+	
+	ErrorHandler err;
+	if (!query.exec(query_string))
+	{
+		err.display_error(query.lastError().text());
+	}
+	else // testing purposes, remove later
+	{
+		err.display_error("INSERT OK");
+	}
+
+	return 0;
 }
