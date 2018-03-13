@@ -18,7 +18,7 @@ ViewSessions* ViewSessions::Instance()
 {
 	if (instance == NULL)
 		instance = new ViewSessions();
-	else
+
 		return instance; 
 }
 

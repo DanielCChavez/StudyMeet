@@ -25,7 +25,7 @@ DetailedStudySession * DetailedStudySession::Instance()
 {
 	if (instance == NULL)
 		instance = new DetailedStudySession();
-	else
+
 		return instance; 
 
 }
