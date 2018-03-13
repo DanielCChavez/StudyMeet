@@ -11,6 +11,9 @@ class CreateNewSession : public QWidget, public Ui::CreateNewSession
 public:
 	CreateNewSession(QWidget *parent = 0);
 	~CreateNewSession();
+	static CreateNewSession* Instance(); 
+protected:
+	static CreateNewSession* instance; 
 };
 
 #endif // CREATENEWSESSION_H

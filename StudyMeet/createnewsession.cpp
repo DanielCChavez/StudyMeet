@@ -1,5 +1,7 @@
 #include "createnewsession.h"
 
+CreateNewSession* CreateNewSession::instance = NULL;
+
 CreateNewSession::CreateNewSession(QWidget *parent)
 	: QWidget(parent)
 {
@@ -9,4 +11,12 @@ CreateNewSession::CreateNewSession(QWidget *parent)
 CreateNewSession::~CreateNewSession()
 {
 
+}
+
+CreateNewSession * CreateNewSession::Instance()
+{
+	if (instance = NULL)
+		instance = new CreateNewSession();
+
+	return instance; 
 }
