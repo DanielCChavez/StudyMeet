@@ -11,9 +11,11 @@ class ViewSessions : public QWidget
 public:
 	ViewSessions(QWidget *parent = 0);
 	~ViewSessions();
-
+	static ViewSessions*  Instance();
 private:
 	Ui::ViewSessions ui;
-};
+protected:
+	static ViewSessions * instance; 
+};	
 
 #endif // VIEWSESSIONS_H

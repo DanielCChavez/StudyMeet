@@ -1,5 +1,6 @@
 #include "studymeet.h"
 #include "Account.h"
+#include "viewsessions.h"
 
 StudyMeet::StudyMeet(QWidget *parent)
 	: QMainWindow(parent)
@@ -22,7 +23,7 @@ StudyMeet::~StudyMeet()
 
 void StudyMeet::on_toVSWButton_clicked()
 {
-	ViewSessions *vs = new ViewSessions;
+	ViewSessions *vs = ViewSessions::Instance();
 	vs->show();
 	this->close();
 }
@@ -33,7 +34,7 @@ void StudyMeet::on_toDSWButton_clicked()
 	db->is_open();
 
 
-	DetailedStudySession *ds = new DetailedStudySession;
+	DetailedStudySession *ds = DetailedStudySession::Instance();
 	ds->show();
 	this->close();
 }

@@ -1,5 +1,7 @@
 #include "detailedstudysession.h"
 
+DetailedStudySession* DetailedStudySession::instance = NULL; 
+
 DetailedStudySession::DetailedStudySession(QWidget *parent)
 	: QWidget(parent)
 {
@@ -16,5 +18,14 @@ DetailedStudySession::DetailedStudySession(QWidget *parent)
 
 DetailedStudySession::~DetailedStudySession()
 {
+
+}
+
+DetailedStudySession * DetailedStudySession::Instance()
+{
+	if (instance == NULL)
+		instance = new DetailedStudySession();
+	else
+		return instance; 
 
 }
