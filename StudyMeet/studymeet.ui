@@ -40,6 +40,19 @@
      <string>To View Session Window</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="addToSessionsButton">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>280</y>
+      <width>171</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add to sessiond (test)</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -47,7 +60,7 @@
      <x>0</x>
      <y>0</y>
      <width>582</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

@@ -65,3 +65,41 @@ int DatabaseHandler::add_to_database(Account acc)
 
 	return 0;
 }
+
+int DatabaseHandler::add_to_database(Session s)
+{
+	QSqlQuery query(db);
+	query.prepare("INSERT INTO sessions (sessionID, hostID, timeStart, timeEnd, "
+		"capacityOfPeople, topic, location, description) "
+		"VALUES (:sessionID, :hostID, :timeStart, :timeEnd, :capacityOfPeople, "
+		":topic, :location, :description)");
+	query.bindValue(":sessionID", s.get_sessionID().c_str());
+	query.bindValue(":hostID", 0);	//hard-code an int because of discrepencies in Session class
+									//and Session table
+									//data member is hostName in Session class
+									//and hostID in Session table
+	query.bindValue(":timeStart", s.get_timestart().c_str());
+	query.bindValue(":timeEnd", s.get_timeend().c_str());
+	query.bindValue(":capacityOfPeople", s.get_totalnumberofpeople());	//not sure whether to use this
+																		//or get_numberofpeople()
+																		//names are confusing.
+																		
+	query.bindValue(":topic", s.get_subject().c_str());
+	query.bindValue(":location", s.get_location().c_str());
+	query.bindValue(":description", s.get_description().c_str());
+
+	//currently no way to get the current list of people inside a session
+	//also mission current number of people. We could calculation this if we figure out how to get a
+	//list of people
+
+	ErrorHandler e;
+	if (!query.exec())
+	{
+		e.display_error(query.lastError().text());
+	}
+	else
+		e.display_error("insert into sessions OK");
+
+
+	return 0;
+}

@@ -29,6 +29,7 @@ public:
     QWidget *centralWidget;
     QPushButton *toDSWButton;
     QPushButton *toVSWButton;
+    QPushButton *addToSessionsButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -46,10 +47,13 @@ public:
         toVSWButton = new QPushButton(centralWidget);
         toVSWButton->setObjectName(QStringLiteral("toVSWButton"));
         toVSWButton->setGeometry(QRect(120, 180, 271, 31));
+        addToSessionsButton = new QPushButton(centralWidget);
+        addToSessionsButton->setObjectName(QStringLiteral("addToSessionsButton"));
+        addToSessionsButton->setGeometry(QRect(160, 280, 171, 23));
         StudyMeetClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(StudyMeetClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 582, 31));
+        menuBar->setGeometry(QRect(0, 0, 582, 21));
         StudyMeetClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(StudyMeetClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -68,6 +72,7 @@ public:
         StudyMeetClass->setWindowTitle(QApplication::translate("StudyMeetClass", "StudyMeet", 0));
         toDSWButton->setText(QApplication::translate("StudyMeetClass", "To Detailed Session Window", 0));
         toVSWButton->setText(QApplication::translate("StudyMeetClass", "To View Session Window", 0));
+        addToSessionsButton->setText(QApplication::translate("StudyMeetClass", "Add to sessiond (test)", 0));
     } // retranslateUi
 
 };

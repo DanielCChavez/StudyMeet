@@ -23,6 +23,7 @@ public:
 public slots:
 	void on_toDSWButton_clicked();
 	void on_toVSWButton_clicked();
+	void on_addToSessionsButton_clicked();
 
 
 private:
