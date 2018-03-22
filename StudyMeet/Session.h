@@ -2,6 +2,7 @@
 
 #include "Account.h"
 #include <list>
+#include "DatabaseHandler.h"
 
 class Session
 {
@@ -20,8 +21,11 @@ private:
 
 public:
 	Session();
-	Session(string sId, int hId, string tS, int nOP, string tE, string sub, string loc, int tNOP, list<Account> lOP, string desc);
+	Session(string sId, int hId, string tS, int nOP, string tE, string sub, string loc, int tNOP, string desc);
 	~Session();
+	
+	void send_session_to_database(Session session);
+	void add_account_to_sessionlist(Account account);
 
 	string get_sessionID();
 	int get_hostId();
@@ -33,6 +37,6 @@ public:
 	int get_maximumcapacityofpeopleinsession();
 	list<Account> get_listofpeople();
 	string get_description();
-
+	
 };
 

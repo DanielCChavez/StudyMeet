@@ -6,7 +6,7 @@ Session::Session()
 {
 }
 
-Session::Session(string sId, int hId , string tS, int nOP, string tE, string sub, string loc, int tNOP, list<Account> lOP, string desc)
+Session::Session(string sId, int hId , string tS, int nOP, string tE, string sub, string loc, int tNOP, string desc)
 {
 	sessionID = sId;
 	hostId = hId; 
@@ -16,13 +16,23 @@ Session::Session(string sId, int hId , string tS, int nOP, string tE, string sub
 	subject = sub; 
 	location = loc; 
 	maximumCapacityOfPeople = tNOP; 
-	listOfPeople = lOP; 
 	description = desc; 
 }
 
 
 Session::~Session()
 {
+}
+
+void Session::send_session_to_database(Session session)
+{
+	DatabaseHandler* handler = DatabaseHandler::get_instance();
+	handler->add_to_database(session);
+}
+
+void Session::add_account_to_sessionlist(Account account)
+{
+	listOfPeople.push_back(account);
 }
 
 string Session::get_sessionID()
