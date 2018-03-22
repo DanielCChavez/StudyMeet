@@ -6,6 +6,20 @@ Session::Session()
 {
 }
 
+Session::Session(string sId, string hN, string tS, int nOP, string tE, string sub, string loc, int tNOP, list<Account> lOP, string desc)
+{
+	sessionID = sId;
+	hostName = hN; 
+	timeStart = tS; 
+	numberOfPeople = nOP; 
+	timeEnd = tE; 
+	subject = sub; 
+	location = loc; 
+	totalNumberOfPeople = tNOP; 
+	listOfPeople = lOP; 
+	description = desc; 
+}
+
 
 Session::~Session()
 {

@@ -4,6 +4,7 @@
 
 class ErrorHandler
 {
+
 public:
 	ErrorHandler();
 	~ErrorHandler();

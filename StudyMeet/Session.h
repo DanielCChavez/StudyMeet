@@ -20,6 +20,7 @@ private:
 
 public:
 	Session();
+	Session(string sId, string hN, string tS, int nOP, string tE, string sub, string loc, int tNOP, list<Account> lOP, string desc);
 	~Session();
 
 	string get_sessionID();
