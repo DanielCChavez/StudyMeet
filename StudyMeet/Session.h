@@ -8,29 +8,29 @@ class Session
 
 private:
 	string sessionID;
-	string hostName;
+	int hostId;
 	string timeStart; 
-	int numberOfPeople;
+	int currentNumberOfPeople;
 	string timeEnd;
 	string subject;
 	string location; 
-	int totalNumberOfPeople;
+	int maximumCapacityOfPeople;
 	list<Account> listOfPeople;
 	string description;
 
 public:
 	Session();
-	Session(string sId, string hN, string tS, int nOP, string tE, string sub, string loc, int tNOP, list<Account> lOP, string desc);
+	Session(string sId, int hId, string tS, int nOP, string tE, string sub, string loc, int tNOP, list<Account> lOP, string desc);
 	~Session();
 
 	string get_sessionID();
-	string get_hostname();
+	int get_hostId();
 	string get_timestart();
-	int get_numberofpeople();
+	int get_currentnumberofpeopleinsession();
 	string get_timeend();
 	string get_subject();
 	string get_location();
-	int get_totalnumberofpeople();
+	int get_maximumcapacityofpeopleinsession();
 	list<Account> get_listofpeople();
 	string get_description();
 

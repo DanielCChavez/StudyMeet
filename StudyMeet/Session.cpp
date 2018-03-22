@@ -6,16 +6,16 @@ Session::Session()
 {
 }
 
-Session::Session(string sId, string hN, string tS, int nOP, string tE, string sub, string loc, int tNOP, list<Account> lOP, string desc)
+Session::Session(string sId, int hId , string tS, int nOP, string tE, string sub, string loc, int tNOP, list<Account> lOP, string desc)
 {
 	sessionID = sId;
-	hostName = hN; 
+	hostId = hId; 
 	timeStart = tS; 
-	numberOfPeople = nOP; 
+	currentNumberOfPeople = nOP; 
 	timeEnd = tE; 
 	subject = sub; 
 	location = loc; 
-	totalNumberOfPeople = tNOP; 
+	maximumCapacityOfPeople = tNOP; 
 	listOfPeople = lOP; 
 	description = desc; 
 }
@@ -30,9 +30,9 @@ string Session::get_sessionID()
 	return sessionID;
 }
 
-string Session::get_hostname()
+int Session::get_hostId()
 {
-	return hostName;
+	return hostId;
 }
 
 string Session::get_timestart()
@@ -40,9 +40,9 @@ string Session::get_timestart()
 	return timeStart;
 }
 
-int Session::get_numberofpeople()
+int Session::get_currentnumberofpeopleinsession()
 {
-	return numberOfPeople;
+	return currentNumberOfPeople;
 }
 
 string Session::get_timeend()
@@ -60,9 +60,9 @@ string Session::get_location()
 	return location;
 }
 
-int Session::get_totalnumberofpeople()
+int Session::get_maximumcapacityofpeopleinsession()
 {
-	return totalNumberOfPeople;
+	return maximumCapacityOfPeople;
 }
 
 list<Account> Session::get_listofpeople()
