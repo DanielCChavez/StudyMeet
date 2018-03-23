@@ -35,6 +35,8 @@ void Session::add_account_to_sessionlist(Account account)
 	listOfPeople.push_back(account);
 }
 
+
+
 string Session::get_sessionID()
 {
 	return sessionID;

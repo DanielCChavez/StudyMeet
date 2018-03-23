@@ -26,6 +26,7 @@ public:
 	
 	void send_session_to_database(Session session);
 	void add_account_to_sessionlist(Account account);
+	void remove_account_from_sessionlist(Account account);
 
 	string get_sessionID();
 	int get_hostId();

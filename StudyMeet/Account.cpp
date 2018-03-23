@@ -37,5 +37,6 @@ void Account::createAccount(string name, string pword)
 
 Account::~Account()
 {
+
 }
 
