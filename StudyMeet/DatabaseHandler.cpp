@@ -70,9 +70,9 @@ int DatabaseHandler::add_to_database(Session s)
 {
 	QSqlQuery query(db);
 	query.prepare("INSERT INTO sessions (sessionID, hostID, timeStart, timeEnd, "
-		"capacityOfPeople, topic, location, description) "
-		"VALUES (:sessionID, :hostID, :timeStart, :timeEnd, :capacityOfPeople, "
-		":topic, :location, :description)");
+		"currentNumberOfPeople, subject, location, description, maximumCapacityOfPeople) "
+		"VALUES (:sessionID, :hostID, :timeStart, :timeEnd, :currentNumberoOfPeople, "
+		":topic, :location, :description, :maximumCapacityOfPeople)");
 	query.bindValue(":sessionID", s.get_sessionID().c_str());
 	query.bindValue(":hostID", 0);	//hard-code an int because of discrepencies in Session class
 									//and Session table
@@ -80,11 +80,11 @@ int DatabaseHandler::add_to_database(Session s)
 									//and hostID in Session table
 	query.bindValue(":timeStart", s.get_timestart().c_str());
 	query.bindValue(":timeEnd", s.get_timeend().c_str());
-	query.bindValue(":capacityOfPeople", s.get_totalnumberofpeople());	//not sure whether to use this
+	query.bindValue(":currentNumberOfPeople", s.get_currentnumberofpeopleinsession());	//not sure whether to use this
 																		//or get_numberofpeople()
 																		//names are confusing.
-																		
-	query.bindValue(":topic", s.get_subject().c_str());
+	query.bindValue(":maximumcapacityofpeopleinsession", s.get_maximumcapacityofpeopleinsession());
+	query.bindValue(":subject", s.get_subject().c_str());
 	query.bindValue(":location", s.get_location().c_str());
 	query.bindValue(":description", s.get_description().c_str());
 
@@ -102,4 +102,11 @@ int DatabaseHandler::add_to_database(Session s)
 
 
 	return 0;
+}
+
+int DatabaseHandler::update_session(Session s)
+{
+	QSqlQuery query(db);
+
+
 }
