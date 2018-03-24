@@ -2,14 +2,8 @@
 #define STUDYMEET_H
 
 #include <QtWidgets/QMainWindow>
-//#include <QtSql>
-#include <QTextEdit>
-
-#include "DatabaseHandler.h"
 #include "detailedstudysession.h"
 #include "viewsessions.h"
-
-
 #include "ui_studymeet.h"
 
 class StudyMeet : public QMainWindow

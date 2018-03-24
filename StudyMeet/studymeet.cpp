@@ -1,6 +1,7 @@
 #include "studymeet.h"
 #include "Account.h"
 #include "Session.h"
+#include "DatabaseHandler.h"
 #include "viewsessions.h"
 
 StudyMeet::StudyMeet(QWidget *parent)
@@ -30,17 +31,14 @@ void StudyMeet::on_toDSWButton_clicked()
 
 void StudyMeet::on_addToSessionsButton_clicked()
 {
-	std::list<Account> alist;
-
-	Session s("test3", 5, "test2", 5, "test2", "test2", "test2", 5, "test2");
 	DatabaseHandler *d = DatabaseHandler::get_instance();
-	ErrorHandler e;
 
-	d->connect();
+	Session s("test5", 5, "test2", 5, "test2", "test2", "test2", 5, "test2");
+	Account a("test2", "test1");
 
-
-	if (!d->is_open())
+	if (d->get_connection_status() == 0)
 		return;
-	
+
 	d->add_to_database(s);
+	d->add_to_database(a);
 }
