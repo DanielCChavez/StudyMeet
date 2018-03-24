@@ -72,11 +72,11 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="detailsButton">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>140</y>
+     <y>120</y>
      <width>112</width>
      <height>34</height>
     </rect>
@@ -85,15 +85,25 @@
     <string>Details</string>
    </property>
   </widget>
-  <widget class="QTableView" name="viewSessionTable">
+  <widget class="QTableWidget" name="sessionTable">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>130</y>
-     <width>421</width>
-     <height>321</height>
+     <x>10</x>
+     <y>170</y>
+     <width>551</width>
+     <height>271</height>
     </rect>
    </property>
+   <property name="columnCount">
+    <number>4</number>
+   </property>
+   <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+    <bool>false</bool>
+   </attribute>
+   <column/>
+   <column/>
+   <column/>
+   <column/>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

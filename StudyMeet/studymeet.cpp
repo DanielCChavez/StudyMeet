@@ -32,7 +32,7 @@ void StudyMeet::on_addToSessionsButton_clicked()
 {
 	std::list<Account> alist;
 
-	Session s("test3", "5", "test2", 5, "test2", "test2", "test2", 5, alist, "test2");
+	Session s("test3", 5, "test2", 5, "test2", "test2", "test2", 5, "test2");
 	DatabaseHandler *d = DatabaseHandler::get_instance();
 	ErrorHandler e;
 

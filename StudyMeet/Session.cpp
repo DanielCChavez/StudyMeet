@@ -1,5 +1,5 @@
 #include "Session.h"
-
+#include "DatabaseHandler.h"
 
 
 Session::Session()
