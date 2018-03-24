@@ -108,5 +108,5 @@ int DatabaseHandler::update_session(Session s)
 {
 	QSqlQuery query(db);
 
-
+	return 0;
 }

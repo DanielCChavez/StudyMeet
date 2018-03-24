@@ -2,7 +2,8 @@
 
 #include "Account.h"
 #include <list>
-#include "DatabaseHandler.h"
+#include <string>
+//#include "DatabaseHandler.h"
 
 class Session
 {

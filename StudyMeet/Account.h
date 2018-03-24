@@ -1,6 +1,6 @@
 #pragma once
-#ifndef ACCOUNT_H
-#define ACCOUNT_H
+//#ifndef ACCOUNT_H
+//#define ACCOUNT_H
 #include <string>
 
 using namespace std;
@@ -26,4 +26,4 @@ public:
 
 };
 
-#endif
+//#endif

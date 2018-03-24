@@ -4,8 +4,9 @@
 #include <list>
 
 #include "ErrorHandler.h"
-#include "Session.h"
 #include "Account.h"
+
+#include "Session.h"
 
 class DatabaseHandler
 {
@@ -14,7 +15,7 @@ private:
 	DatabaseHandler();
 
 	//On startup
-	int load_all_data(std::list<Session>);
+	int load_all_data(std::list<Session*>);
 public:
 	static DatabaseHandler* get_instance();
 	~DatabaseHandler();
