@@ -22,16 +22,20 @@ string Account::get_password()
 	return password;
 }
 
-int Account::isUsernameAvailable(string name)
-{
-	//check DB for username I assume
-	return 0;
-}
-
 void Account::createAccount(string name, string pword)
 {
 	username = name;
 	password = pword;
+}
+
+string Account::get_sessionID()
+{
+	return sessionID;
+}
+
+int Account::get_accountID()
+{
+	return accountID;
 }
 
 

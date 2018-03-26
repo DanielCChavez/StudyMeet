@@ -9,18 +9,22 @@ class Account
 private:
 	string username;
 	string password;
-	string firstName; //not sure
-	string lastName; //how to
-	string dateCreated; //collect
-	string gradeLevel; //this data
+	string firstName;
+	string lastName;
+	string dateCreated;
+	string gradeLevel;
+	string sessionID;
+	int accountID;
+
 public:
 	Account();
 	Account(string name, string pword);
 	string get_username();
 	string get_password();
-	int isUsernameAvailable(string name);
 	void createAccount(string name, string pword);
+	string get_sessionID();
+	int get_accountID();
 	~Account();
-
+	
 
 };
