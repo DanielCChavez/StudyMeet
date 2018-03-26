@@ -10,7 +10,7 @@ class DatabaseHandler
 {
 private:
 	QSqlDatabase db;
-	ErrorHandler error_window;
+	ErrorHandler *error_window;
 	QSqlQuery query;
 	int connection_status;
 
@@ -25,7 +25,7 @@ public:
 	int add_to_database(Session);
 	int add_to_database(Account);
 	int update_session(Session);
-	int remove_session(Session);
+	int remove_session(Session, Account);
 protected:
 	static DatabaseHandler *inst;
 };

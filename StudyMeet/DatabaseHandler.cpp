@@ -5,11 +5,12 @@ DatabaseHandler* DatabaseHandler::inst = 0;
 
 DatabaseHandler::DatabaseHandler()
 {
-	connection_status = 0;
+	connection_status = 1;
+	error_window = ErrorHandler::get_instance();
 	connect();
 	if (is_open())
 	{
-		connection_status = 1;
+		connection_status = 0;
 		query = QSqlQuery(db);
 	}
 }
@@ -44,7 +45,7 @@ int DatabaseHandler::is_open()
 {
 	if(!db.open())
 	{
-		error_window.display_error(db.lastError().text());
+		error_window->display_error(db.lastError().text());
 		return 0;
 	}
 	return 1;
@@ -52,8 +53,6 @@ int DatabaseHandler::is_open()
 
 int DatabaseHandler::add_to_database(Account acc)
 {	
-	//QSqlQuery query(db);
-
 	query.prepare("INSERT INTO users (username, password_hash) "
 		"VALUES (:username, :password_hash)");
 	query.bindValue(":username", acc.get_username().c_str());
@@ -61,11 +60,11 @@ int DatabaseHandler::add_to_database(Account acc)
 	
 	if (!query.exec())
 	{
-		error_window.display_error(query.lastError().text());
+		error_window->display_error(query.lastError().text());
 	}
 	else // testing purposes, remove later
 	{
-		error_window.display_error("INSERT OK");
+		error_window->display_error("INSERT OK");
 	}
 
 	return 0;
@@ -73,7 +72,6 @@ int DatabaseHandler::add_to_database(Account acc)
 
 int DatabaseHandler::add_to_database(Session s)
 {
-	//QSqlQuery query(db);
 	query.prepare("INSERT INTO sessions (sessionID, hostID, timeStart, timeEnd, "
 		"currentNumberOfPeople, subject, location, description, maximumCapacityOfPeople) "
 		"VALUES (:sessionID, :hostID, :timeStart, :timeEnd, :currentNumberoOfPeople, "
@@ -91,10 +89,10 @@ int DatabaseHandler::add_to_database(Session s)
 	
 	if (!query.exec())
 	{
-		error_window.display_error(query.lastError().text());
+		error_window->display_error(query.lastError().text());
 	}
 	else //remove later
-		error_window.display_error("insert into sessions OK");
+		error_window->display_error("insert into sessions OK");
 
 
 	return 0;
@@ -102,7 +100,27 @@ int DatabaseHandler::add_to_database(Session s)
 
 int DatabaseHandler::update_session(Session s)
 {
-	//QSqlQuery query(db);
+	return 0;
+}
 
+int DatabaseHandler::remove_session(Session s, Account a)
+{
+	//Need to implement Account::get_id() before this will compile
+
+	/*
+	if (s.get_hostId() != a.get_id)
+	{
+		error_window->display_error("Only the host can delete a session");
+		return 1;
+	}
+	
+	query.prepare("DELETE FROM sessions WHERE hostId = :hostId");
+	query.bindValue(":hostId", s.get_hostId());
+
+	if (!query.exec())
+		error_window->display_error(query.lastError().text());
+	else
+		error_window->display_error("delete, OK");
+		*/
 	return 0;
 }
