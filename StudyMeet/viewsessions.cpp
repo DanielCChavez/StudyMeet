@@ -5,7 +5,10 @@ ViewSessions* ViewSessions::instance = NULL;
 ViewSessions::ViewSessions(QWidget *parent)
 	: QWidget(parent)
 {
+	QStringList titles;
+	titles << "Host" << "Subject" << "Time" << "Location";
 	ui.setupUi(this);
+	ui.sessionTable->setHorizontalHeaderLabels(titles);
 }
 
 
