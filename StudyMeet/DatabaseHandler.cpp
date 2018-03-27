@@ -117,10 +117,32 @@ int DatabaseHandler::update_session(Session s)
 	{
 		error_window->display_error(query.lastError().text());
 	}
-	else //remove later
+	else
 		error_window->display_error("session updated");
 
 	return 0;
+}
+
+int DatabaseHandler::update_account(Account acc)
+{
+	query.prepare("UPDATE users"
+		"SET username = :username, password = :password "
+		"WHERE accountID = :accountID");
+
+
+	query.bindValue(":accountID", acc.get_accountID());
+	query.bindValue(":username", acc.get_username().c_str());
+
+
+	if (!query.exec())
+	{
+		error_window->display_error(query.lastError().text());
+	}
+	else
+		error_window->display_error("account updated");
+
+	return 0;
+
 }
 
 int DatabaseHandler::remove_session(Session s, Account a)

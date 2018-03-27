@@ -25,6 +25,7 @@ public:
 	int add_to_database(Session);
 	int add_to_database(Account);
 	int update_session(Session);
+	int update_account(Account);
 	int remove_session(Session, Account);
 protected:
 	static DatabaseHandler *inst;
