@@ -12,6 +12,10 @@ public:
 	ViewSessions(QWidget *parent = 0);
 	~ViewSessions();
 	static ViewSessions*  Instance();
+public slots:
+void on_detailsButton_clicked();
+void on_createSessionButton_clicked();
+
 private:
 	Ui::ViewSessions ui;
 protected:

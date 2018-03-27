@@ -1,5 +1,8 @@
 #include "viewsessions.h"
 #include "Session.h"
+#include "detailedstudysession.h"
+#include "createnewsession.h"
+
 #include <iterator>;
 
 ViewSessions* ViewSessions::instance = NULL;
@@ -61,3 +64,14 @@ ViewSessions* ViewSessions::Instance()
 		return instance; 
 }
 
+void ViewSessions::on_createSessionButton_clicked()
+{
+	CreateNewSession *cs = CreateNewSession::Instance();
+	cs->show();
+}
+
+void ViewSessions::on_detailsButton_clicked()
+{
+	DetailedStudySession *ds = DetailedStudySession::Instance();
+	ds->show();
+}
