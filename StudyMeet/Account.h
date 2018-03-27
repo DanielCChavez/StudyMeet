@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "DatabaseHandler.h"
 
 using namespace std;
 
@@ -22,6 +23,7 @@ public:
 	string get_username();
 	string get_password();
 	void createAccount(string name, string pword);
+	void send_account_to_database(Account account);
 	string get_sessionID();
 	int get_accountID();
 	~Account();
