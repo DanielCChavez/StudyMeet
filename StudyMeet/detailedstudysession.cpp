@@ -27,5 +27,4 @@ DetailedStudySession * DetailedStudySession::Instance()
 		instance = new DetailedStudySession();
 
 		return instance; 
-
 }
