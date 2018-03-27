@@ -100,6 +100,26 @@ int DatabaseHandler::add_to_database(Session s)
 
 int DatabaseHandler::update_session(Session s)
 {
+	query.prepare("UPDATE sessions"
+		"SET timeStart = :newTimeStart, timeEnd = :newTimeEnd, description = :newDescription, "
+		"maximumCapacityOfPeople = :newCapacity, subject = :subject, location = :location "
+		"WHERE sessionID = :sessionID");
+
+	query.bindValue(":sessionID", s.get_sessionID().c_str());
+	query.bindValue(":timeStart", s.get_timestart().c_str());
+	query.bindValue(":timeEnd", s.get_timeend().c_str());
+	query.bindValue(":subject", s.get_subject().c_str());
+	query.bindValue(":location", s.get_location().c_str());
+	query.bindValue(":description", s.get_description().c_str());
+	query.bindValue(":maximumcapacityofpeopleinsession", s.get_maximumcapacityofpeopleinsession());
+	
+	if (!query.exec())
+	{
+		error_window->display_error(query.lastError().text());
+	}
+	else //remove later
+		error_window->display_error("session updated");
+
 	return 0;
 }
 
