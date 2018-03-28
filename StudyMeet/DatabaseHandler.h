@@ -17,7 +17,6 @@ private:
 	DatabaseHandler();
 	int connect();
 	int is_open();
-	int load_all_data(std::list<Session>);
 public:
 	static DatabaseHandler* get_instance();
 	~DatabaseHandler();
@@ -27,6 +26,8 @@ public:
 	int update_session(Session);
 	int update_account(Account);
 	int remove_session(Session, Account);
+	int load_all_sessions(std::list<Session>);
+
 protected:
 	static DatabaseHandler *inst;
 };

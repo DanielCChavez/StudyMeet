@@ -166,3 +166,16 @@ int DatabaseHandler::remove_session(Session s, Account a)
 		*/
 	return 0;
 }
+
+int DatabaseHandler::load_all_sessions(list<Session> listS)
+{
+	query.prepare("SELECT * FROM sessions");
+
+	QSqlQueryModel* modal = new QSqlQueryModel();
+
+	modal->setQuery(query);
+
+	
+
+	return 0;
+}

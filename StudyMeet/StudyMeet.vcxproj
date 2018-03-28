@@ -208,6 +208,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="studymeet.cpp" />
+    <ClCompile Include="TableData.cpp" />
     <ClCompile Include="viewsessions.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +275,7 @@
     <ClInclude Include="Account.h" />
     <ClInclude Include="GeneratedFiles\ui_viewsessions.h" />
     <ClInclude Include="Session.h" />
+    <ClInclude Include="TableData.h" />
     <CustomBuild Include="viewsessions.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing viewsessions.h...</Message>
