@@ -179,7 +179,8 @@ int DatabaseHandler::load_all_sessions(list<Session>& listS)
 		QString qs = query.value(0).toString();
 		string SessionID = qs.toStdString();
 
-		int hostId = query.value(1).Int;
+		//int hostId = query.value(1).Int;
+		int hostId = query.value(1).toInt();
 
 		qs = query.value(2).toString();
 		string timeStart = qs.toStdString();
@@ -187,7 +188,7 @@ int DatabaseHandler::load_all_sessions(list<Session>& listS)
 		qs = query.value(3).toString();
 		string timeEnd = qs.toStdString();
 
-		int maximumCapacityOfPeople = query.value(4).Int;
+		int maximumCapacityOfPeople = query.value(4).toInt();
 
 		qs = query.value(5).toString();
 		string subject = qs.toStdString();
@@ -198,7 +199,7 @@ int DatabaseHandler::load_all_sessions(list<Session>& listS)
 		qs = query.value(7).toString();
 		string description = qs.toStdString();
 
-		int currentNumberOfPeople = query.value(8).Int;
+		int currentNumberOfPeople = query.value(8).toInt();
 
 		//create a session to push it to the listSession
 		Session session(SessionID, hostId, timeStart, currentNumberOfPeople, timeEnd, subject, location, maximumCapacityOfPeople, description);
