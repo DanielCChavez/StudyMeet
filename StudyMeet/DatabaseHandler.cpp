@@ -1,5 +1,6 @@
 #include "DatabaseHandler.h"
-
+#include <iostream>
+using namespace std;
 
 DatabaseHandler* DatabaseHandler::inst = 0;
 
@@ -175,19 +176,41 @@ int DatabaseHandler::load_all_sessions(list<Session> listS)
 	while (query.next())
 	{
 		//assign each value of the record to a variable, depending on the record value index
-		string SessionID = query.value(0).toString;
-		int hostId = query.value(1).toInt;
-		string timeStart = query.value(2).toString;
-		string timeEnd = query.value(3).toString;
-		int maximumCapacityOfPeople = query.value(4).toInt;
-		string subject = query.value(5).toString;
-		string location = query.value(6).toString;
-		string description = query.value(7).toString;
-		int currentNumberOfPeople = query.value(8).toInt;
+		QString qs = query.value(0).toString();
+		string SessionID = qs.toStdString();
+
+		int hostId = query.value(1).Int;
+
+		qs = query.value(2).toString();
+		string timeStart = qs.toStdString();
+
+		qs = query.value(3).toString();
+		string timeEnd = qs.toStdString();
+
+		int maximumCapacityOfPeople = query.value(4).Int;
+
+		qs = query.value(5).toString();
+		string subject = qs.toStdString();
+
+		qs = query.value(6).toString();
+		string location = qs.toStdString();
+
+		qs = query.value(7).toString();
+		string description = qs.toStdString();
+
+		int currentNumberOfPeople = query.value(8).Int;
 
 		//create a session to push it to the listSession
 		Session session(SessionID, hostId, timeStart, currentNumberOfPeople, timeEnd, subject, location, maximumCapacityOfPeople, description);
 		listS.push_back(session);
+	}
+
+	list<Session>::iterator it;
+
+	for (it = listS.begin(); it != listS.end(); it++)
+	{
+		int id = it->get_hostId;
+		cout << id << endl;
 	}
 
 
