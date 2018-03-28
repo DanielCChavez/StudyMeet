@@ -4,13 +4,10 @@
 #include "DatabaseHandler.h"
 #include "viewsessions.h"
 
-#include "TableData.h"
-
 StudyMeet::StudyMeet(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	TableData;
 }
 
 StudyMeet::~StudyMeet()

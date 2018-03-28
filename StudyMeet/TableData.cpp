@@ -1,7 +1,6 @@
 #include "TableData.h"
 
 
-
 TableData::TableData()
 {
 	DatabaseHandler* handler = DatabaseHandler::get_instance();

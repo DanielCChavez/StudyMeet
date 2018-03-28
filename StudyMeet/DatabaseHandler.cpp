@@ -1,6 +1,6 @@
 #include "DatabaseHandler.h"
-#include <iostream>
-using namespace std;
+#include <iterator>
+
 
 DatabaseHandler* DatabaseHandler::inst = 0;
 
@@ -168,7 +168,7 @@ int DatabaseHandler::remove_session(Session s, Account a)
 	return 0;
 }
 
-int DatabaseHandler::load_all_sessions(list<Session> listS)
+int DatabaseHandler::load_all_sessions(list<Session>& listS)
 {
 	query.exec("SELECT * FROM sessions");
 
@@ -203,14 +203,6 @@ int DatabaseHandler::load_all_sessions(list<Session> listS)
 		//create a session to push it to the listSession
 		Session session(SessionID, hostId, timeStart, currentNumberOfPeople, timeEnd, subject, location, maximumCapacityOfPeople, description);
 		listS.push_back(session);
-	}
-
-	list<Session>::iterator it;
-
-	for (it = listS.begin(); it != listS.end(); it++)
-	{
-		int id = it->get_hostId;
-		cout << id << endl;
 	}
 
 

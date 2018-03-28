@@ -26,7 +26,7 @@ public:
 	int update_session(Session);
 	int update_account(Account);
 	int remove_session(Session, Account);
-	int load_all_sessions(std::list<Session>);
+	int load_all_sessions(std::list<Session>&);
 
 protected:
 	static DatabaseHandler *inst;
