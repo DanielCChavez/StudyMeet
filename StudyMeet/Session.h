@@ -29,6 +29,7 @@ public:
 	void add_account_to_sessionlist(Account account);
 	void remove_account_from_sessionlist(Account account);
 
+
 	string get_sessionID();
 	int get_hostId();
 	string get_timestart();

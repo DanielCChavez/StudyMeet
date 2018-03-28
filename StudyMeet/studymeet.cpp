@@ -24,7 +24,7 @@ void StudyMeet::on_toVSWButton_clicked()
 
 void StudyMeet::on_toDSWButton_clicked()
 {
-	DetailedStudySession *ds = DetailedStudySession::Instance();
+	DetailedStudySession *ds = new DetailedStudySession;// = DetailedStudySession::Instance();
 	ds->show();
 	this->close();
 }

@@ -3,7 +3,7 @@
 #include "detailedstudysession.h"
 #include "createnewsession.h"
 
-#include <iterator>;
+#include <iterator>
 #include "TableData.h"
 
 ViewSessions* ViewSessions::instance = NULL;
@@ -74,6 +74,9 @@ ViewSessions::ViewSessions(QWidget *parent)
 
 	ui.sessionTable->setItem(row, 3, new QTableWidgetItem(location));
 	}
+
+	
+
 }
 
 
@@ -90,14 +93,35 @@ ViewSessions* ViewSessions::Instance()
 		return instance; 
 }
 
+Session ViewSessions::get_selected_session()
+{
+	return selected_session;
+}
+
+void ViewSessions::set_selected_session(QTableWidgetItem* t)
+{
+	TableData te;
+    selected_session = te.find_session(t->text().QString::toStdString());
+	//ErrorHandler * err = ErrorHandler::get_instance();
+	//err->display_error(QString::fromStdString(selected_session.get_location()));
+}
+
 void ViewSessions::on_createSessionButton_clicked()
 {
 	CreateNewSession *cs = CreateNewSession::Instance();
 	cs->show();
 }
 
-void ViewSessions::on_detailsButton_clicked()
+void ViewSessions::on_sessionTable_itemClicked()
 {
-	DetailedStudySession *ds = DetailedStudySession::Instance();
+	QTableWidgetItem *t = ui.sessionTable->item(ui.sessionTable->currentRow(),0);
+	set_selected_session(t);
+	on_detailsButton_clicked(get_selected_session());
+
+}
+
+void ViewSessions::on_detailsButton_clicked(Session session)
+{
+	DetailedStudySession *ds = new DetailedStudySession;// = DetailedStudySession::Instance();
 	ds->show();
 }

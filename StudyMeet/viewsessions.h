@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "ui_viewsessions.h"
+#include "Session.h"
+#include <QtWidgets\qmainwindow.h>
 
 class ViewSessions : public QWidget
 {
@@ -12,12 +14,16 @@ public:
 	ViewSessions(QWidget *parent = 0);
 	~ViewSessions();
 	static ViewSessions*  Instance();
-public slots:
-void on_detailsButton_clicked();
-void on_createSessionButton_clicked();
+	Session get_selected_session();
+	void set_selected_session(QTableWidgetItem* );
 
+public slots:
+void on_detailsButton_clicked(Session session);
+void on_createSessionButton_clicked();
+void on_sessionTable_itemClicked();
 private:
 	Ui::ViewSessions ui;
+	Session selected_session;
 protected:
 	static ViewSessions * instance; 
 };	

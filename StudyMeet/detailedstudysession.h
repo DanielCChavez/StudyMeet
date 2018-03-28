@@ -11,9 +11,10 @@ class DetailedStudySession : public QWidget, public Ui::DetailedStudySession
 public:
 	DetailedStudySession(QWidget *parent = 0);
 	~DetailedStudySession();
-	static DetailedStudySession* Instance(); 
+	//static DetailedStudySession* Instance();
+	void populate_fields();
 protected: 
-	static DetailedStudySession* instance; 
+	//static DetailedStudySession* instance; 
 };
 
 #endif // DETAILEDSTUDYSESSION_H
