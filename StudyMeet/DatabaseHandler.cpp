@@ -169,13 +169,27 @@ int DatabaseHandler::remove_session(Session s, Account a)
 
 int DatabaseHandler::load_all_sessions(list<Session> listS)
 {
-	query.prepare("SELECT * FROM sessions");
+	query.exec("SELECT * FROM sessions");
 
-	QSqlQueryModel* modal = new QSqlQueryModel();
+	//do while there are records(rows)
+	while (query.next())
+	{
+		//assign each value of the record to a variable, depending on the record value index
+		string SessionID = query.value(0).toString;
+		int hostId = query.value(1).toInt;
+		string timeStart = query.value(2).toString;
+		string timeEnd = query.value(3).toString;
+		int maximumCapacityOfPeople = query.value(4).toInt;
+		string subject = query.value(5).toString;
+		string location = query.value(6).toString;
+		string description = query.value(7).toString;
+		int currentNumberOfPeople = query.value(8).toInt;
 
-	modal->setQuery(query);
+		//create a session to push it to the listSession
+		Session session(SessionID, hostId, timeStart, currentNumberOfPeople, timeEnd, subject, location, maximumCapacityOfPeople, description);
+		listS.push_back(session);
+	}
 
-	
 
 	return 0;
 }

@@ -20,7 +20,6 @@ public slots:
 
 private:
 	Ui::StudyMeetClass ui;
-
 };
 
 #endif // STUDYMEET_H
