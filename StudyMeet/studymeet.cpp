@@ -3,11 +3,15 @@
 #include "Session.h"
 #include "DatabaseHandler.h"
 #include "viewsessions.h"
+#include "createaccountwindow.h"
 
 StudyMeet::StudyMeet(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	CreateAccountWindow *caw = CreateAccountWindow::Instance();
+	caw->setWindowModality(Qt::WindowModality::ApplicationModal);
+	caw->show();
 }
 
 StudyMeet::~StudyMeet()

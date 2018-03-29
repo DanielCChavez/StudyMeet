@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
+    <ClCompile Include="AccountSingleton.cpp" />
     <ClCompile Include="createaccountwindow.cpp" />
     <ClCompile Include="createnewsession.cpp" />
     <ClCompile Include="DatabaseHandler.cpp" />
@@ -273,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
+    <ClInclude Include="AccountSingleton.h" />
     <ClInclude Include="GeneratedFiles\ui_viewsessions.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="TableData.h" />
