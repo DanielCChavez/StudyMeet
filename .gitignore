@@ -366,3 +366,6 @@ ASALocalRun/
 
 # MSBuild Binary and Structured Log
 *.binlog
+
+# Merge
+*.orig
