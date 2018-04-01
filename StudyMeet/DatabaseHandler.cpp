@@ -209,3 +209,31 @@ int DatabaseHandler::load_all_sessions(list<Session>& listS)
 
 	return 0;
 }
+
+int DatabaseHandler::validate_account(std::string username, std::string pass)
+{
+	QString result;
+	query.prepare("SELECT EXISTS (SELECT 1 FROM accounts WHERE username = :uname AND "
+		"password = :pw LIMIT 1)");
+	query.bindValue(":uname", username.c_str());
+	query.bindValue(":pw", pass.c_str());
+	
+	query.exec();
+	while (query.next())
+	{
+		result = query.value(0).toString();
+	}
+	
+	if (result == "1")
+		return 0;
+
+	return 1;
+}
+
+Account DatabaseHandler::get_account(std::string username, std::string pass)
+{
+	if (validate_account(username, pass) != 0)
+		return Account("ERRORUSERNAME", "ERRORPASSWORD");
+
+	return Account(username, pass);
+}

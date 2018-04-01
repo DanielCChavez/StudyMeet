@@ -27,6 +27,8 @@ public:
 	int update_account(Account);
 	int remove_session(Session, Account);
 	int load_all_sessions(std::list<Session>&);
+	int validate_account(std::string, std::string);
+	Account get_account(std::string username, std::string pass);
 
 protected:
 	static DatabaseHandler *inst;

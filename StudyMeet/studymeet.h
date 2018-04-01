@@ -17,6 +17,7 @@ public:
 public slots:
 	void on_toDSWButton_clicked();
 	void on_toVSWButton_clicked();
+	void on_loggedInAsButton_clicked();
 
 private:
 	Ui::StudyMeetClass ui;
