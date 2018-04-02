@@ -230,10 +230,65 @@ int DatabaseHandler::validate_account(std::string username, std::string pass)
 	return 1;
 }
 
+int DatabaseHandler::validate_account(int accID)
+{
+	QString result;
+	query.prepare("SELECT EXISTS (SELECT 1 FROM accounts WHERE accountID = :accID LIMIT 1)");
+	query.bindValue(":accID", accID);
+	query.exec();
+
+	while (query.next())
+	{
+		result = query.value(0).toString();
+	}
+
+	if (result == "1")
+		return 0;
+
+	return 1;
+}
+
+int DatabaseHandler::validate_account(std::string username)
+{
+	QString result;
+	query.prepare("SELECT EXISTS (SELECT 1 FROM accounts WHERE username = :user LIMIT 1)");
+	query.bindValue(":user", username.c_str());
+	query.exec();
+
+	while (query.next())
+	{
+		result = query.value(0).toString();
+	}
+
+	if (result == "1")
+		return 0;
+
+	return 1;
+}
+
 Account DatabaseHandler::get_account(std::string username, std::string pass)
 {
-	if (validate_account(username, pass) != 0)
-		return Account("ERRORUSERNAME", "ERRORPASSWORD");
+	QString result;
+	string user, password, firstName, lastName, dateCreated, gradeLevel, sessionID;
+	int accountID;
 
-	return Account(username, pass);
+	if (validate_account(username, pass) != 0)
+		return Account("ERRORUSERNAME", "ERRORPASSWORD", "ERRORFIRSTNAME", "ERRORLASTNAME", "ERRORDATECREATED", "ERRORGRADELEVEL", "ERRORSESSIONID", -1);
+	query.prepare("select * from accounts where username = :username and password = :pass");
+	query.bindValue(":username", username.c_str());
+	query.bindValue(":pass", pass.c_str());
+	query.exec();
+	while (query.next())
+	{
+		user = query.value(1).toString().toStdString();
+		password = query.value(2).toString().toStdString();
+		firstName = query.value(3).toString().toStdString();
+		lastName = query.value(4).toString().toStdString();
+		dateCreated = query.value(5).toString().toStdString();
+		gradeLevel = query.value(6).toString().toStdString();
+		sessionID = query.value(7).toString().toStdString();
+		accountID = query.value(0).toInt();
+	}
+
+	return Account(user, password, firstName, lastName, dateCreated, gradeLevel, sessionID, accountID);
 }

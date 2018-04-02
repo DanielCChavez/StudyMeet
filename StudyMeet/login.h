@@ -20,6 +20,7 @@ private:
 
 public slots:
 	void on_loginButton_clicked();
+	void on_createAccountButton_clicked();
 
 
 };

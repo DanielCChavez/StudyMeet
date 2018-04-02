@@ -28,6 +28,8 @@ public:
 	int remove_session(Session, Account);
 	int load_all_sessions(std::list<Session>&);
 	int validate_account(std::string, std::string);
+	int validate_account(int);
+	int validate_account(std::string);
 	Account get_account(std::string username, std::string pass);
 
 protected:

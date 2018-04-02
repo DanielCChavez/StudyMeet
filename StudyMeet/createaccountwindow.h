@@ -14,6 +14,8 @@ public:
 	static CreateAccountWindow* Instance();
 protected:
 	static CreateAccountWindow* instance; 
+public slots:
+	void on_createAccountButton_clicked();
 };
 
 #endif // CREATEACCOUNTWINDOW_H

@@ -6,10 +6,16 @@ Account::Account()
 	username = password = " ";
 }
 
-Account::Account(string name, string pword)
+Account::Account(string name, string pword, string fname, string lname, string dCreated, string glevel, string sessID, int accID)
 {
 	username = name;
 	password = pword;
+	firstName = fname;
+	lastName = lname;
+	dateCreated = dCreated;
+	gradeLevel = glevel;
+	sessionID = sessID;
+	accountID = accID;
 }
 
 string Account::get_username()
@@ -20,6 +26,26 @@ string Account::get_username()
 string Account::get_password()
 {
 	return password;
+}
+
+string Account::get_firstName()
+{
+	return firstName;
+}
+
+string Account::get_lastName()
+{
+	return lastName;
+}
+
+string Account::get_dateCreated()
+{
+	return dateCreated;
+}
+
+string Account::get_gradeLevel()
+{
+	return gradeLevel;
 }
 
 void Account::createAccount(string name, string pword)
