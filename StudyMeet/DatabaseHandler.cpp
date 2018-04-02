@@ -54,10 +54,18 @@ int DatabaseHandler::is_open()
 
 int DatabaseHandler::add_to_database(Account acc)
 {	
-	query.prepare("INSERT INTO users (username, password_hash) "
-		"VALUES (:username, :password_hash)");
+	query.prepare("INSERT INTO accounts (accountID, username, password, firstName, lastName, dateCreated, "
+		"gradeLevel, sessionID)"
+		"VALUES (:accountID, :username, :password, :firstName, :lastName, :dateCreated, "
+		":gradeLevel, :sessionID)");
+	query.bindValue(":accountID", acc.get_accountID());
 	query.bindValue(":username", acc.get_username().c_str());
-	query.bindValue(":password_hash", acc.get_password().c_str());
+	query.bindValue(":password", acc.get_password().c_str());
+	query.bindValue(":firstName", acc.get_firstName().c_str());
+	query.bindValue(":lastName", acc.get_lastName().c_str());
+	query.bindValue(":dateCreated", acc.get_dateCreated().c_str());
+	query.bindValue(":gradeLevel", acc.get_gradeLevel().c_str());
+	query.bindValue(":sessionID", acc.get_sessionID().c_str());
 	
 	if (!query.exec())
 	{
