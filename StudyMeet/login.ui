@@ -148,6 +148,12 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>usernameEdit</tabstop>
+  <tabstop>passwordEdit</tabstop>
+  <tabstop>loginButton</tabstop>
+  <tabstop>createAccountButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
