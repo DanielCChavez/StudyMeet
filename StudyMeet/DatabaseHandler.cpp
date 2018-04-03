@@ -81,20 +81,20 @@ int DatabaseHandler::add_to_database(Account acc)
 
 int DatabaseHandler::add_to_database(Session s)
 {
-	query.prepare("INSERT INTO sessions (sessionID, hostID, timeStart, timeEnd, "
-		"currentNumberOfPeople, subject, location, description, maximumCapacityOfPeople) "
-		"VALUES (:sessionID, :hostID, :timeStart, :timeEnd, :currentNumberoOfPeople, "
-		":topic, :location, :description, :maximumCapacityOfPeople)");
+	query.prepare("INSERT INTO sessions (sessionID, hostId, timeStart, timeEnd, "
+		"maximumCapacityOfPeople, subject, location, description, currentNumberOfPeople, sessionDate) "
+		"VALUES (:sessionID, :hostID, :timeStart, :timeEnd, :maximumCapacityOfPeople, "
+		":topic, :location, :description, :currentNumberOfPeople, :date)");
 	query.bindValue(":sessionID", s.get_sessionID().c_str());
 	query.bindValue(":hostID", s.get_hostId());
 	query.bindValue(":timeStart", s.get_timestart().c_str());
 	query.bindValue(":timeEnd", s.get_timeend().c_str());
 	query.bindValue(":currentNumberOfPeople", s.get_currentnumberofpeopleinsession());
-	query.bindValue(":maximumcapacityofpeopleinsession", s.get_maximumcapacityofpeopleinsession());
-	query.bindValue(":subject", s.get_subject().c_str());
+	query.bindValue(":maximumCapacityOfPeople", s.get_maximumcapacityofpeopleinsession());
+	query.bindValue(":topic", s.get_subject().c_str());
 	query.bindValue(":location", s.get_location().c_str());
 	query.bindValue(":description", s.get_description().c_str());
-
+	query.bindValue(":date", s.get_date().c_str());
 	
 	if (!query.exec())
 	{
@@ -111,7 +111,7 @@ int DatabaseHandler::update_session(Session s)
 {
 	query.prepare("UPDATE sessions"
 		"SET timeStart = :newTimeStart, timeEnd = :newTimeEnd, description = :newDescription, "
-		"maximumCapacityOfPeople = :newCapacity, subject = :subject, location = :location "
+		"maximumCapacityOfPeople = :newCapacity, subject = :subject, location = :location, sessionDate = :date"
 		"WHERE sessionID = :sessionID");
 
 	query.bindValue(":sessionID", s.get_sessionID().c_str());
@@ -121,6 +121,7 @@ int DatabaseHandler::update_session(Session s)
 	query.bindValue(":location", s.get_location().c_str());
 	query.bindValue(":description", s.get_description().c_str());
 	query.bindValue(":maximumcapacityofpeopleinsession", s.get_maximumcapacityofpeopleinsession());
+	query.bindValue(":date", s.get_date().c_str());
 	
 	if (!query.exec())
 	{
@@ -174,7 +175,7 @@ int DatabaseHandler::remove_session(Session s, Account a)
 
 int DatabaseHandler::load_all_sessions(list<Session>& listS)
 {
-	string sessionID, timeStart, timeEnd, subject, location, description;
+	string sessionID, timeStart, timeEnd, subject, location, description, date;
 	int hostID, maximumCapacityOfPeople, currentNumberOfPeople;
 
 
@@ -193,9 +194,10 @@ int DatabaseHandler::load_all_sessions(list<Session>& listS)
 		location = query.value(6).toString().toStdString();
 		description = query.value(7).toString().toStdString();
 		currentNumberOfPeople = query.value(8).toInt();
+		date = query.value(9).toString().toStdString();
 
 		//create a session to push it to the listSession
-		Session session(sessionID, hostID, timeStart, currentNumberOfPeople, timeEnd, subject, location, maximumCapacityOfPeople, description);
+		Session session(sessionID, hostID, timeStart, currentNumberOfPeople, timeEnd, date, subject, location, maximumCapacityOfPeople, description);
 		listS.push_back(session);
 	}
 
@@ -283,4 +285,23 @@ Account DatabaseHandler::get_account(std::string username, std::string pass)
 	}
 
 	return Account(user, password, firstName, lastName, dateCreated, gradeLevel, sessionID, accountID);
+}
+
+int DatabaseHandler::validate_session(int sessID)
+{
+
+	QString result;
+	query.prepare("SELECT EXISTS (SELECT 1 FROM sessions WHERE sessionID = :sessID LIMIT 1)");
+	query.bindValue(":sessID", sessID);
+	query.exec();
+
+	while (query.next())
+	{
+		result = query.value(0).toString();
+	}
+
+	if (result == "1")
+		return 0;
+
+	return 1;
 }

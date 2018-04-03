@@ -6,12 +6,13 @@ Session::Session()
 {
 }
 
-Session::Session(string sId, int hId , string tS, int nOP, string tE, string sub, string loc, int tNOP, string desc)
+Session::Session(string sId, int hId , string tS, int nOP, string tE, string date, string sub, string loc, int tNOP, string desc)
 {
 	sessionID = sId;
 	hostId = hId; 
 	timeStart = tS; 
 	currentNumberOfPeople = nOP; 
+	sessiondate = date;
 	timeEnd = tE; 
 	subject = sub; 
 	location = loc; 
@@ -22,6 +23,7 @@ Session::Session(string sId, int hId , string tS, int nOP, string tE, string sub
 
 Session::~Session()
 {
+
 }
 
 void Session::send_session_to_database(Session session)
@@ -85,4 +87,9 @@ list<Account> Session::get_listofpeople()
 string Session::get_description()
 {
 	return description;
+}
+
+string Session::get_date()
+{
+	return sessiondate;
 }

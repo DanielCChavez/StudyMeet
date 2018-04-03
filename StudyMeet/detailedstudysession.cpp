@@ -20,7 +20,9 @@ void DetailedStudySession::populate_fields()
 
 	hostEdit->setText(QString::number(se.get_hostId()));
 	subjectEdit->setText(QString::fromStdString(se.get_subject()));
-	timeEdit->setText(QString::fromStdString(se.get_timestart()));
+	startTimeEdit->setText(QString::fromStdString(se.get_timestart()));
+	endTimeEdit->setText(QString::fromStdString(se.get_timeend()));
+	dateEdit->setText(QString::fromStdString(se.get_date()));
 	locationEdit->setText(QString::fromStdString(se.get_location()));
 	sizeEdit->setText(QString::number(se.get_currentnumberofpeopleinsession()));
 	limitEdit->setText(QString::number(se.get_maximumcapacityofpeopleinsession()));

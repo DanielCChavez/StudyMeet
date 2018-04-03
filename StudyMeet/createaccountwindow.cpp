@@ -6,7 +6,6 @@
 
 using namespace std;
 
-//CreateAccountWindow* CreateAccountWindow::instance = NULL;
 
 CreateAccountWindow::CreateAccountWindow(QWidget *parent)
 	: QWidget(parent)
@@ -19,13 +18,6 @@ CreateAccountWindow::~CreateAccountWindow()
 
 }
 
-/*CreateAccountWindow * CreateAccountWindow::Instance()
-{
-	if (instance == NULL)
-		instance = new CreateAccountWindow();
-
-	return instance;
-}*/
 
 void CreateAccountWindow::on_createAccountButton_clicked()
 {

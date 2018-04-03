@@ -14,6 +14,9 @@ public:
 	static CreateNewSession* Instance(); 
 protected:
 	static CreateNewSession* instance; 
+public slots: 
+void on_PublishSessionButton_clicked();
+
 };
 
 #endif // CREATENEWSESSION_H

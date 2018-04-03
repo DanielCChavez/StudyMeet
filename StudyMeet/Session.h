@@ -15,13 +15,14 @@ private:
 	string timeEnd;
 	string subject;
 	string location; 
+	string sessiondate;
 	int maximumCapacityOfPeople;
 	list<Account> listOfPeople;
 	string description;
 
 public:
 	Session();
-	Session(string sId, int hId, string tS, int nOP, string tE, string sub, string loc, int tNOP, string desc);
+	Session(string sId, int hId, string tS, int nOP, string tE, string date, string sub, string loc, int tNOP, string desc);
 	~Session();
 	
 	void send_session_to_database(Session session);
@@ -39,6 +40,6 @@ public:
 	int get_maximumcapacityofpeopleinsession();
 	list<Account> get_listofpeople();
 	string get_description();
-	
+	string get_date();
 };
 

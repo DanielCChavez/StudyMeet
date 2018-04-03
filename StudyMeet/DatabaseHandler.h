@@ -31,6 +31,7 @@ public:
 	int validate_account(int);
 	int validate_account(std::string);
 	Account get_account(std::string username, std::string pass);
+	int validate_session(int);
 
 protected:
 	static DatabaseHandler *inst;
