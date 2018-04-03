@@ -12,7 +12,7 @@ ViewSessions::ViewSessions(QWidget *parent)
 	: QWidget(parent)
 {
 	//TableData object
-	td = new TableData();
+	TableData TD;
 
 	QStringList titles;
 
@@ -29,10 +29,10 @@ ViewSessions::ViewSessions(QWidget *parent)
 
 	ui.setupUi(this);
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
-	td->listSessions.clear();
-	ui.sessionTable->clearContents();
-	td->fill_session_table(this, td);
-	/*	//Testing the listSession from Table Data
+	//td->listSessions.clear();
+	//ui.sessionTable->clearContents();
+	//td->fill_session_table(this, td);
+		//Testing the listSession from Table Data
 	for (it = TD.listSessions.begin(); it != TD.listSessions.end(); it++)
 	{
 		ui.sessionTable->insertRow(ui.sessionTable->rowCount());
@@ -51,7 +51,7 @@ ViewSessions::ViewSessions(QWidget *parent)
 		ui.sessionTable->setItem(row, 4, new QTableWidgetItem(date));
 		ui.sessionTable->setItem(row, 5, new QTableWidgetItem(location));
 	}
-	*/
+	
 }
 
 
@@ -102,8 +102,8 @@ void ViewSessions::on_detailsButton_clicked(Session session)
 
 void ViewSessions::on_refreshButton_clicked()
 {
-	TableData TD;
+	//TableData TD;
 
-	ui.sessionTable->clearContents();
-	TD.fill_session_table(this);
+	//ui.sessionTable->clearContents();
+	//TD.fill_session_table(this);
 }

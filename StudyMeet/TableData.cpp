@@ -24,7 +24,7 @@ TableData::TableData()
 }
 
 
-
+/*
 int TableData::fill_session_table(ViewSessions* vs, TableData* t)
 {
 	list<Session>::iterator it;
@@ -64,7 +64,7 @@ int TableData::fill_session_table(ViewSessions* vs, TableData* t)
 	return 0;
 }
 
-
+*/
 TableData::~TableData()
 {
 }
