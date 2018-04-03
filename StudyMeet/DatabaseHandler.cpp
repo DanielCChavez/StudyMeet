@@ -151,15 +151,12 @@ int DatabaseHandler::update_account(Account acc)
 		error_window->display_error("account updated");
 
 	return 0;
-
 }
 
 int DatabaseHandler::remove_session(Session s, Account a)
 {
 	//Need to implement Account::get_id() before this will compile
-
-	/*
-	if (s.get_hostId() != a.get_id)
+	if (s.get_hostId() != a.get_accountID())
 	{
 		error_window->display_error("Only the host can delete a session");
 		return 1;
@@ -172,7 +169,6 @@ int DatabaseHandler::remove_session(Session s, Account a)
 		error_window->display_error(query.lastError().text());
 	else
 		error_window->display_error("delete, OK");
-		*/
 	return 0;
 }
 
