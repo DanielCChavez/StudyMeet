@@ -3,7 +3,6 @@
 #include "Account.h"
 #include <list>
 #include <string>
-//#include "DatabaseHandler.h"
 
 class Session
 {

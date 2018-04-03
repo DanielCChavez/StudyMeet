@@ -30,9 +30,16 @@ CreateAccountWindow * CreateAccountWindow::Instance()
 void CreateAccountWindow::on_createAccountButton_clicked()
 {
 	string username, password, confirmPassword, firstName, lastName, gradeLevel;
-	ErrorHandler *er = ErrorHandler::get_instance();
-	DatabaseHandler *db = DatabaseHandler::get_instance();
+	time_t now;
+	char *dt;
+	ErrorHandler *er;
+	DatabaseHandler *db;
+	int id;
 
+	er = ErrorHandler::get_instance();
+	db = DatabaseHandler::get_instance();
+	now = time(0);
+	dt = ctime(&now);
 	username = usernameEdit->text().toStdString();
 	password = passwordEdit->text().toStdString();
 	confirmPassword = confirmpasswordEdit->text().toStdString();
@@ -45,24 +52,21 @@ void CreateAccountWindow::on_createAccountButton_clicked()
 		er->display_error("Passwords do not match");
 		return;
 	}
-
 	if (db->validate_account(username) == 0)
 	{
 		er->display_error("Username already exists");
+		return;
 	}
-
-	time_t now = time(0);
-	char* dt = ctime(&now);
 
 	srand(time(NULL));
-	int number = rand() % 10000;
-	while (db->validate_account(number) == 0)
+	id = rand() % 10000;
+	while (db->validate_account(id) == 0)
 	{
-		number = rand() % 10000;
+		id = rand() % 10000;
 	}
 
-
-	Account account(username, password, firstName, lastName, dt,  gradeLevel, " ", number);
-	db->add_to_database(account);
-	//close();
+	Account account(username, password, firstName, lastName, dt,  gradeLevel, " ", id);
+	if(db->add_to_database(account) == 0)
+		close();
+	return;
 }

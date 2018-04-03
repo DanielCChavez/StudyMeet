@@ -178,42 +178,30 @@ int DatabaseHandler::remove_session(Session s, Account a)
 
 int DatabaseHandler::load_all_sessions(list<Session>& listS)
 {
+	string sessionID, timeStart, timeEnd, subject, location, description;
+	int hostID, maximumCapacityOfPeople, currentNumberOfPeople;
+
+
 	query.exec("SELECT * FROM sessions");
 
 	//do while there are records(rows)
 	while (query.next())
 	{
 		//assign each value of the record to a variable, depending on the record value index
-		QString qs = query.value(0).toString();
-		string SessionID = qs.toStdString();
-
-		//int hostId = query.value(1).Int;
-		int hostId = query.value(1).toInt();
-
-		qs = query.value(2).toString();
-		string timeStart = qs.toStdString();
-
-		qs = query.value(3).toString();
-		string timeEnd = qs.toStdString();
-
-		int maximumCapacityOfPeople = query.value(4).toInt();
-
-		qs = query.value(5).toString();
-		string subject = qs.toStdString();
-
-		qs = query.value(6).toString();
-		string location = qs.toStdString();
-
-		qs = query.value(7).toString();
-		string description = qs.toStdString();
-
-		int currentNumberOfPeople = query.value(8).toInt();
+		sessionID = query.value(0).toString().toStdString();
+		hostID = query.value(1).toInt();
+		timeStart = query.value(2).toString().toStdString();
+		timeEnd = query.value(3).toString().toStdString();
+		maximumCapacityOfPeople = query.value(4).toInt();
+		subject = query.value(5).toString().toStdString();
+		location = query.value(6).toString().toStdString();
+		description = query.value(7).toString().toStdString();
+		currentNumberOfPeople = query.value(8).toInt();
 
 		//create a session to push it to the listSession
-		Session session(SessionID, hostId, timeStart, currentNumberOfPeople, timeEnd, subject, location, maximumCapacityOfPeople, description);
+		Session session(sessionID, hostID, timeStart, currentNumberOfPeople, timeEnd, subject, location, maximumCapacityOfPeople, description);
 		listS.push_back(session);
 	}
-
 
 	return 0;
 }

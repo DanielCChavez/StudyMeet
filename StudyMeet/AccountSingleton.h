@@ -5,8 +5,8 @@
 class AccountSingleton : public Account
 {
 public:
-	static AccountSingleton* get_instance();
 	~AccountSingleton();
+	static AccountSingleton* get_instance();
 	Account get_account() const { return logged_in; }
 	void set_account(Account);
 private:

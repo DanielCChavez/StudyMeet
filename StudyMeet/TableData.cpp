@@ -12,7 +12,8 @@ Session TableData::find_session(string s)
 			return *it;
 		}
 	}
-	Session se("asdf", 4, "jk;", 1, "ffff", "bus", "col", 3, "mewo");
+	Session se("ERRORID", -1, "ERRORTIMESTART", -1, "ERRORTIMEEND", "ERRORSUBJECT", "ERRORLOCATION", 
+		-1, "ERROR DESCRIPTION");
 	return se;
 }
 
