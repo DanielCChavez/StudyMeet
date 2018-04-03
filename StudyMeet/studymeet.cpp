@@ -28,19 +28,18 @@ void StudyMeet::on_toVSWButton_clicked()
 	this->close();
 }
 
-void StudyMeet::on_toDSWButton_clicked()
-{
-	DetailedStudySession *ds = new DetailedStudySession;// = DetailedStudySession::Instance();
-	ds->show();
-	this->close();
-}
-
 void StudyMeet::on_loggedInAsButton_clicked()
 {
 	ErrorHandler *err = ErrorHandler::get_instance();
 	AccountSingleton *as = AccountSingleton::get_instance();
 	Account acc = as->get_account();
 
-	QString display = QString::fromStdString(acc.get_username()) + " " + QString::fromStdString(acc.get_password());
+	QString display = QString::fromStdString(acc.get_username()) + ", " +
+		QString::fromStdString(acc.get_password()) + ", " +
+		QString::fromStdString(acc.get_dateCreated()) + ", " +
+		QString::number(acc.get_accountID()) + ", " +
+		QString::fromStdString(acc.get_firstName()) + ", " +
+		QString::fromStdString(acc.get_firstName()) + ", " +
+		QString::fromStdString(acc.get_gradeLevel());
 	err->display_error(display);
 }

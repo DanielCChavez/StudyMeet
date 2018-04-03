@@ -14,7 +14,7 @@ Login::Login(QWidget *parent)
 
 void Login::on_createAccountButton_clicked()
 {
-	CreateAccountWindow *createAccount_window = CreateAccountWindow::Instance();
+	CreateAccountWindow *createAccount_window = new CreateAccountWindow();
 	createAccount_window->setWindowModality(Qt::WindowModality::ApplicationModal);
 	createAccount_window->show();
 }

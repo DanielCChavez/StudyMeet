@@ -14,43 +14,17 @@
    <string>StudyMeet</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="toDSWButton">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>120</y>
-      <width>201</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>To Detailed Session Window</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="toVSWButton">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>180</y>
+      <x>100</x>
+      <y>140</y>
       <width>271</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>To View Session Window</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="addToSessionsButton">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>280</y>
-      <width>171</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add to sessiond (test)</string>
     </property>
    </widget>
    <widget class="QPushButton" name="loggedInAsButton">
