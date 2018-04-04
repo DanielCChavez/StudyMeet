@@ -25,7 +25,8 @@ public:
 	int add_to_database(Account);
 	int update_session(Session);
 	int update_account(Account);
-	int remove_session(Session, Account);
+	int remove_session(Session);
+	int is_host(Session);
 	int load_all_sessions(std::list<Session>&);
 	int validate_account(std::string, std::string);
 	int validate_account(int);

@@ -1,4 +1,5 @@
 #include "DatabaseHandler.h"
+#include "AccountSingleton.h"
 #include <iterator>
 
 
@@ -9,7 +10,7 @@ DatabaseHandler::DatabaseHandler()
 	connection_status = 1;
 	error_window = ErrorHandler::get_instance();
 	connect();
-	if (is_open())
+	if (is_open() == 0)
 	{
 		connection_status = 0;
 		query = QSqlQuery(db);
@@ -42,16 +43,20 @@ int DatabaseHandler::connect()
 	return 0;
 }
 
+// Return 0 if database connection is open
+// 1 otherwise
 int DatabaseHandler::is_open()
 {
 	if(!db.open())
 	{
 		error_window->display_error(db.lastError().text());
-		return 0;
+		return 1;
 	}
-	return 1;
+	return 0;
 }
 
+// Return 0 on sucessfull insert into database
+// 1 on error in execution of query
 int DatabaseHandler::add_to_database(Account acc)
 {	
 	query.prepare("INSERT INTO accounts (accountID, username, password, firstName, lastName, dateCreated, "
@@ -70,15 +75,14 @@ int DatabaseHandler::add_to_database(Account acc)
 	if (!query.exec())
 	{
 		error_window->display_error(query.lastError().text());
-	}
-	else // testing purposes, remove later
-	{
-		error_window->display_error("INSERT OK");
+		return 1;
 	}
 
 	return 0;
 }
 
+// Return 0 on sucessfull insert into database
+// 1 on error in execution of query
 int DatabaseHandler::add_to_database(Session s)
 {
 	query.prepare("INSERT INTO sessions (sessionID, hostId, timeStart, timeEnd, "
@@ -99,14 +103,14 @@ int DatabaseHandler::add_to_database(Session s)
 	if (!query.exec())
 	{
 		error_window->display_error(query.lastError().text());
+		return 1;
 	}
-	else //remove later
-		error_window->display_error("insert into sessions OK");
-
 
 	return 0;
 }
 
+// Return 0 if successfully updated sessions record
+// 1 otherwise
 int DatabaseHandler::update_session(Session s)
 {
 	query.prepare("UPDATE sessions"
@@ -126,13 +130,14 @@ int DatabaseHandler::update_session(Session s)
 	if (!query.exec())
 	{
 		error_window->display_error(query.lastError().text());
+		return 1;
 	}
-	else
-		error_window->display_error("session updated");
 
 	return 0;
 }
 
+// Return 0 if successfull updated account
+// 1 otherwise
 int DatabaseHandler::update_account(Account acc)
 {
 	query.prepare("UPDATE users"
@@ -147,32 +152,46 @@ int DatabaseHandler::update_account(Account acc)
 	if (!query.exec())
 	{
 		error_window->display_error(query.lastError().text());
+		return 1;
 	}
-	else
-		error_window->display_error("account updated");
 
 	return 0;
 }
 
-int DatabaseHandler::remove_session(Session s, Account a)
+
+// Return 1 if not the host of selected session
+// Return 2 if error in query execution
+// Return 0 if successfully removes record
+int DatabaseHandler::remove_session(Session s)
 {
-	//Need to implement Account::get_id() before this will compile
-	if (s.get_hostId() != a.get_accountID())
-	{
-		error_window->display_error("Only the host can delete a session");
+	if (is_host(s) != 0)
 		return 1;
-	}
+	
 	
 	query.prepare("DELETE FROM sessions WHERE hostId = :hostId");
 	query.bindValue(":hostId", s.get_hostId());
 
 	if (!query.exec())
+	{
 		error_window->display_error(query.lastError().text());
-	else
-		error_window->display_error("delete, OK");
+		return 2;
+	}
+
 	return 0;
 }
 
+
+// Returns 0 if the logged in account is the host of the session
+// 1 if not the host of session
+int DatabaseHandler::is_host(Session s)
+{
+	AccountSingleton* logged_in = AccountSingleton::get_instance();
+	if (logged_in->get_account().get_accountID() == s.get_hostId())
+		return 0;
+
+	return 1;
+
+}
 int DatabaseHandler::load_all_sessions(list<Session>& listS)
 {
 	string sessionID, timeStart, timeEnd, subject, location, description, date;
@@ -204,6 +223,9 @@ int DatabaseHandler::load_all_sessions(list<Session>& listS)
 	return 0;
 }
 
+
+// Return 0 if username and password match a record on database
+// 1 if password and username do not match a record on database
 int DatabaseHandler::validate_account(std::string username, std::string pass)
 {
 	QString result;
@@ -224,6 +246,8 @@ int DatabaseHandler::validate_account(std::string username, std::string pass)
 	return 1;
 }
 
+// Return 0 if the accountID is being used on the database
+// Return 1 if the accountID is not being used on database
 int DatabaseHandler::validate_account(int accID)
 {
 	QString result;
@@ -242,6 +266,8 @@ int DatabaseHandler::validate_account(int accID)
 	return 1;
 }
 
+// Return 0 if the username is taken
+// Return 1 if the username is not taken
 int DatabaseHandler::validate_account(std::string username)
 {
 	QString result;
@@ -260,6 +286,7 @@ int DatabaseHandler::validate_account(std::string username)
 	return 1;
 }
 
+// Retrieves an account on the database
 Account DatabaseHandler::get_account(std::string username, std::string pass)
 {
 	QString result;
@@ -267,11 +294,13 @@ Account DatabaseHandler::get_account(std::string username, std::string pass)
 	int accountID;
 
 	if (validate_account(username, pass) != 0)
-		return Account("ERRORUSERNAME", "ERRORPASSWORD", "ERRORFIRSTNAME", "ERRORLASTNAME", "ERRORDATECREATED", "ERRORGRADELEVEL", "ERRORSESSIONID", -1);
+		return Account("ERRORUSERNAME", "ERRORPASSWORD", "ERRORFIRSTNAME", "ERRORLASTNAME",
+			"ERRORDATECREATED", "ERRORGRADELEVEL", "ERRORSESSIONID", -1);
 	query.prepare("select * from accounts where username = :username and password = :pass");
 	query.bindValue(":username", username.c_str());
 	query.bindValue(":pass", pass.c_str());
 	query.exec();
+
 	while (query.next())
 	{
 		user = query.value(1).toString().toStdString();
@@ -287,6 +316,8 @@ Account DatabaseHandler::get_account(std::string username, std::string pass)
 	return Account(user, password, firstName, lastName, dateCreated, gradeLevel, sessionID, accountID);
 }
 
+// Return 0 if the sessID is a valid session
+// Return 1 if sessID is not a valid session
 int DatabaseHandler::validate_session(int sessID)
 {
 
