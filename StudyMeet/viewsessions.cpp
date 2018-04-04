@@ -12,7 +12,7 @@ ViewSessions::ViewSessions(QWidget *parent)
 	: QWidget(parent)
 {
 	//TableData object
-	TableData TD;
+	td = TableData::get_instance();
 
 	QStringList titles;
 
@@ -33,6 +33,8 @@ ViewSessions::ViewSessions(QWidget *parent)
 	//ui.sessionTable->clearContents();
 	//td->fill_session_table(this, td);
 		//Testing the listSession from Table Data
+
+	/*
 	for (it = TD.listSessions.begin(); it != TD.listSessions.end(); it++)
 	{
 		ui.sessionTable->insertRow(ui.sessionTable->rowCount());
@@ -51,7 +53,7 @@ ViewSessions::ViewSessions(QWidget *parent)
 		ui.sessionTable->setItem(row, 4, new QTableWidgetItem(date));
 		ui.sessionTable->setItem(row, 5, new QTableWidgetItem(location));
 	}
-	
+	*/
 }
 
 
@@ -65,7 +67,53 @@ ViewSessions* ViewSessions::Instance()
 	if (instance == NULL)
 		instance = new ViewSessions();
 
+	instance->populate_table();
+
 	return instance; 
+}
+
+int ViewSessions::populate_table()
+{
+	td = TableData::get_instance();
+
+	QStringList titles;
+
+	titles << "Host" << "Subject" << "Start time" << "End time" << "Date" << "Location";
+
+	ui.sessionTable->setHorizontalHeaderLabels(titles);
+
+	QString timeStart;
+	QString timeEnd;
+	QString date;
+	QString subject;
+	QString id;
+	QString location;
+	int row;
+	list<Session>::iterator it;
+
+	ui.sessionTable->clearContents();
+	ui.sessionTable->setRowCount(0);
+
+	for (it = td->listSessions.begin(); it != td->listSessions.end(); it++)
+	{
+		ui.sessionTable->insertRow(ui.sessionTable->rowCount());
+		timeStart = QString::fromStdString(it->get_timestart());
+		timeEnd = QString::fromStdString(it->get_timeend());
+		date = QString::fromStdString(it->get_date());
+		subject = QString::fromStdString(it->get_subject());
+		id = QString::number(it->get_hostId());
+		location = QString::fromStdString(it->get_location());
+
+		row = ui.sessionTable->rowCount() - 1;
+		ui.sessionTable->setItem(row, 2, new QTableWidgetItem(timeStart));
+		ui.sessionTable->setItem(row, 1, new QTableWidgetItem(subject));
+		ui.sessionTable->setItem(row, 0, new QTableWidgetItem(id));
+		ui.sessionTable->setItem(row, 3, new QTableWidgetItem(timeEnd));
+		ui.sessionTable->setItem(row, 4, new QTableWidgetItem(date));
+		ui.sessionTable->setItem(row, 5, new QTableWidgetItem(location));
+	}
+
+	return 0;
 }
 
 Session ViewSessions::get_selected_session()
@@ -75,8 +123,8 @@ Session ViewSessions::get_selected_session()
 
 void ViewSessions::set_selected_session(QTableWidgetItem* t)
 {
-	TableData te;
-    selected_session = te.find_session(t->text().QString::toStdString());
+	TableData *td = TableData::get_instance();
+    selected_session = td->find_session(t->text().QString::toStdString());
 }
 
 void ViewSessions::on_createSessionButton_clicked()
@@ -102,8 +150,5 @@ void ViewSessions::on_detailsButton_clicked(Session session)
 
 void ViewSessions::on_refreshButton_clicked()
 {
-	//TableData TD;
-
-	//ui.sessionTable->clearContents();
-	//TD.fill_session_table(this);
+	populate_table();
 }

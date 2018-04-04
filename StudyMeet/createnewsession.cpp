@@ -3,6 +3,7 @@
 #include "ErrorHandler.h"
 #include "DatabaseHandler.h"
 #include "AccountSingleton.h"
+#include "TableData.h"
 #include <ctime>
 
 CreateNewSession* CreateNewSession::instance = NULL;
@@ -33,6 +34,7 @@ void CreateNewSession::on_PublishSessionButton_clicked()
 	ErrorHandler *er;
 	DatabaseHandler * db;
 	AccountSingleton * loggedIn; 
+	TableData *td;
 	int sessionid;
 	int host;
 	int session_size;
@@ -41,6 +43,7 @@ void CreateNewSession::on_PublishSessionButton_clicked()
 	db = DatabaseHandler::get_instance();
 	er = ErrorHandler::get_instance();
 	loggedIn = AccountSingleton::get_instance();
+	td = TableData::get_instance();
 
 	subject = SubjectEntry->text().toStdString();
 	timeStart = timeStartEdit->text().toStdString();
@@ -63,6 +66,7 @@ void CreateNewSession::on_PublishSessionButton_clicked()
 
 	Session sess(sessionid_string, host, timeStart, 1, timeEnd, date, subject, location, session_size, description);
 
+	td->add_to_list(sess);
 	if (db->add_to_database(sess) == 0)
 		close();
 }

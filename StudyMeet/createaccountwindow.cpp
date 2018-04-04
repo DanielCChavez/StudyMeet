@@ -56,7 +56,7 @@ void CreateAccountWindow::on_createAccountButton_clicked()
 	{
 		id = rand() % 10000;
 	}
-
+	
 	Account account(username, password, firstName, lastName, dt,  gradeLevel, " ", id);
 	if(db->add_to_database(account) == 0)
 		close();

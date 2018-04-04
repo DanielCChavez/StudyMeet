@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "ui_viewsessions.h"
 #include "Session.h"
-//#include "TableData.h"
+#include "TableData.h"
 #include <QtWidgets\qmainwindow.h>
 
 class ViewSessions : public QWidget
@@ -17,7 +17,9 @@ public:
 	static ViewSessions*  Instance();
 	Session get_selected_session();
 	void set_selected_session(QTableWidgetItem* );
-	//Ui::ViewSessions get_ui() const { return ui; }
+	int populate_table();
+
+	TableData *td;
 
 public slots:
 void on_detailsButton_clicked(Session session);

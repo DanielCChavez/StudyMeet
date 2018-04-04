@@ -8,5 +8,6 @@ int main(int argc, char *argv[])
 	StudyMeet w;
 
 	w.show();
+
 	return a.exec();
 }

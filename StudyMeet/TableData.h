@@ -3,7 +3,6 @@
 #include "DatabaseHandler.h"
 #include <iterator>
 #include <string>
-//#include "viewsessions.h"
 
 class TableData
 {
@@ -12,9 +11,13 @@ public:
 
 	Session find_session(string);
 
-	//int fill_session_table(ViewSessions*, TableData*);
+	int add_to_list(Session);
 
-	TableData();
 	~TableData();
+	static TableData* get_instance();
+private:
+	TableData();
+protected:
+	static TableData *instance;
 };
 
