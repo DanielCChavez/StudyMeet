@@ -33,6 +33,8 @@ public:
 	int validate_account(std::string);
 	Account get_account(std::string username, std::string pass);
 	int validate_session(int);
+	int join_session(int, std::string);
+	int leave_session(int, std::string);
 
 protected:
 	static DatabaseHandler *inst;

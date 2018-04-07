@@ -336,3 +336,60 @@ int DatabaseHandler::validate_session(int sessID)
 
 	return 1;
 }
+
+int DatabaseHandler::join_session(int accID, std::string sessID)
+{
+	int currentNumberOfPeople;
+
+	query.prepare("UPDATE accounts"
+		"SET sessionID = :sessID"
+		"WHERE accountID = :accID");
+	query.bindValue(":accID", accID);
+	query.bindValue("sessID", sessID.c_str());
+	query.exec();
+
+	query.prepare("SELECT currentNumberOfPeople WHERE sessionID = :sessID");
+	query.bindValue(":sessID", sessID.c_str());
+	query.exec();
+
+	currentNumberOfPeople = query.value(0).toInt();
+	currentNumberOfPeople += 1;
+
+	query.prepare("UPDATE sessions"
+		"SET currentNumberOfPeople = :currentNumberOfPeople"
+		"WHERE sessionID = :sessID");
+	query.bindValue(":currentNumberOfPeople", currentNumberOfPeople);
+	query.bindValue(":sessID", sessID.c_str());
+	query.exec();
+
+	return 1;
+}
+
+int DatabaseHandler::leave_session(int accID, std::string sessID)
+{
+	std::string emptyString = "";
+	int currentNumberOfPeople;
+
+	query.prepare("UPDATE accounts"
+		"SET sessionID = :emptyString"
+		"WHERE accountID = :accID");
+	query.bindValue(":accID", accID);
+	query.bindValue("varNULL", emptyString.c_str());
+	query.exec();
+
+	query.prepare("SELECT currentNumberOfPeople WHERE sessionID = :sessID");
+	query.bindValue(":sessID", sessID.c_str());
+	query.exec();
+
+	currentNumberOfPeople = query.value(0).toInt();
+	currentNumberOfPeople -= currentNumberOfPeople;
+
+	query.prepare("UPDATE sessions"
+		"SET currentNumberOfPeople = :currentNumberOfPeople"
+		"WHERE sessionID = :sessID");
+	query.bindValue(":currentNumberOfPeople", currentNumberOfPeople);
+	query.bindValue(":sessID", sessID.c_str());
+	query.exec();
+	
+	return 1;
+}
