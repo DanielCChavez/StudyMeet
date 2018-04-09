@@ -13,6 +13,9 @@ public:
 	~DetailedStudySession();
 	void populate_fields();
 protected:
+
+	public slots :
+		void on_leaveButton_clicked();
 };
 
 #endif // DETAILEDSTUDYSESSION_H
