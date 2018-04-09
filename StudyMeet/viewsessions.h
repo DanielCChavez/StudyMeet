@@ -23,6 +23,7 @@ public:
 
 public slots:
 void on_detailsButton_clicked(Session session);
+void on_detailsButton_clicked();
 void on_createSessionButton_clicked();
 void on_sessionTable_itemClicked();
 void on_refreshButton_clicked();

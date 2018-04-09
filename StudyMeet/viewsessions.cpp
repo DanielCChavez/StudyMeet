@@ -127,6 +127,15 @@ void ViewSessions::set_selected_session(QTableWidgetItem* t)
     selected_session = td->find_session(t->text().QString::toStdString());
 }
 
+void ViewSessions::on_detailsButton_clicked()
+{
+	QTableWidgetItem *t = ui.sessionTable->item(ui.sessionTable->currentRow(), 0);
+	set_selected_session(t);
+	//on_detailsButton_clicked(get_selected_session());
+	DetailedStudySession *ds = new DetailedStudySession;
+	ds->show();
+}
+
 void ViewSessions::on_createSessionButton_clicked()
 {
 	CreateNewSession *cs = CreateNewSession::Instance();
@@ -146,7 +155,6 @@ void ViewSessions::on_detailsButton_clicked(Session session)
 	DetailedStudySession *ds = new DetailedStudySession;
 	ds->show();
 }
-
 
 void ViewSessions::on_refreshButton_clicked()
 {
