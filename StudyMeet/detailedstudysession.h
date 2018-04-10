@@ -14,8 +14,10 @@ public:
 	void populate_fields();
 protected:
 
-	public slots :
-		void on_leaveButton_clicked();
+public slots :
+	void on_leaveButton_clicked();
+	void on_deleteButton_clicked();
+	void on_joinButton_clicked();
 };
 
 #endif // DETAILEDSTUDYSESSION_H

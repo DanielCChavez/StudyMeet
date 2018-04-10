@@ -40,6 +40,17 @@ int TableData::add_to_list(Session s)
 	return 0;
 }
 
+int TableData::remove_from_list(string s)
+{
+	for (list<Session>::iterator it = listSessions.begin(); it != listSessions.end(); it++)
+	{
+		if (s == it->get_sessionID())
+			it = listSessions.erase(it);
+	}
+
+	return 0;
+}
+
 TableData::~TableData()
 {
 }
