@@ -14,7 +14,7 @@ Account::Account(string name, string pword, string fname, string lname, string d
 	lastName = lname;
 	dateCreated = dCreated;
 	gradeLevel = glevel;
-	sessionID = sessID;
+	sessionID = "";
 	accountID = accID;
 }
 
@@ -79,4 +79,9 @@ void Account::send_account_to_database(Account account)
 string Account::get_fullName()
 {
 	return firstName + " " + lastName;
+}
+
+void Account::set_sessionID(string id)
+{
+	sessionID = id;
 }

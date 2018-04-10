@@ -342,13 +342,22 @@ int DatabaseHandler::validate_session(int sessID)
 int DatabaseHandler::join_session(int accID, std::string sessID)
 {
 	int currentNumberOfPeople;
+	AccountSingleton *ac = AccountSingleton::get_instance();
 	
+	if (ac->is_in_session() != 0)
+	{
+		error_window->display_error("You are already in a session");
+		return 1;
+	}
+
 
 	query.prepare("UPDATE accounts "
 		"SET sessionID = :sessID "
 		"WHERE accountID = :accID");
 	query.bindValue(":accID", accID);
 	query.bindValue(":sessID", sessID.c_str());
+
+	ac->set_sessionID(sessID);
 	
 	if (!query.exec())
 	{
@@ -393,12 +402,16 @@ int DatabaseHandler::leave_session(int accID, std::string sessID)
 {
 	std::string emptyString = "";
 	int currentNumberOfPeople;
+	AccountSingleton *ac = AccountSingleton::get_instance();
 
 	query.prepare("UPDATE accounts "
 		"SET sessionID = :emptyString "
 		"WHERE accountID = :accID");
 	query.bindValue(":accID", accID);
 	query.bindValue(":emptyString", emptyString.c_str());
+
+	ac->set_sessionID(emptyString);
+
 	if (!query.exec())
 	{
 		error_window->display_error("1st leave");

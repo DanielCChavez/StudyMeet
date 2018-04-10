@@ -27,6 +27,7 @@ public:
 	int update_account(Account);
 	int remove_session(Session);
 	int is_host(Session);
+	int is_in_session(Account);
 	int load_all_sessions(std::list<Session>&);
 	int validate_account(std::string, std::string);
 	int validate_account(int);
