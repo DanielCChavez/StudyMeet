@@ -18,6 +18,8 @@ public:
 	Session get_selected_session();
 	void set_selected_session(QTableWidgetItem* );
 	int populate_table();
+	void set_hid(int);
+	int get_hid() const { return hid; }
 
 	TableData *td;
 
@@ -31,6 +33,7 @@ private:
 	Ui::ViewSessions ui;
 	Session selected_session;
 	//TableData *td;
+	int hid;
 protected:
 	static ViewSessions * instance; 
 };	

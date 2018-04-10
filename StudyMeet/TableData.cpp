@@ -9,8 +9,8 @@ Session TableData::find_session(string s)
 	{
 		if (s == to_string(it->get_hostId()))
 		{
-			ErrorHandler * err = ErrorHandler::get_instance();
-			err->display_error(QString::fromStdString((*it).get_location()));
+			//ErrorHandler * err = ErrorHandler::get_instance();
+			//err->display_error(QString::fromStdString((*it).get_location()));
 			return *it;
 		}
 	}
@@ -21,9 +21,17 @@ Session TableData::find_session(string s)
 
 TableData::TableData()
 {
+	get_data();
+}
+
+int TableData::get_data()
+{
 	DatabaseHandler* handler = DatabaseHandler::get_instance();
 	handler->load_all_sessions(listSessions);
+
+	return 0;
 }
+
 
 TableData* TableData::get_instance()
 {

@@ -75,3 +75,8 @@ void Account::send_account_to_database(Account account)
 	DatabaseHandler* handler = DatabaseHandler::get_instance();
 	handler->add_to_database(account);
 }
+
+string Account::get_fullName()
+{
+	return firstName + " " + lastName;
+}

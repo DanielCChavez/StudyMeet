@@ -23,6 +23,9 @@ void DetailedStudySession::populate_fields()
 	ViewSessions *vs = ViewSessions::Instance();
 	Session se = vs->get_selected_session();
 
+	ErrorHandler *er = ErrorHandler::get_instance();
+	//er->display_error(QString::fromStdString(se.get_description()));
+
 	hostEdit->setText(QString::number(se.get_hostId()));
 	subjectEdit->setText(QString::fromStdString(se.get_subject()));
 	startTimeEdit->setText(QString::fromStdString(se.get_timestart()));
@@ -43,16 +46,16 @@ void DetailedStudySession::on_leaveButton_clicked()
 	ErrorHandler * er = ErrorHandler::get_instance();
 	int check;
 
-	check = db->leave_session(account->get_accountID(),se.get_sessionID());
+	check = db->leave_session(account->get_account().get_accountID(),se.get_sessionID());
 	//grab the current user id of the account 
 	//grab the session id of the selected session
 	//call the database function to remove the user from the session 
 	//function to remove the user from database: leave_session(int accID, string sessID);
 	
 	//if leave_session == 1 run the error handler
-	if (check == 1) {
+	if (check == 0) {
 		er->display_error("left the session");
-	   close();
+		close();
 	}
 	else
 	{
@@ -99,14 +102,24 @@ void DetailedStudySession::on_joinButton_clicked()
 	int check, join;
 
 	//check if account is already in a session
-	check = db->validate_session(stoi(account->get_sessionID()));
-	if(check == 1)
-	{
-		er->display_error("already in a session");
-		return;
-	}
+	//check = db->validate_session(stoi((account->get_account()).get_accountID()));
+	//if(check == 1)
+	//{
+	//	er->display_error("already in a session");
+		//return;
+	//}
 
-	join = db->join_session(account->get_accountID(), se.get_sessionID());
-	er->display_error("succesfully joined session");
+	er->display_error(QString::number((account->get_account().get_accountID())));
+	er->display_error(QString::fromStdString(se.get_sessionID()));
+
+	join = db->join_session((account->get_account()).get_accountID(), se.get_sessionID());
+	if (join == 1)
+		er->display_error("first ");
+	else if (join == 2)
+		er->display_error("second");
+	else if (join == 3)
+		er->display_error("third");
+	else
+		er->display_error("succesfully joined session");
 	return;
 }

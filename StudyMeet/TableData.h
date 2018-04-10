@@ -13,6 +13,7 @@ public:
 
 	int add_to_list(Session);
 	int remove_from_list(string);
+	int get_data();
 
 	~TableData();
 	static TableData* get_instance();

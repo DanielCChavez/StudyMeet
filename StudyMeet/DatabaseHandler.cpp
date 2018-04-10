@@ -192,11 +192,13 @@ int DatabaseHandler::is_host(Session s)
 	return 1;
 
 }
+
 int DatabaseHandler::load_all_sessions(list<Session>& listS)
 {
 	string sessionID, timeStart, timeEnd, subject, location, description, date;
 	int hostID, maximumCapacityOfPeople, currentNumberOfPeople;
-
+	
+	listS.clear();
 
 	query.exec("SELECT * FROM sessions");
 
@@ -340,29 +342,51 @@ int DatabaseHandler::validate_session(int sessID)
 int DatabaseHandler::join_session(int accID, std::string sessID)
 {
 	int currentNumberOfPeople;
+	
 
-	query.prepare("UPDATE accounts"
-		"SET sessionID = :sessID"
+	query.prepare("UPDATE accounts "
+		"SET sessionID = :sessID "
 		"WHERE accountID = :accID");
 	query.bindValue(":accID", accID);
-	query.bindValue("sessID", sessID.c_str());
-	query.exec();
-
-	query.prepare("SELECT currentNumberOfPeople WHERE sessionID = :sessID");
 	query.bindValue(":sessID", sessID.c_str());
-	query.exec();
+	
+	if (!query.exec())
+	{
+		error_window->display_error(query.lastError().text());
+		return 1;
+	}
 
-	currentNumberOfPeople = query.value(0).toInt();
-	currentNumberOfPeople += 1;
+	query.prepare("SELECT currentNumberOfPeople FROM sessions WHERE sessionID = :sessID");
+	query.bindValue(":sessID", sessID.c_str());
+	//query.exec();
+	if (!query.exec())
+	{
+		error_window->display_error(query.lastError().text());
+		return 2;
+	}
 
-	query.prepare("UPDATE sessions"
-		"SET currentNumberOfPeople = :currentNumberOfPeople"
+	while (query.next())
+	{
+		currentNumberOfPeople = query.value(0).toInt();
+		currentNumberOfPeople += 1;
+	}
+
+	//currentNumberOfPeople = query.value(0).toInt();
+	error_window->display_error(QString::number(currentNumberOfPeople));
+	//currentNumberOfPeople += 1;
+
+	query.prepare("UPDATE sessions "
+		"SET currentNumberOfPeople = :numPeople "
 		"WHERE sessionID = :sessID");
-	query.bindValue(":currentNumberOfPeople", currentNumberOfPeople);
+	query.bindValue(":numPeople", currentNumberOfPeople);
 	query.bindValue(":sessID", sessID.c_str());
-	query.exec();
-
-	return 1;
+	//query.exec();
+	if (!query.exec())
+	{
+		error_window->display_error(query.lastError().text());
+		return 3;
+	}
+	return 0;
 }
 
 int DatabaseHandler::leave_session(int accID, std::string sessID)
@@ -370,26 +394,73 @@ int DatabaseHandler::leave_session(int accID, std::string sessID)
 	std::string emptyString = "";
 	int currentNumberOfPeople;
 
-	query.prepare("UPDATE accounts"
-		"SET sessionID = :emptyString"
+	query.prepare("UPDATE accounts "
+		"SET sessionID = :emptyString "
 		"WHERE accountID = :accID");
 	query.bindValue(":accID", accID);
-	query.bindValue("varNULL", emptyString.c_str());
-	query.exec();
-
-	query.prepare("SELECT currentNumberOfPeople WHERE sessionID = :sessID");
+	query.bindValue(":emptyString", emptyString.c_str());
+	if (!query.exec())
+	{
+		error_window->display_error("1st leave");
+		return 1;
+	}
+	query.prepare("SELECT currentNumberOfPeople FROM sessions WHERE sessionID = :sessID");
 	query.bindValue(":sessID", sessID.c_str());
-	query.exec();
-
-	currentNumberOfPeople = query.value(0).toInt();
-	currentNumberOfPeople -= currentNumberOfPeople;
-
-	query.prepare("UPDATE sessions"
-		"SET currentNumberOfPeople = :currentNumberOfPeople"
-		"WHERE sessionID = :sessID");
-	query.bindValue(":currentNumberOfPeople", currentNumberOfPeople);
-	query.bindValue(":sessID", sessID.c_str());
-	query.exec();
 	
-	return 1;
+	if (!query.exec())
+	{
+		error_window->display_error("2nd leave");
+		return 1;
+	}
+	while (query.next())
+	{
+		currentNumberOfPeople = query.value(0).toInt();
+		currentNumberOfPeople -= 1;
+	}
+
+
+	query.prepare("UPDATE sessions "
+		"SET currentNumberOfPeople = :numPeople "
+		"WHERE sessionID = :sessID");
+	query.bindValue(":numPeople", currentNumberOfPeople);
+	query.bindValue(":sessID", sessID.c_str());
+	if (!query.exec())
+	{
+		error_window->display_error("3rd leave");
+		return 1;
+	}
+	
+	return 0;
+}
+
+Account DatabaseHandler::get_account(int id)
+{
+
+	QString result;
+	string user, password, firstName, lastName, dateCreated, gradeLevel, sessionID;
+	int accountID;
+
+	if (validate_account(id) != 0)
+	{
+		return Account("ERRORUSERNAME", "ERRORPASSWORD", "ERRORFIRSTNAME", "ERRORLASTNAME",
+			"ERRORDATECREATED", "ERRORGRADELEVEL", "ERRORSESSIONID", -1);
+	}
+
+	query.prepare("select * from accounts where accountID = :accID");
+	query.bindValue(":accID", id);
+	query.exec();
+
+	while (query.next())
+	{
+		user = query.value(1).toString().toStdString();
+		password = query.value(2).toString().toStdString();
+		firstName = query.value(3).toString().toStdString();
+		lastName = query.value(4).toString().toStdString();
+		dateCreated = query.value(5).toString().toStdString();
+		gradeLevel = query.value(6).toString().toStdString();
+		sessionID = query.value(7).toString().toStdString();
+		accountID = query.value(0).toInt();
+	}
+
+	return Account(user, password, firstName, lastName, dateCreated, gradeLevel, sessionID, accountID);
 }

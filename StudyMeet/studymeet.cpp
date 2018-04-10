@@ -18,8 +18,8 @@ StudyMeet::StudyMeet(QWidget *parent)
 
 	ww->setWindowModality(Qt::WindowModality::ApplicationModal);
 	login_window->setWindowModality(Qt::WindowModality::ApplicationModal);
-	ww->show();
-	ww->close();
+	//ww->show();
+	//ww->close();
 	login_window->show();
 }
 
