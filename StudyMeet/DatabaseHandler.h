@@ -5,6 +5,7 @@
 #include "ErrorHandler.h"
 #include "Account.h"
 #include "Session.h"
+#include "AccountSingleton.h"
 
 class DatabaseHandler
 {
@@ -24,7 +25,7 @@ public:
 	int add_to_database(Session);
 	int add_to_database(Account);
 	int update_session(Session);
-	int update_account(Account);
+	int update_account(AccountSingleton*);
 	int remove_session(Session);
 	int is_host(Session);
 	int is_in_session(Account);

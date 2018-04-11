@@ -115,7 +115,9 @@ int DatabaseHandler::add_to_database(Session s)
 	}
 
 	ac->set_sessionID(s.get_sessionID());
-	update_account(*ac);
+	if (update_account(ac) != 0)
+		error_window->display_error("Error updating account sessionID");
+
 
 	return 0;
 }
@@ -149,15 +151,18 @@ int DatabaseHandler::update_session(Session s)
 
 // Return 0 if successfull updated account
 // 1 otherwise
-int DatabaseHandler::update_account(Account acc)
+int DatabaseHandler::update_account(AccountSingleton *acc)
 {
-	query.prepare("UPDATE users"
-		"SET sessionID = :sessID, password = :password "
-		"WHERE accountID = :accountID");
+	query.prepare("UPDATE accounts "
+		"SET sessionID = :sessID "
+		"WHERE accountID = :accID");
 
 
-	query.bindValue(":accountID", acc.get_accountID());
-	query.bindValue(":sessID", acc.get_sessionID().c_str());
+	query.bindValue(":accID", acc->get_account().get_accountID());
+	query.bindValue(":sessID", acc->get_account().get_sessionID().c_str());
+
+	error_window->display_error("accID: " + QString::number(acc->get_account().get_accountID()));
+	error_window->display_error("sessID: " + QString::fromStdString(acc->get_account().get_sessionID()));
 
 
 	if (!query.exec())

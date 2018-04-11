@@ -86,8 +86,8 @@ void DetailedStudySession::on_deleteButton_clicked()
 	}
 	else
 	{
-		td->remove_from_list(se.get_sessionID());
-
+		//td->remove_from_list(se.get_sessionID());
+		account->set_sessionID("");
 		er->display_error("session succesfully removed");
 	}
 	return;
