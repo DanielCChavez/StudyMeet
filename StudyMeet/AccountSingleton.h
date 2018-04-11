@@ -11,7 +11,7 @@ public:
 	Account get_account() const { return logged_in; }
 	void set_account(Account);
 	void set_sessionID(std::string);
-	std::string get_sessionID() { return Account::get_sessionID(); }
+	std::string get_sessionID() { return logged_in.get_sessionID(); }
 	int is_in_session();
 private:
 	AccountSingleton();

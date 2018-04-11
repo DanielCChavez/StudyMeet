@@ -87,6 +87,7 @@ void DetailedStudySession::on_deleteButton_clicked()
 	else
 	{
 		td->remove_from_list(se.get_sessionID());
+
 		er->display_error("session succesfully removed");
 	}
 	return;
@@ -109,8 +110,8 @@ void DetailedStudySession::on_joinButton_clicked()
 		//return;
 	//}
 
-	er->display_error(QString::number((account->get_account().get_accountID())));
-	er->display_error(QString::fromStdString(se.get_sessionID()));
+	//er->display_error(QString::number((account->get_account().get_accountID())));
+	//er->display_error(QString::fromStdString(se.get_sessionID()));
 
 	join = db->join_session((account->get_account()).get_accountID(), se.get_sessionID());
 	if (join == 1)

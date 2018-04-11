@@ -2,7 +2,7 @@
 #include "Session.h"
 #include "detailedstudysession.h"
 #include "createnewsession.h"
-
+#include "ErrorHandler.h"
 #include <iterator>
 #include "TableData.h"
 
@@ -136,7 +136,14 @@ void ViewSessions::set_selected_session(QTableWidgetItem* t)
 
 void ViewSessions::on_detailsButton_clicked()
 {
-	QTableWidgetItem *t = ui.sessionTable->item(ui.sessionTable->currentRow(), 6);
+	QTableWidgetItem *t;// = ui.sessionTable->item(ui.sessionTable->currentRow(), 6);
+	ErrorHandler *er = ErrorHandler::get_instance();
+	
+	if ((t = ui.sessionTable->item(ui.sessionTable->currentRow(), 6)) == 0)
+	{
+		er->display_error("No session selected");
+		return;
+	}
 	set_selected_session(t);
 	//on_detailsButton_clicked(get_selected_session());
 	DetailedStudySession *ds = new DetailedStudySession;

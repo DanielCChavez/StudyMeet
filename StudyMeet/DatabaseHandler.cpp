@@ -85,6 +85,14 @@ int DatabaseHandler::add_to_database(Account acc)
 // 1 on error in execution of query
 int DatabaseHandler::add_to_database(Session s)
 {
+	AccountSingleton *ac = AccountSingleton::get_instance();
+
+	if (ac->get_sessionID() != "")
+	{
+		error_window->display_error("You cannot host more than one session.");
+		return 1;
+	}
+
 	query.prepare("INSERT INTO sessions (sessionID, hostId, timeStart, timeEnd, "
 		"maximumCapacityOfPeople, subject, location, description, currentNumberOfPeople, sessionDate) "
 		"VALUES (:sessionID, :hostID, :timeStart, :timeEnd, :maximumCapacityOfPeople, "
@@ -105,6 +113,9 @@ int DatabaseHandler::add_to_database(Session s)
 		error_window->display_error(query.lastError().text());
 		return 1;
 	}
+
+	ac->set_sessionID(s.get_sessionID());
+	update_account(*ac);
 
 	return 0;
 }
@@ -141,12 +152,12 @@ int DatabaseHandler::update_session(Session s)
 int DatabaseHandler::update_account(Account acc)
 {
 	query.prepare("UPDATE users"
-		"SET username = :username, password = :password "
+		"SET sessionID = :sessID, password = :password "
 		"WHERE accountID = :accountID");
 
 
 	query.bindValue(":accountID", acc.get_accountID());
-	query.bindValue(":username", acc.get_username().c_str());
+	query.bindValue(":sessID", acc.get_sessionID().c_str());
 
 
 	if (!query.exec())
@@ -342,6 +353,7 @@ int DatabaseHandler::validate_session(int sessID)
 int DatabaseHandler::join_session(int accID, std::string sessID)
 {
 	int currentNumberOfPeople;
+	int maximum;
 	AccountSingleton *ac = AccountSingleton::get_instance();
 	
 	if (ac->is_in_session() != 0)
@@ -365,7 +377,8 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 		return 1;
 	}
 
-	query.prepare("SELECT currentNumberOfPeople FROM sessions WHERE sessionID = :sessID");
+	query.prepare("SELECT currentNumberOfPeople, maximumCapacityOfPeople "
+		"FROM sessions WHERE sessionID = :sessID");
 	query.bindValue(":sessID", sessID.c_str());
 	//query.exec();
 	if (!query.exec())
@@ -377,11 +390,18 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 	while (query.next())
 	{
 		currentNumberOfPeople = query.value(0).toInt();
+		maximum = query.value(1).toInt();
+
+		if (currentNumberOfPeople >= maximum)
+		{
+			error_window->display_error("Session at maximum capacity");
+			return 1;
+		}
 		currentNumberOfPeople += 1;
 	}
 
 	//currentNumberOfPeople = query.value(0).toInt();
-	error_window->display_error(QString::number(currentNumberOfPeople));
+	//error_window->display_error(QString::number(currentNumberOfPeople));
 	//currentNumberOfPeople += 1;
 
 	query.prepare("UPDATE sessions "
@@ -403,6 +423,12 @@ int DatabaseHandler::leave_session(int accID, std::string sessID)
 	std::string emptyString = "";
 	int currentNumberOfPeople;
 	AccountSingleton *ac = AccountSingleton::get_instance();
+
+	if (ac->get_sessionID() != sessID)
+	{
+		error_window->display_error("You are not in this session");
+		return 1;
+	}
 
 	query.prepare("UPDATE accounts "
 		"SET sessionID = :emptyString "
