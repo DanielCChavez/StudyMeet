@@ -114,12 +114,15 @@ void DetailedStudySession::on_joinButton_clicked()
 	//er->display_error(QString::fromStdString(se.get_sessionID()));
 
 	join = db->join_session((account->get_account()).get_accountID(), se.get_sessionID());
-	if (join == 1)
-		er->display_error("first ");
+	if (join != 0)
+		er->display_error("Error Joining ");
+
+	/*
 	else if (join == 2)
 		er->display_error("second");
 	else if (join == 3)
 		er->display_error("third");
+		*/
 	else
 		er->display_error("succesfully joined session");
 	return;

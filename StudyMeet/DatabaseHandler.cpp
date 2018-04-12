@@ -161,8 +161,8 @@ int DatabaseHandler::update_account(AccountSingleton *acc)
 	query.bindValue(":accID", acc->get_account().get_accountID());
 	query.bindValue(":sessID", acc->get_account().get_sessionID().c_str());
 
-	error_window->display_error("accID: " + QString::number(acc->get_account().get_accountID()));
-	error_window->display_error("sessID: " + QString::fromStdString(acc->get_account().get_sessionID()));
+	//error_window->display_error("accID: " + QString::number(acc->get_account().get_accountID()));
+	//error_window->display_error("sessID: " + QString::fromStdString(acc->get_account().get_sessionID()));
 
 
 	if (!query.exec())
@@ -180,12 +180,24 @@ int DatabaseHandler::update_account(AccountSingleton *acc)
 // Return 0 if successfully removes record
 int DatabaseHandler::remove_session(Session s)
 {
+	std:string estring = "";
+
 	if (is_host(s) != 0)
 		return 1;
 	
 	
 	query.prepare("DELETE FROM sessions WHERE hostId = :hostId");
 	query.bindValue(":hostId", s.get_hostId());
+
+	if (!query.exec())
+	{
+		error_window->display_error(query.lastError().text());
+		return 2;
+	}
+
+	query.prepare("UPDATE accounts SET sessionID = :estr where sessionID = :sessID");
+	query.bindValue(":estr", estring.c_str());
+	query.bindValue(":sessID", s.get_sessionID().c_str());
 
 	if (!query.exec())
 	{

@@ -54,7 +54,7 @@ void CreateNewSession::on_PublishSessionButton_clicked()
 	session_size = sizeOfSessionEdit->text().toInt();
 	host = loggedIn->get_account().get_accountID();
 	
-	er->display_error(dateEdit->date().toString());
+	//er->display_error(dateEdit->date().toString());
 
 
 	srand(time(NULL));
