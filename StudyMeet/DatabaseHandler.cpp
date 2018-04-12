@@ -465,7 +465,7 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 		return 3;
 	}
 
-	//sync_account(ac);
+	sync_account(ac);
 
 	dec_lock();
 
@@ -525,7 +525,7 @@ int DatabaseHandler::leave_session(int accID, std::string sessID)
 		return 1;
 	}
 
-	//sync_account(ac);
+	sync_account(ac);
 	dec_lock();
 	return 0;
 }

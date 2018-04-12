@@ -157,12 +157,12 @@ void ViewSessions::on_refreshButton_clicked()
 	DatabaseHandler *db = DatabaseHandler::get_instance();
 	AccountSingleton *ac = AccountSingleton::get_instance();
 
-	while (db->get_lock() != 0)
-		;
+	//while (db->get_lock() != 0)
+		//;
 
 	td->get_data();
 	populate_table();
-	db->sync_account(ac);
+	//db->sync_account(ac);
 }
 
 void ViewSessions::set_hid(int id)
