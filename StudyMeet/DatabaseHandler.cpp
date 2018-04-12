@@ -93,6 +93,8 @@ int DatabaseHandler::add_to_database(Session s)
 	inc_lock();
 	AccountSingleton *ac = AccountSingleton::get_instance();
 
+	sync_account(ac);
+
 	if (ac->get_sessionID() != "")
 	{
 		error_window->display_error("You cannot host more than one session.");
@@ -405,6 +407,8 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 	int maximum;
 	AccountSingleton *ac = AccountSingleton::get_instance();
 	
+	sync_account(ac);
+
 	if (ac->is_in_session() != 0)
 	{
 		error_window->display_error("You are already in a session");
@@ -465,7 +469,7 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 		return 3;
 	}
 
-	sync_account(ac);
+	//sync_account(ac);
 
 	dec_lock();
 
@@ -479,6 +483,8 @@ int DatabaseHandler::leave_session(int accID, std::string sessID)
 	std::string emptyString = "";
 	int currentNumberOfPeople;
 	AccountSingleton *ac = AccountSingleton::get_instance();
+
+	sync_account(ac);
 
 	if (ac->get_sessionID() != sessID)
 	{
