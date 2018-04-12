@@ -38,6 +38,7 @@ public:
 	int validate_session(int);
 	int join_session(int, std::string);
 	int leave_session(int, std::string);
+	int sync_account(AccountSingleton*);
 
 protected:
 	static DatabaseHandler *inst;

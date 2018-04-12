@@ -5,6 +5,7 @@
 #include "ErrorHandler.h"
 #include <iterator>
 #include "TableData.h"
+#include <QTimer>
 
 ViewSessions* ViewSessions::instance = NULL;
 
@@ -30,31 +31,12 @@ ViewSessions::ViewSessions(QWidget *parent)
 
 	ui.setupUi(this);
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
-	//td->listSessions.clear();
-	//ui.sessionTable->clearContents();
-	//td->fill_session_table(this, td);
-		//Testing the listSession from Table Data
+	
+	QTimer *timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(on_refreshButton_clicked()));
+	timer->start(1000);
 
-	/*
-	for (it = TD.listSessions.begin(); it != TD.listSessions.end(); it++)
-	{
-		ui.sessionTable->insertRow(ui.sessionTable->rowCount());
-		timeStart = QString::fromStdString(it->get_timestart());
-		timeEnd = QString::fromStdString(it->get_timeend());
-		date = QString::fromStdString(it->get_date());
-		subject = QString::fromStdString(it->get_subject());
-		id = QString::number(it->get_hostId());
-		location = QString::fromStdString(it->get_location());
 
-		row = ui.sessionTable->rowCount() - 1;
-		ui.sessionTable->setItem(row, 2, new QTableWidgetItem(timeStart));
-		ui.sessionTable->setItem(row, 1, new QTableWidgetItem(subject));
-		ui.sessionTable->setItem(row, 0, new QTableWidgetItem(id));
-		ui.sessionTable->setItem(row, 3, new QTableWidgetItem(timeEnd));
-		ui.sessionTable->setItem(row, 4, new QTableWidgetItem(date));
-		ui.sessionTable->setItem(row, 5, new QTableWidgetItem(location));
-	}
-	*/
 }
 
 
@@ -172,8 +154,12 @@ void ViewSessions::on_detailsButton_clicked(Session session)
 
 void ViewSessions::on_refreshButton_clicked()
 {
+	DatabaseHandler *db = DatabaseHandler::get_instance();
+	AccountSingleton *ac = AccountSingleton::get_instance();
+
 	td->get_data();
 	populate_table();
+	db->sync_account(ac);
 }
 
 void ViewSessions::set_hid(int id)

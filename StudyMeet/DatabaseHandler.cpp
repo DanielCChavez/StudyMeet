@@ -520,3 +520,28 @@ Account DatabaseHandler::get_account(int id)
 
 	return Account(user, password, firstName, lastName, dateCreated, gradeLevel, sessionID, accountID);
 }
+
+int DatabaseHandler::sync_account(AccountSingleton *acc)
+{
+	QString sessID;
+	string accID;
+
+	accID = acc->get_account().get_accountID();
+
+	query.prepare("SELECT sessionID FROM accounts WHERE accountID = :accID");
+	query.bindValue(":accID", accID.c_str());
+
+	if (!query.exec())
+	{
+		error_window->display_error(query.lastError().text());
+		return 1;
+	}
+
+	while (query.next())
+	{
+		sessID = query.value(0).toString();
+	}
+
+	acc->set_sessionID(sessID.toStdString());
+	return 0;
+}
