@@ -15,6 +15,9 @@ private:
 	QSqlQuery query;
 	int connection_status;
 
+	int lock;
+
+
 	DatabaseHandler();
 	int connect();
 	int is_open();
@@ -39,6 +42,9 @@ public:
 	int join_session(int, std::string);
 	int leave_session(int, std::string);
 	int sync_account(AccountSingleton*);
+	void inc_lock();
+	void dec_lock();
+	int get_lock() const { return lock; }
 
 protected:
 	static DatabaseHandler *inst;

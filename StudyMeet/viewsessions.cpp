@@ -34,7 +34,7 @@ ViewSessions::ViewSessions(QWidget *parent)
 	
 	QTimer *timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(on_refreshButton_clicked()));
-	timer->start(1000);
+	timer->start(3000);
 
 
 }
@@ -156,6 +156,9 @@ void ViewSessions::on_refreshButton_clicked()
 {
 	DatabaseHandler *db = DatabaseHandler::get_instance();
 	AccountSingleton *ac = AccountSingleton::get_instance();
+
+	while (db->get_lock() != 0)
+		;
 
 	td->get_data();
 	populate_table();
