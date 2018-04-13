@@ -36,7 +36,7 @@ public:
 	int validate_account(std::string, std::string);
 	int validate_account(int);
 	int validate_account(std::string);
-	Account get_account(std::string username, std::string pass);
+	int get_account(std::string username, std::string pass, Account&);
 	Account get_account(int);
 	int validate_session(int);
 	int join_session(int, std::string);

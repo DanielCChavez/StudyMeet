@@ -41,7 +41,7 @@ void Login::on_loginButton_clicked()
 	int response = 0;
 
 	response = db->validate_account(username.toStdString(), password.toStdString());
-	acc_singleton->set_account(db->get_account(username.toStdString(), password.toStdString()));
+	acc_singleton->set_account(username.toStdString(), password.toStdString());
 
 	
 	if (response == 0)

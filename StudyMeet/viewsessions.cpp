@@ -32,11 +32,13 @@ ViewSessions::ViewSessions(QWidget *parent)
 	ui.setupUi(this);
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	
+	/*
+
 	QTimer *timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(on_refreshButton_clicked()));
 	timer->start(3000);
 
-
+	*/
 }
 
 
