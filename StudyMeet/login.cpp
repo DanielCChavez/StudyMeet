@@ -33,20 +33,25 @@ Login* Login::get_instance()
 
 void Login::on_loginButton_clicked()
 {
-	DatabaseHandler *db = DatabaseHandler::get_instance();
-	ErrorHandler *err = ErrorHandler::get_instance();
-	AccountSingleton *acc_singleton = AccountSingleton::get_instance();
-	QString username = usernameEdit->text();
-	QString password = passwordEdit->text();
-	int response = 0;
+	DatabaseHandler *db;
+	ErrorHandler *err;
+	AccountSingleton *acc;
+	QString username, password;
+	int response;
 
+	db = DatabaseHandler::get_instance();
+	err = ErrorHandler::get_instance();
+	acc = AccountSingleton::get_instance();
+	username = usernameEdit->text();
+	password = passwordEdit->text();
+
+	response = 0;
 	response = db->validate_account(username.toStdString(), password.toStdString());
-	acc_singleton->set_account(username.toStdString(), password.toStdString());
+	acc->set_account(username.toStdString(), password.toStdString());
 
 	
 	if (response == 0)
 	{
-		//err->display_error("validated account!");
 		close();
 	}
 	else

@@ -12,10 +12,16 @@ public:
 	CreateNewSession(QWidget *parent = 0);
 	~CreateNewSession();
 	static CreateNewSession* Instance(); 
+
 protected:
 	static CreateNewSession* instance; 
+
+private:
+	void clear_fields();
+
 public slots: 
-void on_PublishSessionButton_clicked();
+	void on_PublishSessionButton_clicked();
+	void on_CancelButton_clicked();
 
 };
 

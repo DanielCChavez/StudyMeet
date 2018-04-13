@@ -9,13 +9,14 @@ Session TableData::find_session(string s)
 	{
 		if (s == to_string(it->get_hostId()))
 		{
-			//ErrorHandler * err = ErrorHandler::get_instance();
-			//err->display_error(QString::fromStdString((*it).get_location()));
 			return *it;
 		}
 	}
+
+	//Not found, return "error" session
 	Session se("ERRORID", -1, "ERRORTIMESTART", -1, "ERRORTIMEEND","ERRORDATE", "ERRORSUBJECT", "ERRORLOCATION", 
 		-1, "ERROR DESCRIPTION");
+	
 	return se;
 }
 

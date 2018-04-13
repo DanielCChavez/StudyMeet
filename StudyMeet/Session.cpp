@@ -4,19 +4,30 @@
 
 Session::Session()
 {
+	sessionID = "DEFAULTSESSIONID";
+	timeStart = "DEFAULTTIMESTART";
+	timeEnd = "DEFAULTTIMEEND";
+	sessionDate = "DEFAULTSESSIONDATE";
+	subject = "DEFAULTSUBJECT";
+	location = "DEFAULTLOCATION";
+	description = "DEFAULTDESCRIPTION";
+	hostID = -1;
+	currentNumberOfPeople = -1;
+	limitNumberOfPeople = -1;
 }
 
-Session::Session(string sId, int hId , string tS, int nOP, string tE, string date, string sub, string loc, int tNOP, string desc)
+Session::Session(string sessID, int hID , string timeS, int numOfPeople, 
+	string timeE, string date, string subj, string loc, int limit, string desc)
 {
-	sessionID = sId;
-	hostId = hId; 
-	timeStart = tS; 
-	currentNumberOfPeople = nOP; 
-	sessiondate = date;
-	timeEnd = tE; 
-	subject = sub; 
+	sessionID = sessID;
+	hostID = hID; 
+	sessionDate = date;
+	timeStart = timeS;
+	timeEnd = timeE; 
+	subject = subj; 
 	location = loc; 
-	maximumCapacityOfPeople = tNOP; 
+	currentNumberOfPeople = numOfPeople;
+	limitNumberOfPeople = limit; 
 	description = desc; 
 }
 
@@ -46,7 +57,7 @@ string Session::get_sessionID()
 
 int Session::get_hostId()
 {
-	return hostId;
+	return hostID;
 }
 
 string Session::get_timestart()
@@ -54,7 +65,7 @@ string Session::get_timestart()
 	return timeStart;
 }
 
-int Session::get_currentnumberofpeopleinsession()
+int Session::get_currentNumberOfPeople()
 {
 	return currentNumberOfPeople;
 }
@@ -74,9 +85,9 @@ string Session::get_location()
 	return location;
 }
 
-int Session::get_maximumcapacityofpeopleinsession()
+int Session::get_limitNumberOfPeople()
 {
-	return maximumCapacityOfPeople;
+	return limitNumberOfPeople;
 }
 
 list<Account> Session::get_listofpeople()
@@ -91,5 +102,5 @@ string Session::get_description()
 
 string Session::get_date()
 {
-	return sessiondate;
+	return sessionDate;
 }

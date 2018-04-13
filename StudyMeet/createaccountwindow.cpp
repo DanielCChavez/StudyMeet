@@ -32,6 +32,8 @@ void CreateAccountWindow::on_createAccountButton_clicked()
 	db = DatabaseHandler::get_instance();
 	now = time(0);
 	dt = ctime(&now);
+	
+	// Grab GUI text fields
 	username = usernameEdit->text().toStdString();
 	password = passwordEdit->text().toStdString();
 	confirmPassword = confirmpasswordEdit->text().toStdString();
@@ -58,7 +60,9 @@ void CreateAccountWindow::on_createAccountButton_clicked()
 	}
 	
 	Account account(username, password, firstName, lastName, dt,  gradeLevel, "", id);
+	
 	if(db->add_to_database(account) == 0)
 		close();
+	
 	return;
 }

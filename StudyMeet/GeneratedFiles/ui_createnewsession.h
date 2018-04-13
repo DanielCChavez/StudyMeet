@@ -9,15 +9,18 @@
 #ifndef UI_CREATENEWSESSION_H
 #define UI_CREATENEWSESSION_H
 
+#include <QtCore/QDate>
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QTimeEdit>
 #include <QtWidgets/QWidget>
@@ -29,12 +32,10 @@ class Ui_CreateNewSession
 public:
     QLabel *timeEndLabel;
     QLabel *SubjectLabel;
-    QLineEdit *SubjectEntry;
     QLabel *timeStartLabel;
     QLabel *LocationLabel;
     QLineEdit *LocationEdit;
     QLabel *sizeofSessionLabel;
-    QLineEdit *sizeOfSessionEdit;
     QLabel *DescriptionLabel;
     QPushButton *PublishSessionButton;
     QTextEdit *DesciptionEdit;
@@ -43,6 +44,8 @@ public:
     QTimeEdit *timeEndEdit;
     QDateEdit *dateEdit;
     QLabel *DateLabel;
+    QComboBox *subjectBox;
+    QSpinBox *numberBox;
 
     void setupUi(QWidget *CreateNewSession)
     {
@@ -55,9 +58,6 @@ public:
         SubjectLabel = new QLabel(CreateNewSession);
         SubjectLabel->setObjectName(QStringLiteral("SubjectLabel"));
         SubjectLabel->setGeometry(QRect(50, 30, 55, 16));
-        SubjectEntry = new QLineEdit(CreateNewSession);
-        SubjectEntry->setObjectName(QStringLiteral("SubjectEntry"));
-        SubjectEntry->setGeometry(QRect(110, 30, 113, 22));
         timeStartLabel = new QLabel(CreateNewSession);
         timeStartLabel->setObjectName(QStringLiteral("timeStartLabel"));
         timeStartLabel->setGeometry(QRect(40, 60, 81, 20));
@@ -70,9 +70,6 @@ public:
         sizeofSessionLabel = new QLabel(CreateNewSession);
         sizeofSessionLabel->setObjectName(QStringLiteral("sizeofSessionLabel"));
         sizeofSessionLabel->setGeometry(QRect(60, 130, 41, 20));
-        sizeOfSessionEdit = new QLineEdit(CreateNewSession);
-        sizeOfSessionEdit->setObjectName(QStringLiteral("sizeOfSessionEdit"));
-        sizeOfSessionEdit->setGeometry(QRect(110, 130, 113, 22));
         DescriptionLabel = new QLabel(CreateNewSession);
         DescriptionLabel->setObjectName(QStringLiteral("DescriptionLabel"));
         DescriptionLabel->setGeometry(QRect(50, 190, 71, 16));
@@ -96,16 +93,25 @@ public:
         dateEdit = new QDateEdit(CreateNewSession);
         dateEdit->setObjectName(QStringLiteral("dateEdit"));
         dateEdit->setGeometry(QRect(510, 60, 110, 22));
+        dateEdit->setMaximumDate(QDate(7999, 12, 30));
         dateEdit->setCalendarPopup(true);
         DateLabel = new QLabel(CreateNewSession);
         DateLabel->setObjectName(QStringLiteral("DateLabel"));
         DateLabel->setGeometry(QRect(460, 60, 55, 16));
-        QWidget::setTabOrder(SubjectEntry, timeStartEdit);
+        subjectBox = new QComboBox(CreateNewSession);
+        subjectBox->setObjectName(QStringLiteral("subjectBox"));
+        subjectBox->setGeometry(QRect(110, 30, 69, 22));
+        numberBox = new QSpinBox(CreateNewSession);
+        numberBox->setObjectName(QStringLiteral("numberBox"));
+        numberBox->setGeometry(QRect(110, 130, 42, 22));
+        numberBox->setMinimum(2);
+        numberBox->setMaximum(20);
+        QWidget::setTabOrder(subjectBox, timeStartEdit);
         QWidget::setTabOrder(timeStartEdit, timeEndEdit);
         QWidget::setTabOrder(timeEndEdit, dateEdit);
         QWidget::setTabOrder(dateEdit, LocationEdit);
-        QWidget::setTabOrder(LocationEdit, sizeOfSessionEdit);
-        QWidget::setTabOrder(sizeOfSessionEdit, DesciptionEdit);
+        QWidget::setTabOrder(LocationEdit, numberBox);
+        QWidget::setTabOrder(numberBox, DesciptionEdit);
         QWidget::setTabOrder(DesciptionEdit, PublishSessionButton);
         QWidget::setTabOrder(PublishSessionButton, CancelButton);
 
@@ -129,6 +135,7 @@ public:
         PublishSessionButton->setText(QApplication::translate("CreateNewSession", "Publish", 0));
         CancelButton->setText(QApplication::translate("CreateNewSession", "Cancel", 0));
         DateLabel->setText(QApplication::translate("CreateNewSession", "Date", 0));
+        subjectBox->setCurrentText(QString());
     } // retranslateUi
 
 };

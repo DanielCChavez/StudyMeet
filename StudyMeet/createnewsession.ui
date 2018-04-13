@@ -39,16 +39,6 @@
     <string>Subject</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="SubjectEntry">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>30</y>
-     <width>113</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="timeStartLabel">
    <property name="geometry">
     <rect>
@@ -96,16 +86,6 @@
    </property>
    <property name="text">
     <string>Size</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="sizeOfSessionEdit">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>130</y>
-     <width>113</width>
-     <height>22</height>
-    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="DescriptionLabel">
@@ -199,6 +179,13 @@
      <height>22</height>
     </rect>
    </property>
+   <property name="maximumDate">
+    <date>
+     <year>7999</year>
+     <month>12</month>
+     <day>30</day>
+    </date>
+   </property>
    <property name="calendarPopup">
     <bool>true</bool>
    </property>
@@ -216,15 +203,44 @@
     <string>Date</string>
    </property>
   </widget>
+  <widget class="QComboBox" name="subjectBox">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>30</y>
+     <width>69</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="currentText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="numberBox">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>130</y>
+     <width>42</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>2</number>
+   </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>SubjectEntry</tabstop>
+  <tabstop>subjectBox</tabstop>
   <tabstop>timeStartEdit</tabstop>
   <tabstop>timeEndEdit</tabstop>
   <tabstop>dateEdit</tabstop>
   <tabstop>LocationEdit</tabstop>
-  <tabstop>sizeOfSessionEdit</tabstop>
+  <tabstop>numberBox</tabstop>
   <tabstop>DesciptionEdit</tabstop>
   <tabstop>PublishSessionButton</tabstop>
   <tabstop>CancelButton</tabstop>

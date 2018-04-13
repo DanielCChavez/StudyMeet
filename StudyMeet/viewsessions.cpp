@@ -15,30 +15,25 @@ ViewSessions::ViewSessions(QWidget *parent)
 	//TableData object
 	td = TableData::get_instance();
 	hid = 0;
+	row_selected = -1;
 
 	QStringList titles;
 
 	titles << "Host" << "Subject" << "Start time" <<"End time" << "Date" << "Location";
 
-	QString timeStart;
-	QString timeEnd;
-	QString date; 
-	QString subject;
-	QString id;
-	QString location;
+	QString timeStart, timeEnd, date, subject, id, location;
 	int row;
 	list<Session>::iterator it; 
 
 	ui.setupUi(this);
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
+	ui.sessionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 	
 	
 
 	QTimer *timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(on_refreshButton_clicked()));
 	timer->start(3000);
-
-	
 }
 
 
@@ -59,25 +54,18 @@ ViewSessions* ViewSessions::Instance()
 
 int ViewSessions::populate_table()
 {
-	td = TableData::get_instance();
-	DatabaseHandler *db = DatabaseHandler::get_instance();
-
-	QStringList titles;
-
-	titles << "Host" << "Subject" << "Start time" << "End time" << "Date" << "Location";
-
-	ui.sessionTable->setHorizontalHeaderLabels(titles);
-
-	QString timeStart;
-	QString timeEnd;
-	QString date;
-	QString subject;
-	QString id;
-	QString location;
-	QString name;
+	QString timeStart, timeEnd, date, subject, id, location, name;
 	int row;
 	list<Session>::iterator it;
+	DatabaseHandler *db;
+	QStringList titles;
 
+	td = TableData::get_instance();
+	db = DatabaseHandler::get_instance();
+
+	titles << "Host" << "Subject" << "Start time" << "End time" << "Date" << "Location";
+	
+	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->clearContents();
 	ui.sessionTable->setRowCount(0);
 
@@ -112,62 +100,71 @@ Session ViewSessions::get_selected_session()
 	return selected_session;
 }
 
-void ViewSessions::set_selected_session(QTableWidgetItem* t)
+void ViewSessions::set_selected_session(int r)
 {
 	TableData *td = TableData::get_instance();
+	QTableWidgetItem *t = ui.sessionTable->item(r, 6);
+
     selected_session = td->find_session(t->text().toStdString());
 }
 
 void ViewSessions::on_detailsButton_clicked()
 {
-	QTableWidgetItem *t;// = ui.sessionTable->item(ui.sessionTable->currentRow(), 6);
+	QTableWidgetItem *t;
 	ErrorHandler *er = ErrorHandler::get_instance();
 	
-	if ((t = ui.sessionTable->item(ui.sessionTable->currentRow(), 6)) == 0)
+	if (get_row_selected() == -1 || get_row_selected() > ui.sessionTable->rowCount())
+	{
+		return;
+	}
+
+	if ((t = ui.sessionTable->item(get_row_selected(), 6)) == 0)
 	{
 		er->display_error("No session selected");
 		return;
 	}
-	set_selected_session(t);
-	//on_detailsButton_clicked(get_selected_session());
+	
+	set_selected_session(get_row_selected());
+	
 	DetailedStudySession *ds = new DetailedStudySession;
 	ds->show();
+	set_row_selected(-1);
 }
 
 void ViewSessions::on_createSessionButton_clicked()
 {
 	CreateNewSession *cs = CreateNewSession::Instance();
 	cs->show();
+	set_row_selected(-1);
 }
 
 void ViewSessions::on_sessionTable_itemClicked()
 {
-	QTableWidgetItem *t = ui.sessionTable->item(ui.sessionTable->currentRow(),6);
-	set_selected_session(t);
-	//on_detailsButton_clicked(get_selected_session());
-
-}
-
-void ViewSessions::on_detailsButton_clicked(Session session)
-{
-	//DetailedStudySession *ds = new DetailedStudySession;
-	//ds->show();
+	set_row_selected(ui.sessionTable->currentRow());
 }
 
 void ViewSessions::on_refreshButton_clicked()
 {
 	DatabaseHandler *db = DatabaseHandler::get_instance();
 	AccountSingleton *ac = AccountSingleton::get_instance();
+	int row;
 
-	//while (db->get_lock() != 0)
-		//;
-
+	row = get_row_selected();
 	td->get_data();
 	populate_table();
-	//db->sync_account(ac);
+
+	if (row > -1 && row <= ui.sessionTable->rowCount())
+	{
+		ui.sessionTable->selectRow(row);
+	}
+	else
+	{
+		ui.sessionTable->clearSelection();
+	}
+	
 }
 
-void ViewSessions::set_hid(int id)
+void ViewSessions::set_row_selected(int r)
 {
-	hid = id;
+	row_selected = r;
 }

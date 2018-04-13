@@ -41,12 +41,13 @@ void StudyMeet::on_loggedInAsButton_clicked()
 	AccountSingleton *as = AccountSingleton::get_instance();
 	Account acc = as->get_account();
 
-	QString display = QString::fromStdString(acc.get_username()) + ", " +
-		QString::fromStdString(acc.get_password()) + ", " +
-		QString::fromStdString(acc.get_dateCreated()) + ", " +
-		QString::number(acc.get_accountID()) + ", " +
-		QString::fromStdString(acc.get_firstName()) + ", " +
-		QString::fromStdString(acc.get_firstName()) + ", " +
+	QString display = "Username: " + QString::fromStdString(acc.get_username()) + ",\n Password: " +
+		QString::fromStdString(acc.get_password()) + ",\n Date Created: " +
+		QString::fromStdString(acc.get_dateCreated()) + ",\n accountID: " +
+		QString::number(acc.get_accountID()) + ",\n First Name: " +
+		QString::fromStdString(acc.get_firstName()) + ",\n LastName: " +
+		QString::fromStdString(acc.get_lastName()) + ",\n Grade Level: " +
 		QString::fromStdString(acc.get_gradeLevel());
+	
 	err->display_error(display);
 }

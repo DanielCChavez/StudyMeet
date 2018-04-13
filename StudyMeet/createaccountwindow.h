@@ -11,9 +11,7 @@ class CreateAccountWindow : public QWidget, public Ui::CreateAccountWindow
 public:
 	CreateAccountWindow(QWidget *parent = 0);
 	~CreateAccountWindow();
-	//static CreateAccountWindow* Instance();
 protected:
-	//static CreateAccountWindow* instance; 
 private:
 	
 public slots:
