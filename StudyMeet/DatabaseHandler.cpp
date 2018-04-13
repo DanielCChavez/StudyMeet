@@ -60,8 +60,6 @@ int DatabaseHandler::is_open()
 // 1 on error in execution of query
 int DatabaseHandler::add_to_database(Account acc)
 {	
-	inc_lock();
-
 	query.prepare("INSERT INTO accounts (accountID, username, password, firstName, lastName, dateCreated, "
 		"gradeLevel, sessionID)"
 		"VALUES (:accountID, :username, :password, :firstName, :lastName, :dateCreated, "
@@ -90,7 +88,6 @@ int DatabaseHandler::add_to_database(Account acc)
 // 1 on error in execution of query
 int DatabaseHandler::add_to_database(Session s)
 {
-	inc_lock();
 	AccountSingleton *ac = AccountSingleton::get_instance();
 
 	//Check local sessID, must be empty
@@ -125,15 +122,11 @@ int DatabaseHandler::add_to_database(Session s)
 		return 1;
 	}
 
-	error_window->display_error("sessionID in add_to_db(), last " + 
-		QString::fromStdString(s.get_sessionID()));
-
 	//Session Database updated, now update local account
 	//update local sessionID
 	ac->set_sessionID(s.get_sessionID());
 
 	//update account database 
-
 	if (update_account(ac) != 0)
 		error_window->display_error("Error updating account sessionID");
 
@@ -144,7 +137,6 @@ int DatabaseHandler::add_to_database(Session s)
 // 1 otherwise
 int DatabaseHandler::update_session(Session s)
 {
-	inc_lock();
 	query.prepare("UPDATE sessions"
 		"SET timeStart = :newTimeStart, timeEnd = :newTimeEnd, description = :newDescription, "
 		"maximumCapacityOfPeople = :newCapacity, subject = :subject, location = :location, sessionDate = :date"
@@ -164,7 +156,7 @@ int DatabaseHandler::update_session(Session s)
 		error_window->display_error(query.lastError().text());
 		return 1;
 	}
-	inc_lock();
+
 	return 0;
 }
 
@@ -413,6 +405,7 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 
 	
 	ac->set_sessionID(sessID);
+	update_account(ac);
 	
 	if (!query.exec())
 	{
@@ -423,7 +416,7 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 	query.prepare("SELECT currentNumberOfPeople, maximumCapacityOfPeople "
 		"FROM sessions WHERE sessionID = :sessID");
 	query.bindValue(":sessID", sessID.c_str());
-	//query.exec();
+
 	if (!query.exec())
 	{
 		error_window->display_error(query.lastError().text());
@@ -568,11 +561,11 @@ int DatabaseHandler::sync_account(AccountSingleton *acc)
 		sessID = query.value(0).toString();
 	}
 
-	error_window->display_error("Result from sync_account query for sessionID: " +
-		sessID);
+	//error_window->display_error("Result from sync_account query for sessionID: " +
+		//sessID);
 
-	error_window->display_error("Setting local sessID to: " +
-		sessID);
+	//error_window->display_error("Setting local sessID to: " +
+		//sessID);
 
 	acc->set_sessionID(sessID.toStdString());
 

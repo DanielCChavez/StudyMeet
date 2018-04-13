@@ -32,8 +32,8 @@ void AccountSingleton::set_sessionID(std::string id)
 {
 	ErrorHandler *er = ErrorHandler::get_instance();
 
-	er->display_error("Setting account " + QString::fromStdString(logged_in.get_firstName()) +
-		" sessionID to: " + QString::fromStdString(id));
+	//er->display_error("Setting account " + QString::fromStdString(logged_in.get_firstName()) +
+		//" sessionID to: " + QString::fromStdString(id));
 	logged_in.set_sessionID(id);
 }
 
@@ -43,8 +43,8 @@ void AccountSingleton::set_sessionID(std::string id)
 int AccountSingleton::is_in_session()
 {
 	ErrorHandler *er = ErrorHandler::get_instance();
-	er->display_error("Result of get_sessionID(): " +
-		QString::fromStdString(logged_in.get_sessionID()));
+	//er->display_error("Result of get_sessionID(): " +
+		//QString::fromStdString(logged_in.get_sessionID()));
 
 	if (logged_in.get_sessionID() == "")
 		return 0;
