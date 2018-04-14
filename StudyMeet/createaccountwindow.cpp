@@ -1,8 +1,6 @@
 #include "createaccountwindow.h"
 #include <ctime>
-#include "ErrorHandler.h"
 #include "Account.h"
-#include "DatabaseHandler.h"
 
 using namespace std;
 
@@ -11,6 +9,8 @@ CreateAccountWindow::CreateAccountWindow(QWidget *parent)
 	: QWidget(parent)
 {
 	setupUi(this);
+	er = ErrorHandler::get_instance();
+	db = DatabaseHandler::get_instance();
 }
 
 CreateAccountWindow::~CreateAccountWindow()
@@ -24,12 +24,9 @@ void CreateAccountWindow::on_createAccountButton_clicked()
 	string username, password, confirmPassword, firstName, lastName, gradeLevel;
 	time_t now;
 	char *dt;
-	ErrorHandler *er;
-	DatabaseHandler *db;
 	int id;
+	int result;
 
-	er = ErrorHandler::get_instance();
-	db = DatabaseHandler::get_instance();
 	now = time(0);
 	dt = ctime(&now);
 	
@@ -46,7 +43,9 @@ void CreateAccountWindow::on_createAccountButton_clicked()
 		er->display_error("Passwords do not match");
 		return;
 	}
-	if (db->validate_account(username) == 0)
+
+	result = db->validate_account(username);
+	if (result == 0)
 	{
 		er->display_error("Username already exists");
 		return;
@@ -54,15 +53,25 @@ void CreateAccountWindow::on_createAccountButton_clicked()
 
 	srand(time(NULL));
 	id = rand() % 10000;
-	while (db->validate_account(id) == 0)
+	
+	result = db->validate_account(id);
+	while (result == 0)
 	{
 		id = rand() % 10000;
+		result = db->validate_account(id);
 	}
 	
 	Account account(username, password, firstName, lastName, dt,  gradeLevel, "", id);
 	
-	if(db->add_to_database(account) == 0)
+	result = db->add_to_database(account);
+	if (result == 1)
+	{
+		er->display_error("Error creating account.");
+	}
+	else if (result == 0)
+	{
 		close();
+	}
 	
 	return;
 }

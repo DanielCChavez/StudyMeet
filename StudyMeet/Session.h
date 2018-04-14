@@ -20,7 +20,6 @@ private:
 	int limitNumberOfPeople;
 	list<Account> listOfPeople;
 	
-
 public:
 	Session();
 	Session(string sId, int hId, string tS, int nOP, string tE, 
@@ -30,8 +29,6 @@ public:
 	void send_session_to_database(Session);
 	void add_account_to_sessionlist(Account);
 	void remove_account_from_sessionlist(Account);
-
-
 	string get_sessionID();
 	string get_timeend();
 	string get_subject();

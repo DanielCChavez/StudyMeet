@@ -13,6 +13,7 @@ private:
 	QSqlDatabase db;
 	ErrorHandler *error_window;
 	QSqlQuery query;
+	AccountSingleton *ac;
 	int connection_status;
 
 	DatabaseHandler();
@@ -34,11 +35,13 @@ public:
 	int validate_account(int);
 	int validate_account(std::string);
 	int get_account(std::string username, std::string pass, Account&);
-	Account get_account(int);
+	int get_account(int, Account&);
 	int validate_session(int);
 	int join_session(int, std::string);
 	int leave_session(int, std::string, int);
 	int sync_account(AccountSingleton*);
+
+	QString query_error();
 
 protected:
 	static DatabaseHandler *inst;

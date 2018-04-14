@@ -35,7 +35,7 @@ void AccountSingleton::set_sessionID(std::string id)
 // returns 1 otherwise
 int AccountSingleton::is_in_session()
 {
-	if (logged_in.get_sessionID() == "")
+	if (get_sessionID() == "")
 		return 0;
 
 	return 1;

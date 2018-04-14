@@ -2,9 +2,7 @@
 #include "Session.h"
 #include "detailedstudysession.h"
 #include "createnewsession.h"
-#include "ErrorHandler.h"
 #include <iterator>
-#include "TableData.h"
 #include <QTimer>
 
 ViewSessions* ViewSessions::instance = NULL;
@@ -12,13 +10,14 @@ ViewSessions* ViewSessions::instance = NULL;
 ViewSessions::ViewSessions(QWidget *parent)
 	: QWidget(parent)
 {
-	//TableData object
+	er = ErrorHandler::get_instance();
+	db = DatabaseHandler::get_instance();
+	ac = AccountSingleton::get_instance();
 	td = TableData::get_instance();
 	hid = 0;
 	row_selected = -1;
 
 	QStringList titles;
-
 	titles << "Host" << "Subject" << "Start time" <<"End time" << "Date" << "Location";
 
 	QString timeStart, timeEnd, date, subject, id, location;
@@ -29,8 +28,6 @@ ViewSessions::ViewSessions(QWidget *parent)
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 	
-	
-
 	QTimer *timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(on_refreshButton_clicked()));
 	timer->start(3000);
@@ -57,8 +54,9 @@ int ViewSessions::populate_table()
 	QString timeStart, timeEnd, date, subject, id, location, name;
 	int row;
 	list<Session>::iterator it;
-	DatabaseHandler *db;
 	QStringList titles;
+	Account temp;
+	int result;
 
 	td = TableData::get_instance();
 	db = DatabaseHandler::get_instance();
@@ -71,13 +69,15 @@ int ViewSessions::populate_table()
 
 	for (it = td->listSessions.begin(); it != td->listSessions.end(); it++)
 	{
+		result = db->get_account(it->get_hostId(), temp);
+		
 		ui.sessionTable->insertRow(ui.sessionTable->rowCount());
 		timeStart = QString::fromStdString(it->get_timestart());
 		timeEnd = QString::fromStdString(it->get_timeend());
 		date = QString::fromStdString(it->get_date());
 		subject = QString::fromStdString(it->get_subject());
 		id = QString::number(it->get_hostId());
-		name = QString::fromStdString((db->get_account(it->get_hostId())).get_fullName());
+		name = QString::fromStdString((temp.get_fullName()));
 		location = QString::fromStdString(it->get_location());
 
 		row = ui.sessionTable->rowCount() - 1;
@@ -102,7 +102,6 @@ Session ViewSessions::get_selected_session()
 
 void ViewSessions::set_selected_session(int r)
 {
-	TableData *td = TableData::get_instance();
 	QTableWidgetItem *t = ui.sessionTable->item(r, 6);
 
     selected_session = td->find_session(t->text().toStdString());
@@ -111,7 +110,6 @@ void ViewSessions::set_selected_session(int r)
 void ViewSessions::on_detailsButton_clicked()
 {
 	QTableWidgetItem *t;
-	ErrorHandler *er = ErrorHandler::get_instance();
 	
 	if (get_row_selected() == -1 || get_row_selected() > ui.sessionTable->rowCount())
 	{
@@ -145,17 +143,33 @@ void ViewSessions::on_sessionTable_itemClicked()
 
 void ViewSessions::on_refreshButton_clicked()
 {
-	DatabaseHandler *db = DatabaseHandler::get_instance();
-	AccountSingleton *ac = AccountSingleton::get_instance();
-	int row;
+	int row, amt_before, amt_after, difference;
 
-	row = get_row_selected();
+	amt_before = td->amount_of_sessions();
 	td->get_data();
 	populate_table();
+	amt_after = td->amount_of_sessions();
 
-	if (row > -1 && row <= ui.sessionTable->rowCount())
+	difference = amt_after - amt_before;
+
+	// A session was deleted
+	if (difference < 0)
 	{
-		ui.sessionTable->selectRow(row);
+		// Dont decrement if first row is selected
+		if (row_selected > 0)
+			--row_selected;
+	}
+	// A session was added
+	else if (difference > 0)
+	{
+		// Dont increment if last row is selected
+		if (row_selected != ui.sessionTable->rowCount())
+			++row_selected;
+	}
+	
+	if (row_selected > -1 && row_selected <= ui.sessionTable->rowCount())
+	{
+		ui.sessionTable->selectRow(row_selected);
 	}
 	else
 	{

@@ -132,8 +132,14 @@
     </item>
     <item row="4" column="3">
      <widget class="QPushButton" name="loginButton">
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
       <property name="text">
        <string>Login</string>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
       </property>
       <property name="default">
        <bool>true</bool>
@@ -158,5 +164,38 @@
   <tabstop>createAccountButton</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>usernameEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>loginButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>175</x>
+     <y>151</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>passwordEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>loginButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>252</x>
+     <y>123</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>148</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

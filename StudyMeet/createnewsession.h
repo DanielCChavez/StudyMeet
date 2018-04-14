@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "ui_createnewsession.h"
+#include "DatabaseHandler.h"
+#include "ErrorHandler.h"
+#include "AccountSingleton.h"
 
 class CreateNewSession : public QWidget, public Ui::CreateNewSession
 {
@@ -18,6 +21,9 @@ protected:
 
 private:
 	void clear_fields();
+	ErrorHandler *er;
+	DatabaseHandler *db;
+	AccountSingleton *ac;
 
 public slots: 
 	void on_PublishSessionButton_clicked();

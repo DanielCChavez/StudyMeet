@@ -6,6 +6,8 @@
 #include "Session.h"
 #include "TableData.h"
 #include <QtWidgets\qmainwindow.h>
+#include "DatabaseHandler.h"
+#include "ErrorHandler.h"
 
 class ViewSessions : public QWidget
 {
@@ -16,14 +18,12 @@ public:
 	~ViewSessions();
 	static ViewSessions*  Instance();
 	Session get_selected_session();
-	void set_selected_session(int);
 	int populate_table();
-	void set_hid(int);
-	int get_hid() const { return hid; }
-
-	void set_row_selected(int);
 	int get_row_selected() const { return row_selected; }
-	TableData *td;
+	int get_hid() const { return hid; }
+	void set_hid(int);
+	void set_selected_session(int);
+	void set_row_selected(int);
 
 public slots:
 	void on_detailsButton_clicked();
@@ -35,6 +35,10 @@ private:
 	Session selected_session;
 	int hid;
 	int row_selected;
+	DatabaseHandler *db;
+	ErrorHandler *er;
+	AccountSingleton *ac;
+	TableData *td;
 protected:
 	static ViewSessions * instance; 
 };	

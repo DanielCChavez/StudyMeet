@@ -1,5 +1,4 @@
 #include "DatabaseHandler.h"
-#include "AccountSingleton.h"
 #include <iterator>
 
 
@@ -9,7 +8,9 @@ DatabaseHandler::DatabaseHandler()
 {
 	connection_status = 1;
 	error_window = ErrorHandler::get_instance();
+	ac = AccountSingleton::get_instance();
 	connect();
+	
 	if (is_open() == 0)
 	{
 		connection_status = 0;
@@ -74,7 +75,6 @@ int DatabaseHandler::add_to_database(Account acc)
 	
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 1;
 	}
 
@@ -83,21 +83,22 @@ int DatabaseHandler::add_to_database(Account acc)
 
 // Return 0 on sucessfull insert into database
 // 1 on error in execution of query
+// 2 if already in a session
+// 3 if could not update account database
 int DatabaseHandler::add_to_database(Session s)
 {
-	AccountSingleton *ac;
-
-	ac = AccountSingleton::get_instance();
+	int result;
 
 	//Check local sessID, must be empty
 	//First, sync local account with DB account
-	sync_account(ac);
+	result = sync_account(ac);
+	if (result == 1)
+		return 3;
 
 	// Check if account is in a session
 	if (ac->is_in_session() != 0)
 	{
-		error_window->display_error("You cannot be in more than one session.");
-		return 1;
+		return 2;
 	}
 
 	query.prepare("INSERT INTO sessions (sessionID, hostId, timeStart, timeEnd, "
@@ -118,7 +119,6 @@ int DatabaseHandler::add_to_database(Session s)
 	
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 1;
 	}
 
@@ -128,7 +128,7 @@ int DatabaseHandler::add_to_database(Session s)
 
 	//update account database 
 	if (update_account(ac) != 0)
-		error_window->display_error("Error updating account sessionID");
+		return 3;
 
 	return 0;
 }
@@ -153,7 +153,6 @@ int DatabaseHandler::update_session(Session s)
 	
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 1;
 	}
 
@@ -168,12 +167,11 @@ int DatabaseHandler::update_account(AccountSingleton *acc)
 		"SET sessionID = :sessID "
 		"WHERE accountID = :accID");
 
-	query.bindValue(":accID", acc->get_account().get_accountID());
-	query.bindValue(":sessID", acc->get_account().get_sessionID().c_str());
+	query.bindValue(":accID", acc->get_accountID());
+	query.bindValue(":sessID", acc->get_sessionID().c_str());
 
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 1;
 	}
 
@@ -181,27 +179,26 @@ int DatabaseHandler::update_account(AccountSingleton *acc)
 }
 
 
-// Return 1 if not the host of selected session
-// Return 2 if error in query execution
+// Return 2 if not the host of selected session
+// Return 1 if error in query execution
 // Return 0 if successfully removes record
 int DatabaseHandler::remove_session(Session s)
 {
 	std:string estring = "";
 
 	if (is_host(s) != 0)
-		return 1;
+		return 2;
 	
-	
+	// Remove from database
 	query.prepare("DELETE FROM sessions "
 		"WHERE hostId = :hostId");
 	query.bindValue(":hostId", s.get_hostId());
-
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
-		return 2;
+		return 1;
 	}
 
+	// Update all accounts that were apart of the session
 	query.prepare("UPDATE accounts "
 		"SET sessionID = :estr "
 		"WHERE sessionID = :sessID");
@@ -210,8 +207,7 @@ int DatabaseHandler::remove_session(Session s)
 
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
-		return 2;
+		return 1;
 	}
 
 	return 0;
@@ -222,17 +218,15 @@ int DatabaseHandler::remove_session(Session s)
 // 1 if not the host of session
 int DatabaseHandler::is_host(Session s)
 {
-	AccountSingleton *acc;
-
-	acc = AccountSingleton::get_instance();
-
-	if (acc->get_account().get_accountID() == s.get_hostId())
+	if (ac->get_accountID() == s.get_hostId())
 		return 0;
 
 	return 1;
 
 }
 
+// Return 1 on error in query execution
+// Return 0 on successful grabbing all session from database
 int DatabaseHandler::load_all_sessions(list<Session>& listS)
 {
 	string sessionID, timeStart, timeEnd, subject, location, description, date;
@@ -240,7 +234,8 @@ int DatabaseHandler::load_all_sessions(list<Session>& listS)
 	
 	listS.clear();
 
-	query.exec("SELECT * FROM sessions");
+	if (!query.exec("SELECT * FROM sessions"))
+		return 1;
 
 	//do while there are records(rows)
 	while (query.next())
@@ -268,8 +263,8 @@ int DatabaseHandler::load_all_sessions(list<Session>& listS)
 
 
 // Return 0 if username and password match a record on database
-// 1 if password and username do not match a record on database
-// 2 if error in query execution
+// 2 if password and username do not match a record on database
+// 1 if error in query execution
 int DatabaseHandler::validate_account(std::string username, std::string pass)
 {
 	QString result;
@@ -281,8 +276,7 @@ int DatabaseHandler::validate_account(std::string username, std::string pass)
 	
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
-		return 2;
+		return 1;
 	}
 
 	while (query.next())
@@ -293,7 +287,7 @@ int DatabaseHandler::validate_account(std::string username, std::string pass)
 	if (result == "1")
 		return 0;
 
-	return 1;
+	return 2;
 }
 
 // Return 0 if the accountID is being used on the database
@@ -308,7 +302,6 @@ int DatabaseHandler::validate_account(int accID)
 	
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 2;
 	}
 
@@ -335,7 +328,6 @@ int DatabaseHandler::validate_account(std::string username)
 	
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 2;
 	}
 
@@ -369,7 +361,6 @@ int DatabaseHandler::get_account(std::string username, std::string pass, Account
 	
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 2;
 	}
 
@@ -402,7 +393,6 @@ int DatabaseHandler::validate_session(int sessID)
 	
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 2;
 	}
 
@@ -425,45 +415,25 @@ int DatabaseHandler::validate_session(int sessID)
 // Return 4 on limit of session
 int DatabaseHandler::join_session(int accID, std::string sessID)
 {
-	int currentNumberOfPeople;
-	int maximum;
-	AccountSingleton *ac;
-	
-	ac = AccountSingleton::get_instance();
+	int currentNumberOfPeople, maximum;
 
 	// Sync local
 	sync_account(ac);
 
+
 	if (ac->is_in_session() != 0)
 	{
-		error_window->display_error("You are already in a session.");
 		return 1;
 	}
 
-	/*
-	// update accounts table
-	query.prepare("UPDATE accounts "
-		"SET sessionID = :sessID "
-		"WHERE accountID = :accID");
-	query.bindValue(":accID", accID);
-	query.bindValue(":sessID", sessID.c_str());
-	*/
-
 	//update local
 	ac->set_sessionID(sessID);
+	
 	//update database
 	if (update_account(ac) != 0)
 	{
-		error_window->display_error("Error updating database.");
 		return 2;
 	}
-	/*
-	if (!query.exec())
-	{
-		error_window->display_error(query.lastError().text());
-		return 3;
-	}
-	*/
 
 	query.prepare("SELECT currentNumberOfPeople, maximumCapacityOfPeople "
 		"FROM sessions "
@@ -472,7 +442,6 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 3;
 	}
 
@@ -483,7 +452,6 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 
 		if (currentNumberOfPeople >= maximum)
 		{
-			error_window->display_error("Session at maximum capacity");
 			return 4;
 		}
 		currentNumberOfPeople += 1;
@@ -497,7 +465,6 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 3;
 	}
 
@@ -513,19 +480,17 @@ int DatabaseHandler::leave_session(int accID, std::string sessID, int hid)
 {
 	std::string emptyString = "";
 	int currentNumberOfPeople;
-	AccountSingleton *ac = AccountSingleton::get_instance();
 
-	sync_account(ac);
+	if (sync_account(ac) == 1)
+		return 1;
 
 	if (ac->get_sessionID() != sessID)
 	{
-		error_window->display_error("You are not in this session");
 		return 2;
 	}
 
-	if (ac->get_account().get_accountID() == hid)
+	if (ac->get_accountID() == hid)
 	{
-		error_window->display_error("Cannot leave session you are hosting");
 		return 3;
 	}
 	
@@ -545,7 +510,6 @@ int DatabaseHandler::leave_session(int accID, std::string sessID, int hid)
 
 	if (!query.exec())
 	{
-		error_window->display_error("Updating accounts error");
 		return 1;
 	}
 
@@ -557,7 +521,6 @@ int DatabaseHandler::leave_session(int accID, std::string sessID, int hid)
 
 	if (!query.exec())
 	{
-		error_window->display_error("Selecting number of people error");
 		return 1;
 	}
 	while (query.next())
@@ -575,14 +538,13 @@ int DatabaseHandler::leave_session(int accID, std::string sessID, int hid)
 
 	if (!query.exec())
 	{
-		error_window->display_error("Updating sessions table");
 		return 1;
 	}
 
 	return 0;
 }
 
-Account DatabaseHandler::get_account(int id)
+int DatabaseHandler::get_account(int id, Account &a)
 {
 	QString result;
 	string user, password, firstName, lastName, dateCreated, gradeLevel, sessionID;
@@ -590,8 +552,9 @@ Account DatabaseHandler::get_account(int id)
 
 	if (validate_account(id) != 0)
 	{
-		return Account("ERRORUSERNAME", "ERRORPASSWORD", "ERRORFIRSTNAME", "ERRORLASTNAME",
+		a = Account("ERRORUSERNAME", "ERRORPASSWORD", "ERRORFIRSTNAME", "ERRORLASTNAME",
 			"ERRORDATECREATED", "ERRORGRADELEVEL", "ERRORSESSIONID", -1);
+		return 1;
 	}
 
 	query.prepare("select * from accounts where accountID = :accID");
@@ -610,8 +573,10 @@ Account DatabaseHandler::get_account(int id)
 		accountID = query.value(0).toInt();
 	}
 
-	return Account(user, password, firstName, lastName, dateCreated, gradeLevel, sessionID, accountID);
+	a = Account(user, password, firstName, lastName, dateCreated, gradeLevel, sessionID, accountID);
+	return 0;
 }
+
 
 // Return 1 on query execution error
 int DatabaseHandler::sync_account(AccountSingleton *acc)
@@ -619,7 +584,7 @@ int DatabaseHandler::sync_account(AccountSingleton *acc)
 	QString sessID = "";
 	int accID = 0;
 
-	accID = acc->get_account().get_accountID();
+	accID = acc->get_accountID();
 
 	query.prepare("SELECT sessionID "
 		"FROM accounts "
@@ -629,7 +594,6 @@ int DatabaseHandler::sync_account(AccountSingleton *acc)
 
 	if (!query.exec())
 	{
-		error_window->display_error(query.lastError().text());
 		return 1;
 	}
 
@@ -645,4 +609,9 @@ int DatabaseHandler::sync_account(AccountSingleton *acc)
 	}
 
 	return 0;
+}
+
+QString DatabaseHandler::query_error()
+{
+	return query.lastError().text();
 }

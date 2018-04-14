@@ -3,7 +3,14 @@
 
 Account::Account()
 {
-	username = password = " ";
+	username = "DEFAULTUSERNAME";
+	password = "DEFAULTPASSWORD";
+	firstName = "DEFAULTFIRSTNAME";
+	lastName = "DEFAULTLASTNAME";
+	dateCreated = "DEFAULTDATECREATED";
+	gradeLevel = "DEFAULTGRADELEVEL";
+	sessionID = "DEFAULTSESSIONID";
+	accountID = 0;
 }
 
 Account::Account(string name, string pword, string fname, string lname, string dCreated, string glevel, string sessID, int accID)

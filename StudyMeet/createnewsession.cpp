@@ -1,9 +1,5 @@
 #include "createnewsession.h"
 #include "Session.h"
-#include "ErrorHandler.h"
-#include "DatabaseHandler.h"
-#include "AccountSingleton.h"
-#include "TableData.h"
 #include <ctime>
 
 CreateNewSession* CreateNewSession::instance = NULL;
@@ -12,6 +8,10 @@ CreateNewSession::CreateNewSession(QWidget *parent)
 	: QWidget(parent)
 {
 	setupUi(this);
+
+	er = ErrorHandler::get_instance();
+	db = DatabaseHandler::get_instance();
+	ac = AccountSingleton::get_instance();
 
 	subjectBox->addItem(tr("N/A"));
 	subjectBox->addItem(tr("Math"));
@@ -38,14 +38,10 @@ CreateNewSession* CreateNewSession::Instance()
 
 void CreateNewSession::clear_fields()
 {
-	//SubjectEntry->clear();
-	//subjectBox->clear();
 	timeStartEdit->clear();
 	timeEndEdit->clear();
 	dateEdit->setDate(QDate::currentDate());
 	LocationEdit->clear();
-	//sizeOfSessionEdit->clear();
-	//numberBox->clear();
 	DesciptionEdit->clear();
 }
 
@@ -56,31 +52,19 @@ void CreateNewSession::on_CancelButton_clicked()
 void CreateNewSession::on_PublishSessionButton_clicked()
 {
 	string subject, timeStart, timeEnd, date, description, location; 
-	ErrorHandler *er;
-	DatabaseHandler *db;
-	AccountSingleton *loggedIn; 
-	TableData *td;
-	int sessionid;
-	int host;
-	int session_size;
+	int sessionid, host, session_size, result;
 	string sessionid_string;
 
-	db = DatabaseHandler::get_instance();
-	er = ErrorHandler::get_instance();
-	loggedIn = AccountSingleton::get_instance();
-	td = TableData::get_instance();
 
 	// Grab GUI text field entries
-	//subject = SubjectEntry->text().toStdString();
 	subject = subjectBox->currentText().toStdString();
 	timeStart = timeStartEdit->text().toStdString();
 	timeEnd = timeEndEdit->text().toStdString();
 	date = (dateEdit->date().toString("MM/dd/yyyy")).toStdString();
 	description = DesciptionEdit->toPlainText().toStdString();
 	location = LocationEdit->text().toStdString();
-	//session_size = sizeOfSessionEdit->text().toInt();
 	session_size = numberBox->text().toInt();
-	host = loggedIn->get_account().get_accountID();
+	host = ac->get_accountID();
 	
 	// Create a sessionID
 	srand(time(NULL));
@@ -89,10 +73,14 @@ void CreateNewSession::on_PublishSessionButton_clicked()
 		sessionid = rand() % 10000;
 
 	sessionid_string = to_string(sessionid);
+	Session sess(sessionid_string, host, timeStart, 1, timeEnd, date, 
+		subject, location, session_size, description);
 
-	Session sess(sessionid_string, host, timeStart, 1, timeEnd, date, subject, location, session_size, description);
+	result = db->add_to_database(sess);
+	if (result == 0) { close(); return; }
+	if (result == 1) { er->display_error("Error with database."); return; }
+	if (result == 2) { er->display_error("You are already in a session."); return; }
+	if (result == 3) { er->display_error("Error with database."); return; }
 
-	td->add_to_list(sess);
-	if (db->add_to_database(sess) == 0)
-		close();
+	return;
 }
