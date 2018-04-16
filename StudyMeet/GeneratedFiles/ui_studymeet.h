@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -29,6 +30,7 @@ public:
     QWidget *centralWidget;
     QPushButton *toVSWButton;
     QPushButton *loggedInAsButton;
+    QLabel *studyMeetLogo;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -46,10 +48,15 @@ public:
         loggedInAsButton = new QPushButton(centralWidget);
         loggedInAsButton->setObjectName(QStringLiteral("loggedInAsButton"));
         loggedInAsButton->setGeometry(QRect(160, 50, 161, 23));
+        studyMeetLogo = new QLabel(centralWidget);
+        studyMeetLogo->setObjectName(QStringLiteral("studyMeetLogo"));
+        studyMeetLogo->setGeometry(QRect(80, 270, 491, 181));
+        studyMeetLogo->setTextFormat(Qt::AutoText);
+        studyMeetLogo->setPixmap(QPixmap(QString::fromUtf8("../Images/StudyMeetPrototype1.png")));
         StudyMeetClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(StudyMeetClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 659, 21));
+        menuBar->setGeometry(QRect(0, 0, 659, 26));
         StudyMeetClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(StudyMeetClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -68,6 +75,7 @@ public:
         StudyMeetClass->setWindowTitle(QApplication::translate("StudyMeetClass", "StudyMeet", 0));
         toVSWButton->setText(QApplication::translate("StudyMeetClass", "To View Session Window", 0));
         loggedInAsButton->setText(QApplication::translate("StudyMeetClass", "Who Am I logged In As?", 0));
+        studyMeetLogo->setText(QString());
     } // retranslateUi
 
 };

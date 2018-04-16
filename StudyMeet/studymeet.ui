@@ -40,6 +40,25 @@
      <string>Who Am I logged In As?</string>
     </property>
    </widget>
+   <widget class="QLabel" name="studyMeetLogo">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>270</y>
+      <width>491</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Images/StudyMeetPrototype1.png</pixmap>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -47,7 +66,7 @@
      <x>0</x>
      <y>0</y>
      <width>659</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
