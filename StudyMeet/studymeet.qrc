@@ -1,4 +1,6 @@
 <RCC>
-    <qresource prefix="StudyMeet">
+    <qresource prefix="/">
+        <file>Button.png</file>
+        <file>CancelButton.png</file>
     </qresource>
 </RCC>

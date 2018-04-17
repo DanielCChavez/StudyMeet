@@ -104,14 +104,23 @@
   <widget class="QPushButton" name="PublishSessionButton">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>40</x>
      <y>350</y>
-     <width>121</width>
-     <height>41</height>
+     <width>161</width>
+     <height>61</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;
+border-image: url(button.png);
+background: none;
+border: none;
+background-repeat: none; 
+
+</string>
+   </property>
    <property name="text">
-    <string>Publish</string>
+    <string/>
    </property>
    <property name="default">
     <bool>true</bool>
@@ -130,14 +139,22 @@
   <widget class="QPushButton" name="CancelButton">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>260</x>
      <y>350</y>
-     <width>121</width>
-     <height>41</height>
+     <width>161</width>
+     <height>61</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;
+border-image: url(CancelButton.png);
+background: none;
+border: none;
+background-repeat: none; 
+</string>
+   </property>
    <property name="text">
-    <string>Cancel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QTimeEdit" name="timeStartEdit">

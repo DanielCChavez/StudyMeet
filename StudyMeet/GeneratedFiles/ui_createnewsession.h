@@ -75,13 +75,26 @@ public:
         DescriptionLabel->setGeometry(QRect(50, 190, 71, 16));
         PublishSessionButton = new QPushButton(CreateNewSession);
         PublishSessionButton->setObjectName(QStringLiteral("PublishSessionButton"));
-        PublishSessionButton->setGeometry(QRect(50, 350, 121, 41));
+        PublishSessionButton->setGeometry(QRect(40, 350, 161, 61));
+        PublishSessionButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
+"border-image: url(button.png);\n"
+"background: none;\n"
+"border: none;\n"
+"background-repeat: none; \n"
+"\n"
+""));
         DesciptionEdit = new QTextEdit(CreateNewSession);
         DesciptionEdit->setObjectName(QStringLiteral("DesciptionEdit"));
         DesciptionEdit->setGeometry(QRect(50, 220, 381, 121));
         CancelButton = new QPushButton(CreateNewSession);
         CancelButton->setObjectName(QStringLiteral("CancelButton"));
-        CancelButton->setGeometry(QRect(300, 350, 121, 41));
+        CancelButton->setGeometry(QRect(260, 350, 161, 61));
+        CancelButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
+"border-image: url(CancelButton.png);\n"
+"background: none;\n"
+"border: none;\n"
+"background-repeat: none; \n"
+""));
         timeStartEdit = new QTimeEdit(CreateNewSession);
         timeStartEdit->setObjectName(QStringLiteral("timeStartEdit"));
         timeStartEdit->setGeometry(QRect(110, 60, 118, 22));
@@ -132,8 +145,8 @@ public:
         LocationLabel->setText(QApplication::translate("CreateNewSession", "Location", 0));
         sizeofSessionLabel->setText(QApplication::translate("CreateNewSession", "Size", 0));
         DescriptionLabel->setText(QApplication::translate("CreateNewSession", "Description:", 0));
-        PublishSessionButton->setText(QApplication::translate("CreateNewSession", "Publish", 0));
-        CancelButton->setText(QApplication::translate("CreateNewSession", "Cancel", 0));
+        PublishSessionButton->setText(QString());
+        CancelButton->setText(QString());
         DateLabel->setText(QApplication::translate("CreateNewSession", "Date", 0));
         subjectBox->setCurrentText(QString());
     } // retranslateUi
