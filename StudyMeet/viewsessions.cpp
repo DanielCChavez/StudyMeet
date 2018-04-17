@@ -17,6 +17,8 @@ ViewSessions::ViewSessions(QWidget *parent)
 	hid = 0;
 	row_selected = -1;
 
+	ui.setupUi(this);
+
 	QStringList titles;
 	titles << "Host" << "Subject" << "Start time" <<"End time" << "Date" << "Location";
 
@@ -32,7 +34,7 @@ ViewSessions::ViewSessions(QWidget *parent)
 	ui.filterByComboBox->addItem(tr("Computer Science"));
 	ui.filterByComboBox->addItem(tr("English"));
 
-	ui.setupUi(this);
+	
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 	
@@ -75,6 +77,7 @@ int ViewSessions::populate_table()
 	ui.sessionTable->clearContents();
 	ui.sessionTable->setRowCount(0);
 	
+
 
 	for (it = td->listSessions.begin(); it != td->listSessions.end(); it++)
 	{
