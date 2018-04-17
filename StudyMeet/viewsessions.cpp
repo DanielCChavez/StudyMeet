@@ -24,6 +24,14 @@ ViewSessions::ViewSessions(QWidget *parent)
 	int row;
 	list<Session>::iterator it; 
 
+
+	ui.filterByComboBox->addItem(tr("All"));
+	ui.filterByComboBox->addItem(tr("History"));
+	ui.filterByComboBox->addItem(tr("Chemistry"));
+	ui.filterByComboBox->addItem(tr("Math"));
+	ui.filterByComboBox->addItem(tr("Computer Science"));
+	ui.filterByComboBox->addItem(tr("English"));
+
 	ui.setupUi(this);
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -51,7 +59,7 @@ ViewSessions* ViewSessions::Instance()
 
 int ViewSessions::populate_table()
 {
-	QString timeStart, timeEnd, date, subject, id, location, name;
+	QString timeStart, timeEnd, date, subject, id, location, name, filter;
 	int row;
 	list<Session>::iterator it;
 	QStringList titles;
@@ -66,9 +74,17 @@ int ViewSessions::populate_table()
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->clearContents();
 	ui.sessionTable->setRowCount(0);
+	
 
 	for (it = td->listSessions.begin(); it != td->listSessions.end(); it++)
 	{
+		filter = ui.filterByComboBox->currentText();
+		
+		if (filter != "All" && it->get_subject() != filter.toStdString())
+		{
+			continue;
+		}
+
 		result = db->get_account(it->get_hostId(), temp);
 		
 		ui.sessionTable->insertRow(ui.sessionTable->rowCount());

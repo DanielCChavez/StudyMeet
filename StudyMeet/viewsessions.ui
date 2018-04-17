@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
+    <width>651</width>
     <height>511</height>
    </rect>
   </property>
@@ -55,7 +55,7 @@
     <string>Host Name</string>
    </property>
   </widget>
-  <widget class="QLabel" name="subjecLabel">
+  <widget class="QLabel" name="filterByLabel">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -65,10 +65,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>Subject</string>
+    <string>Filter by:</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="subjectComboBox">
+  <widget class="QComboBox" name="filterByComboBox">
    <property name="geometry">
     <rect>
      <x>180</x>

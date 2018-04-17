@@ -8,6 +8,7 @@ class TableData
 {
 public:
 	list<Session> listSessions;
+	list<Session> displaySessions;
 
 	Session find_session(string);
 
