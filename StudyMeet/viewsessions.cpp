@@ -27,6 +27,8 @@ ViewSessions::ViewSessions(QWidget *parent)
 	list<Session>::iterator it; 
 
 
+	ui.refreshButton->hide();
+
 	ui.filterByComboBox->addItem(tr("All"));
 	ui.filterByComboBox->addItem(tr("History"));
 	ui.filterByComboBox->addItem(tr("Chemistry"));
@@ -40,7 +42,7 @@ ViewSessions::ViewSessions(QWidget *parent)
 	
 	QTimer *timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(on_refreshButton_clicked()));
-	timer->start(3000);
+	timer->start(1000);
 }
 
 
@@ -76,6 +78,7 @@ int ViewSessions::populate_table()
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->clearContents();
 	ui.sessionTable->setRowCount(0);
+	ui.sessionTable->setAlternatingRowColors(true);
 	
 
 

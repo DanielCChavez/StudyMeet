@@ -111,4 +111,5 @@ void DetailedStudySession::on_joinButton_clicked()
 	if (join == 2) { er->display_error("Error with database."); return; }
 	if (join == 3) { er->display_error("Error with database."); return; }
 	if (join == 4) { er->display_error("Session is at it's size limit."); return; }
+	if (join == 5) { er->display_error("Session does not exist anymore."); return; }
 }

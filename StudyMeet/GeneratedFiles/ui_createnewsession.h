@@ -100,7 +100,9 @@ public:
         DateLabel->setGeometry(QRect(460, 60, 55, 16));
         subjectBox = new QComboBox(CreateNewSession);
         subjectBox->setObjectName(QStringLiteral("subjectBox"));
-        subjectBox->setGeometry(QRect(110, 30, 69, 22));
+        subjectBox->setGeometry(QRect(110, 30, 69, 20));
+        subjectBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+        subjectBox->setFrame(true);
         numberBox = new QSpinBox(CreateNewSession);
         numberBox->setObjectName(QStringLiteral("numberBox"));
         numberBox->setGeometry(QRect(110, 130, 42, 22));

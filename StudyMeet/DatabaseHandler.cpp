@@ -413,6 +413,7 @@ int DatabaseHandler::validate_session(int sessID)
 // Return 2 if could not update account database
 // Return 3 on error in query execution
 // Return 4 on limit of session
+// Return 5 if session does not exist
 int DatabaseHandler::join_session(int accID, std::string sessID)
 {
 	int currentNumberOfPeople, maximum;
@@ -420,6 +421,11 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 	// Sync local
 	sync_account(ac);
 
+
+	if (validate_session(stoi(sessID)) == 1) 
+	{
+		return 5;
+	}
 
 	if (ac->is_in_session() != 0)
 	{
