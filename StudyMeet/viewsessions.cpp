@@ -163,6 +163,11 @@ void ViewSessions::on_sessionTable_itemClicked()
 	set_row_selected(ui.sessionTable->currentRow());
 }
 
+void ViewSessions::on_sessionTable_doubleClicked()
+{
+	on_detailsButton_clicked();
+}
+
 void ViewSessions::on_refreshButton_clicked()
 {
 	int row, amt_before, amt_after, difference;
@@ -204,3 +209,4 @@ void ViewSessions::set_row_selected(int r)
 {
 	row_selected = r;
 }
+

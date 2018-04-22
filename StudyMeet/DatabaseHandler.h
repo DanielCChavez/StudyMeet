@@ -40,6 +40,8 @@ public:
 	int join_session(int, std::string);
 	int leave_session(int, std::string, int);
 	int sync_account(AccountSingleton*);
+	int log_on(AccountSingleton*);
+	int log_off(AccountSingleton*);
 
 	QString query_error();
 

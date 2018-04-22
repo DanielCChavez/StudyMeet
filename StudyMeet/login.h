@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "ui_login.h"
+#include "DatabaseHandler.h"
+#include "ErrorHandler.h"
+#include "AccountSingleton.h"
 
 class Login : public QWidget, public Ui::Login
 {
@@ -17,6 +20,9 @@ protected:
 
 private:
 	Login(QWidget *parent = 0);
+	DatabaseHandler *db;
+	ErrorHandler *er;
+	AccountSingleton *ac;
 
 public slots:
 	void on_loginButton_clicked();

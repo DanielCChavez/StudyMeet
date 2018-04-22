@@ -3,6 +3,7 @@
 #include "Account.h"
 
 
+
 class AccountSingleton : public Account
 {
 public:
@@ -14,6 +15,7 @@ public:
 	std::string get_fullname() { return logged_in.get_fullName(); }
 	std::string get_sessionID() { return logged_in.get_sessionID(); }
 	int is_in_session();
+	int log_off();
 private:
 	AccountSingleton();
 	Account logged_in;

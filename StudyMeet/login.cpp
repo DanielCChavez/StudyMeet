@@ -1,7 +1,4 @@
 #include "login.h"
-#include "DatabaseHandler.h"
-#include "ErrorHandler.h"
-#include "AccountSingleton.h"
 #include "createaccountwindow.h"
 
 Login* Login::instance = 0;
@@ -10,6 +7,15 @@ Login::Login(QWidget *parent)
 	: QWidget(parent)
 {
 	setupUi(this);
+	
+	statusLabel->setText("Connecting to database...");
+	db = DatabaseHandler::get_instance();
+	if (db->get_connection_status() != 0) { statusLabel->setText("Failed to connect to database"); }
+	if (db->get_connection_status() == 0) { statusLabel->setText("Connected"); }
+	er = ErrorHandler::get_instance();
+	ac = AccountSingleton::get_instance();
+
+
 }
 
 void Login::on_createAccountButton_clicked()
@@ -33,30 +39,19 @@ Login* Login::get_instance()
 
 void Login::on_loginButton_clicked()
 {
-	DatabaseHandler *db;
-	ErrorHandler *err;
-	AccountSingleton *acc;
 	QString username, password;
 	int response;
 
-	db = DatabaseHandler::get_instance();
-	err = ErrorHandler::get_instance();
-	acc = AccountSingleton::get_instance();
 	username = usernameEdit->text();
 	password = passwordEdit->text();
 
 	response = 0;
 	response = db->validate_account(username.toStdString(), password.toStdString());
-	acc->set_account(username.toStdString(), password.toStdString());
+	ac->set_account(username.toStdString(), password.toStdString());
 
 	
-	if (response == 0)
-	{
-		close();
-	}
-	else
-	{
-		err->display_error("cannot validate");
-	}
+	if (response == 0) { close(); }
+	if (response == 1) { er->display_error("Error with database"); return; }
+	if (response == 2) { er->display_error("Wrong username or password"); return; }
 
 }

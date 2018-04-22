@@ -1,7 +1,6 @@
 #include "DatabaseHandler.h"
 #include <iterator>
 
-
 DatabaseHandler* DatabaseHandler::inst = 0;
 
 DatabaseHandler::DatabaseHandler()
@@ -102,9 +101,9 @@ int DatabaseHandler::add_to_database(Session s)
 	}
 
 	query.prepare("INSERT INTO sessions (sessionID, hostId, timeStart, timeEnd, "
-		"maximumCapacityOfPeople, subject, location, description, currentNumberOfPeople, sessionDate) "
+		"maximumCapacityOfPeople, subject, location, description, currentNumberOfPeople, sessionDate, expiration_date) "
 		"VALUES (:sessionID, :hostID, :timeStart, :timeEnd, :maximumCapacityOfPeople, "
-		":topic, :location, :description, :currentNumberOfPeople, :date)");
+		":topic, :location, :description, :currentNumberOfPeople, :date, :expiration)");
 
 	query.bindValue(":sessionID", s.get_sessionID().c_str());
 	query.bindValue(":hostID", s.get_hostId());
@@ -115,8 +114,18 @@ int DatabaseHandler::add_to_database(Session s)
 	query.bindValue(":topic", s.get_subject().c_str());
 	query.bindValue(":location", s.get_location().c_str());
 	query.bindValue(":description", s.get_description().c_str());
-	query.bindValue(":date", s.get_date().c_str());
-	
+	//query.bindValue(":date", s.get_date().c_str());
+	std::string dt = s.get_date();
+	QDate d(stoi(dt.substr(6, 4)), stoi(dt.substr(0, 2)), stoi(dt.substr(3, 2)));
+	query.bindValue(":date", d);
+
+	std::string dtime = "";
+	QTime mn(23, 59, 59, 59);
+
+	QDateTime tm(d.addDays(1), mn);
+	query.bindValue(":expiration", tm);
+
+
 	if (!query.exec())
 	{
 		return 1;
@@ -620,4 +629,30 @@ int DatabaseHandler::sync_account(AccountSingleton *acc)
 QString DatabaseHandler::query_error()
 {
 	return query.lastError().text();
+}
+
+int DatabaseHandler::log_on(AccountSingleton *a)
+{
+	int hid;
+
+	hid = a->get_accountID();
+
+	query.prepare("UPDATE accounts "
+		"SET logged_in_flag = 1");
+
+	if (!query.exec()) { return 1; }
+	return 0;
+}
+
+int DatabaseHandler::log_off(AccountSingleton *a)
+{
+	int hid;
+
+	hid = a->get_accountID();
+
+	query.prepare("UPDATE accounts "
+		"SET logged_in_flag = 0");
+
+	if (!query.exec()) { return 1; }
+	return 0;
 }

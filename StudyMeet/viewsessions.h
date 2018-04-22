@@ -29,6 +29,7 @@ public slots:
 	void on_detailsButton_clicked();
 	void on_createSessionButton_clicked();
 	void on_sessionTable_itemClicked();
+	void on_sessionTable_doubleClicked();
 	void on_refreshButton_clicked();
 private:
 	Ui::ViewSessions ui;
