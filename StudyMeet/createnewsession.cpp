@@ -38,8 +38,8 @@ CreateNewSession* CreateNewSession::Instance()
 
 void CreateNewSession::clear_fields()
 {
-	timeStartEdit->clear();
-	timeEndEdit->clear();
+	timeStartEdit->setTime(QTime::currentTime());
+	timeEndEdit->setTime(QTime::currentTime().addSecs(3600));
 	dateEdit->setDate(QDate::currentDate());
 	LocationEdit->clear();
 	DesciptionEdit->clear();

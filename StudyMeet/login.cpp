@@ -10,8 +10,16 @@ Login::Login(QWidget *parent)
 	
 	statusLabel->setText("Connecting to database...");
 	db = DatabaseHandler::get_instance();
-	if (db->get_connection_status() != 0) { statusLabel->setText("Failed to connect to database"); }
-	if (db->get_connection_status() == 0) { statusLabel->setText("Connected"); }
+	if (db->get_connection_status() != 0) 
+	{ 
+		statusLabel->setText("Failed to connect to database"); 
+		statusLabel->setStyleSheet("QLabel{color:red;}");
+	}
+	if (db->get_connection_status() == 0) 
+	{
+		statusLabel->setText("Connected"); 
+		statusLabel->setStyleSheet("QLabel{color:green;}");
+	}
 	er = ErrorHandler::get_instance();
 	ac = AccountSingleton::get_instance();
 

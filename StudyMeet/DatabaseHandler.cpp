@@ -49,7 +49,6 @@ int DatabaseHandler::is_open()
 {
 	if(!db.open())
 	{
-		error_window->display_error(db.lastError().text());
 		return 1;
 	}
 	return 0;
@@ -633,12 +632,13 @@ QString DatabaseHandler::query_error()
 
 int DatabaseHandler::log_on(AccountSingleton *a)
 {
-	int hid;
-
-	hid = a->get_accountID();
+	int aid;
+	aid = a->get_accountID();
 
 	query.prepare("UPDATE accounts "
-		"SET logged_in_flag = 1");
+		"SET logged_in_flag = 1 "
+		"WHERE accountID = :aid");
+	query.bindValue(":aid", aid);
 
 	if (!query.exec()) { return 1; }
 	return 0;
@@ -646,12 +646,13 @@ int DatabaseHandler::log_on(AccountSingleton *a)
 
 int DatabaseHandler::log_off(AccountSingleton *a)
 {
-	int hid;
-
-	hid = a->get_accountID();
+	int aid;
+	aid = a->get_accountID();
 
 	query.prepare("UPDATE accounts "
-		"SET logged_in_flag = 0");
+		"SET logged_in_flag = 0 "
+		"WHERE accountID = :aid");
+	query.bindValue(":aid", aid);
 
 	if (!query.exec()) { return 1; }
 	return 0;

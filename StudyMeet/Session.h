@@ -18,8 +18,6 @@ private:
 	int hostID;
 	int currentNumberOfPeople;
 	int limitNumberOfPeople;
-	list<Account> listOfPeople;
-	
 public:
 	Session();
 	Session(string sId, int hId, string tS, int nOP, string tE, 

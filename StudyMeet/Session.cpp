@@ -43,11 +43,12 @@ void Session::send_session_to_database(Session session)
 	handler->add_to_database(session);
 }
 
+/*
 void Session::add_account_to_sessionlist(Account account)
 {
-	listOfPeople.push_back(account);
+	//listOfPeople.push_back(account);
 }
-
+*/
 
 
 string Session::get_sessionID()
@@ -89,12 +90,12 @@ int Session::get_limitNumberOfPeople()
 {
 	return limitNumberOfPeople;
 }
-
+/*
 list<Account> Session::get_listofpeople()
 {
 	return listOfPeople;
 }
-
+*/
 string Session::get_description()
 {
 	return description;
