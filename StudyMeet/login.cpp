@@ -59,10 +59,9 @@ void Login::on_loginButton_clicked()
 	ac->set_account(username.toStdString(), password.toStdString());
 	
 	ViewSessions *vs = ViewSessions::Instance();
-	vs->show();
 
-	
-	if (response == 0) { close(); }
+	if (response == 0) {close(); vs->show();
+	}
 	if (response == 1) { er->display_error("Error with database"); return; }
 	if (response == 2) { er->display_error("Wrong username or password"); return; }
 
