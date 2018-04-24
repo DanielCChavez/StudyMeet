@@ -4,6 +4,7 @@
 #include "createnewsession.h"
 #include <iterator>
 #include <QTimer>
+#include "login.h"
 
 ViewSessions* ViewSessions::instance = NULL;
 
@@ -25,7 +26,8 @@ ViewSessions::ViewSessions(QWidget *parent)
 	QString timeStart, timeEnd, date, subject, id, location;
 	int row;
 	list<Session>::iterator it; 
-
+	
+	ui.Usernamelabel->setText(QString::fromStdString(ac->get_username()));
 
 	ui.refreshButton->hide();
 
@@ -35,7 +37,17 @@ ViewSessions::ViewSessions(QWidget *parent)
 	ui.filterByComboBox->addItem(tr("Math"));
 	ui.filterByComboBox->addItem(tr("Computer Science"));
 	ui.filterByComboBox->addItem(tr("English"));
-
+	ui.filterByComboBox->addItem(tr("Political Science"));
+	ui.filterByComboBox->addItem(tr("Philosophy"));
+	ui.filterByComboBox->addItem(tr("Physics"));
+	ui.filterByComboBox->addItem(tr("Biology"));
+	ui.filterByComboBox->addItem(tr("Engineering"));
+	ui.filterByComboBox->addItem(tr("Business"));
+	ui.filterByComboBox->addItem(tr("Music"));
+	ui.filterByComboBox->addItem(tr("Art"));
+	ui.filterByComboBox->addItem(tr("Astronomy"));
+	ui.filterByComboBox->addItem(tr("Statistics"));
+	
 	
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -203,6 +215,17 @@ void ViewSessions::on_refreshButton_clicked()
 		ui.sessionTable->clearSelection();
 	}
 	
+}
+
+void ViewSessions::on_logoutButton_clicked()
+{
+	//er->display_error("i am working");
+	ac->log_off();
+	close();
+	Login *log = Login::get_instance();
+	
+	log->show();
+	//close();
 }
 
 void ViewSessions::set_row_selected(int r)

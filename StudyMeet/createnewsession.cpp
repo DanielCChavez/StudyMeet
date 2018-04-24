@@ -20,6 +20,16 @@ CreateNewSession::CreateNewSession(QWidget *parent)
 	subjectBox->addItem(tr("Chemistry"));
 	subjectBox->addItem(tr("Computer Science"));
 	subjectBox->addItem(tr("Political Science"));
+	subjectBox->addItem(tr("Philosophy"));
+	subjectBox->addItem(tr("Physics"));
+	subjectBox->addItem(tr("Biology"));
+	subjectBox->addItem(tr("Engineering"));
+	subjectBox->addItem(tr("Business"));
+	subjectBox->addItem(tr("Music"));
+	subjectBox->addItem(tr("Art"));
+	subjectBox->addItem(tr("Astronomy"));
+	subjectBox->addItem(tr("Statistics"));
+
 }
 
 CreateNewSession::~CreateNewSession()

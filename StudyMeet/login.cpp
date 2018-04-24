@@ -1,5 +1,6 @@
 #include "login.h"
 #include "createaccountwindow.h"
+#include "viewsessions.h"
 
 Login* Login::instance = 0;
 
@@ -56,6 +57,9 @@ void Login::on_loginButton_clicked()
 	response = 0;
 	response = db->validate_account(username.toStdString(), password.toStdString());
 	ac->set_account(username.toStdString(), password.toStdString());
+	
+	ViewSessions *vs = ViewSessions::Instance();
+	vs->show();
 
 	
 	if (response == 0) { close(); }

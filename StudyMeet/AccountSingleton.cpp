@@ -8,6 +8,7 @@ AccountSingleton* AccountSingleton::instance = 0;
 
 AccountSingleton::AccountSingleton()
 {
+
 }
 
 

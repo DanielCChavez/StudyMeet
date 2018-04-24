@@ -149,6 +149,45 @@
     <string>Refresh</string>
    </property>
   </widget>
+  <widget class="QLabel" name="loggedInAsLabel">
+   <property name="geometry">
+    <rect>
+     <x>431</x>
+     <y>1</y>
+     <width>77</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Logged in as:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Usernamelabel">
+   <property name="geometry">
+    <rect>
+     <x>515</x>
+     <y>1</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="logoutButton">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>60</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>logo out</string>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
