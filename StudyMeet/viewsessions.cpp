@@ -27,7 +27,7 @@ ViewSessions::ViewSessions(QWidget *parent)
 	int row;
 	list<Session>::iterator it; 
 	
-	ui.Usernamelabel->setText(QString::fromStdString(ac->get_username()));
+	ui.Usernamelabel->setText(QString::fromStdString(ac->get_fullname()));
 
 	ui.refreshButton->hide();
 

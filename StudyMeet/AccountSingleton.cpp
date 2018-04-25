@@ -14,12 +14,6 @@ AccountSingleton::AccountSingleton()
 
 AccountSingleton::~AccountSingleton()
 {
-	/*
-	ErrorHandler *er = ErrorHandler::get_instance();
-	er->display_error("DTOR");
-	DatabaseHandler *db = DatabaseHandler::get_instance();
-	db->log_off(this);
-	*/
 }
 
 AccountSingleton* AccountSingleton::get_instance()
