@@ -11,6 +11,7 @@ public:
 	list<Session> displaySessions;
 
 	Session find_session(string);
+	Session find_session_sessid(string);
 
 	int add_to_list(Session);
 	int remove_from_list(string);

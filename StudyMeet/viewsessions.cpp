@@ -4,6 +4,8 @@
 #include "createnewsession.h"
 #include <iterator>
 #include <QTimer>
+#include <QMenu>
+#include <QPoint>
 #include "login.h"
 
 ViewSessions* ViewSessions::instance = NULL;
@@ -17,6 +19,7 @@ ViewSessions::ViewSessions(QWidget *parent)
 	td = TableData::get_instance();
 	hid = 0;
 	row_selected = -1;
+	last_updated = QDateTime::currentDateTime().addDays(-1);
 
 	ui.setupUi(this);
 
@@ -28,6 +31,15 @@ ViewSessions::ViewSessions(QWidget *parent)
 	list<Session>::iterator it; 
 	
 	ui.Usernamelabel->setText(QString::fromStdString(ac->get_fullname()));
+	ui.sessionTable->setContextMenuPolicy(Qt::CustomContextMenu);
+
+	//context = QMenu();
+	context.addAction("Join");
+	context.addAction("Leave");
+	connect(ui.sessionTable, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showContextMenu(const QPoint &)));
+
+
+	
 
 	ui.refreshButton->hide();
 
@@ -57,6 +69,24 @@ ViewSessions::ViewSessions(QWidget *parent)
 	timer->start(1000);
 }
 
+void ViewSessions::showContextMenu(const QPoint& p)
+{
+	QPoint gpos = ui.sessionTable->mapToGlobal(p);
+	QAction *right = context.exec(gpos);
+	
+	if (right && right->text().contains("Join"))
+	{
+		set_selected_session(ui.sessionTable->indexAt(p).row());
+		DetailedStudySession *ds = new DetailedStudySession;
+		ds->on_joinButton_clicked();
+	}
+	else if (right && right->text().contains("Leave"))
+	{
+		set_selected_session(ui.sessionTable->indexAt(p).row());
+		DetailedStudySession *ds = new DetailedStudySession;
+		ds->on_leaveButton_clicked();
+	}
+}
 
 ViewSessions::~ViewSessions()
 {
@@ -182,7 +212,17 @@ void ViewSessions::on_sessionTable_doubleClicked()
 
 void ViewSessions::on_refreshButton_clicked()
 {
+	ui.refreshLabel->setText("REFRESHING");
 	int row, amt_before, amt_after, difference;
+
+	if (last_updated == db->get_date_updated_sessions())
+	{
+		ui.refreshLabel->setText("DONE REFRESHING");
+		return;
+	}
+	last_updated = db->get_date_updated_sessions();
+	ui.refreshBox->setValue(ui.refreshBox->value() + 1);
+
 
 	amt_before = td->amount_of_sessions();
 	td->get_data();
@@ -214,7 +254,7 @@ void ViewSessions::on_refreshButton_clicked()
 	{
 		ui.sessionTable->clearSelection();
 	}
-	
+	ui.refreshLabel->setText("DONE REFRESHING");
 }
 
 void ViewSessions::on_logoutButton_clicked()
@@ -233,3 +273,17 @@ void ViewSessions::set_row_selected(int r)
 	row_selected = r;
 }
 
+void ViewSessions::on_mySessionButton_clicked()
+{
+	if (!ac->is_in_session())
+	{
+		er->display_error("You are not in or host a session.");
+		return;
+	}
+
+	Session s = td->find_session_sessid(ac->get_sessionID());
+	selected_session = s;
+	DetailedStudySession *ds = new DetailedStudySession;
+	ds->show();
+	set_row_selected(-1);
+}

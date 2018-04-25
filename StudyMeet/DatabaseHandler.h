@@ -14,6 +14,7 @@ private:
 	ErrorHandler *error_window;
 	QSqlQuery query;
 	AccountSingleton *ac;
+	QDateTime dt;
 	int connection_status;
 
 	DatabaseHandler();
@@ -42,6 +43,8 @@ public:
 	int sync_account(AccountSingleton*);
 	int log_on(AccountSingleton*);
 	int log_off(AccountSingleton*);
+	int date_updated_sessions();
+	QDateTime get_date_updated_sessions();
 
 	QString query_error();
 

@@ -60,8 +60,7 @@ void Login::on_loginButton_clicked()
 	
 	ViewSessions *vs = ViewSessions::Instance();
 
-	if (response == 0) {close(); vs->show();
-	}
+	if (response == 0) {close(); vs->show();}
 	if (response == 1) { er->display_error("Error with database"); return; }
 	if (response == 2) { er->display_error("Wrong username or password"); return; }
 

@@ -657,3 +657,26 @@ int DatabaseHandler::log_off(AccountSingleton *a)
 	if (!query.exec()) { return 1; }
 	return 0;
 }
+
+int DatabaseHandler::date_updated_sessions()
+{
+	query.prepare("SELECT UPDATE_TIME "
+		"FROM information_schema.tables "
+		"WHERE TABLE_SCHEMA = 'users' "
+		"AND TABLE_NAME = 'sessions'");
+
+	if (!query.exec()) return 1;
+
+	while (query.next())
+	{
+		dt = query.value(0).toDateTime();
+	}
+	//error_window->display_error(dt.toString());
+	return 0;
+}
+
+QDateTime DatabaseHandler::get_date_updated_sessions()
+{
+	date_updated_sessions();
+	return dt;
+}

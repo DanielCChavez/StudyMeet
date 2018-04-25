@@ -20,6 +20,23 @@ Session TableData::find_session(string s)
 	return se;
 }
 
+Session TableData::find_session_sessid(string s)
+{
+	for (list<Session>::iterator it = listSessions.begin(); it != listSessions.end(); it++)
+	{
+		if (s == (it->get_sessionID()))
+		{
+			return *it;
+		}
+	}
+
+	//Not found, return "error" session
+	Session se("ERRORID", -1, "ERRORTIMESTART", -1, "ERRORTIMEEND", "ERRORDATE", "ERRORSUBJECT", "ERRORLOCATION",
+		-1, "ERROR DESCRIPTION");
+
+	return se;
+}
+
 TableData::TableData()
 {
 	get_data();
