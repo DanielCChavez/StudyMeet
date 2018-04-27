@@ -32,7 +32,7 @@ ViewSessions::ViewSessions(QWidget *parent)
 	titles << "Host" << "Subject" << "Start time" <<"End time" << "Date" << "Location";
 
 	
-	ui.Usernamelabel->setText(QString::fromStdString(ac->get_fullname()));
+	//ui.Usernamelabel->setText(QString::fromStdString(ac->get_fullname()));
 	ui.sessionTable->setContextMenuPolicy(Qt::CustomContextMenu);
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -122,6 +122,7 @@ int ViewSessions::populate_table()
 
 	//titles << "Host" << "Subject" << "Start time" << "End time" << "Date" << "Location";
 	
+	ui.Usernamelabel->setText(QString::fromStdString(ac->get_fullname()));
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->clearContents();
 	ui.sessionTable->setRowCount(0);
