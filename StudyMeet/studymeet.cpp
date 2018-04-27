@@ -30,7 +30,7 @@ StudyMeet::~StudyMeet()
 
 void StudyMeet::on_toVSWButton_clicked()
 {
-	ViewSessions *vs = ViewSessions::Instance();
+	ViewSessions *vs = ViewSessions::get_instance();
 	vs->show();
 	this->close();
 }

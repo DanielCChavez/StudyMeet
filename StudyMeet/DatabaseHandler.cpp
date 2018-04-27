@@ -440,15 +440,7 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 		return 1;
 	}
 
-	//update local
-	ac->set_sessionID(sessID);
-	
-	//update database
-	if (update_account(ac) != 0)
-	{
-		return 2;
-	}
-
+	// Check size limits on session
 	query.prepare("SELECT currentNumberOfPeople, maximumCapacityOfPeople "
 		"FROM sessions "
 		"WHERE sessionID = :sessID");
@@ -468,8 +460,18 @@ int DatabaseHandler::join_session(int accID, std::string sessID)
 		{
 			return 4;
 		}
-		currentNumberOfPeople += 1;
 	}
+
+	//update local
+	ac->set_sessionID(sessID);
+	
+	//update database
+	if (update_account(ac) != 0)
+	{
+		return 2;
+	}
+
+	currentNumberOfPeople += 1;
 
 	query.prepare("UPDATE sessions "
 		"SET currentNumberOfPeople = :numPeople "

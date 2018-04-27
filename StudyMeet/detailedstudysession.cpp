@@ -23,7 +23,7 @@ void DetailedStudySession::populate_fields()
 	ViewSessions *vs;
 	Session se;
 
-	vs = ViewSessions::Instance();
+	vs = ViewSessions::get_instance();
 	se = vs->get_selected_session();
 
 	hostEdit->setText(QString::number(se.get_hostId()));
@@ -43,7 +43,7 @@ void DetailedStudySession::on_leaveButton_clicked()
 	Session se;
 	int check;
 
-	vs = ViewSessions::Instance();
+	vs = ViewSessions::get_instance();
 	se = vs->get_selected_session();
 	check = -1;
 
@@ -65,7 +65,7 @@ void DetailedStudySession::on_deleteButton_clicked()
 	TableData *td;
 	int check;
 
-	vs = ViewSessions::Instance();
+	vs = ViewSessions::get_instance();
 	se = vs->get_selected_session();
 	td = TableData::get_instance();
 	check = -1;
@@ -98,7 +98,7 @@ void DetailedStudySession::on_joinButton_clicked()
 	Session se;
 	int check, join;
 
-	vs = ViewSessions::Instance();
+	vs = ViewSessions::get_instance();
 	se = vs->get_selected_session();
 	check = -1;
 	join = -1;

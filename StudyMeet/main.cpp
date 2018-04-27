@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 	StudyMeet w;
 
-	w.show();
+	//w.show();
 
 	int r = a.exec();
 

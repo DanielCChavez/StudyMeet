@@ -17,7 +17,7 @@ class ViewSessions : public QWidget
 public:
 	ViewSessions(QWidget *parent = 0);
 	~ViewSessions();
-	static ViewSessions*  Instance();
+	static ViewSessions*  get_instance();
 	Session get_selected_session();
 	int populate_table();
 	int get_row_selected() const { return row_selected; }
@@ -31,7 +31,8 @@ public slots:
 	void on_createSessionButton_clicked();
 	void on_sessionTable_itemClicked();
 	void on_sessionTable_doubleClicked();
-	void on_refreshButton_clicked();
+	void on_refreshButton_clicked(bool = false);
+	void force_refresh();
 	void on_logoutButton_clicked();
 	void showContextMenu(const QPoint& p);
 	void on_mySessionButton_clicked();

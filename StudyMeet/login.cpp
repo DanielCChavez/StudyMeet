@@ -58,7 +58,7 @@ void Login::on_loginButton_clicked()
 	response = db->validate_account(username.toStdString(), password.toStdString());
 	ac->set_account(username.toStdString(), password.toStdString());
 	
-	ViewSessions *vs = ViewSessions::Instance();
+	ViewSessions *vs = ViewSessions::get_instance();
 
 	if (response == 0) {close(); vs->show();}
 	if (response == 1) { er->display_error("Error with database"); return; }

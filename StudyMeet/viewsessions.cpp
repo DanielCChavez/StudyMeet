@@ -13,6 +13,11 @@ ViewSessions* ViewSessions::instance = NULL;
 ViewSessions::ViewSessions(QWidget *parent)
 	: QWidget(parent)
 {
+	QStringList titles;
+	QString timeStart, timeEnd, date, subject, id, location;
+	int row;
+	list<Session>::iterator it;
+
 	er = ErrorHandler::get_instance();
 	db = DatabaseHandler::get_instance();
 	ac = AccountSingleton::get_instance();
@@ -23,25 +28,18 @@ ViewSessions::ViewSessions(QWidget *parent)
 
 	ui.setupUi(this);
 
-	QStringList titles;
+	
 	titles << "Host" << "Subject" << "Start time" <<"End time" << "Date" << "Location";
 
-	QString timeStart, timeEnd, date, subject, id, location;
-	int row;
-	list<Session>::iterator it; 
 	
 	ui.Usernamelabel->setText(QString::fromStdString(ac->get_fullname()));
 	ui.sessionTable->setContextMenuPolicy(Qt::CustomContextMenu);
+	ui.sessionTable->setHorizontalHeaderLabels(titles);
+	ui.sessionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-	//context = QMenu();
+
 	context.addAction("Join");
 	context.addAction("Leave");
-	connect(ui.sessionTable, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showContextMenu(const QPoint &)));
-
-
-	
-
-	ui.refreshButton->hide();
 
 	ui.filterByComboBox->addItem(tr("All"));
 	ui.filterByComboBox->addItem(tr("History"));
@@ -60,10 +58,18 @@ ViewSessions::ViewSessions(QWidget *parent)
 	ui.filterByComboBox->addItem(tr("Astronomy"));
 	ui.filterByComboBox->addItem(tr("Statistics"));
 	
+	ui.refreshButton->hide();
 	
-	ui.sessionTable->setHorizontalHeaderLabels(titles);
-	ui.sessionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
-	
+	// Right clicking on session entries opens context menu
+	connect(ui.sessionTable, SIGNAL(customContextMenuRequested(const QPoint &)),
+		this, SLOT(showContextMenu(const QPoint &)));
+
+	// Force a refresh when new item is selected
+	// in filter 
+	connect(ui.filterByComboBox, SIGNAL(currentIndexChanged(const QString&)),
+		this, SLOT(force_refresh()));
+
+	// Refresh sessions table on a 1 second timer
 	QTimer *timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(on_refreshButton_clicked()));
 	timer->start(1000);
@@ -73,17 +79,16 @@ void ViewSessions::showContextMenu(const QPoint& p)
 {
 	QPoint gpos = ui.sessionTable->mapToGlobal(p);
 	QAction *right = context.exec(gpos);
+	DetailedStudySession *ds = new DetailedStudySession;
 	
 	if (right && right->text().contains("Join"))
 	{
 		set_selected_session(ui.sessionTable->indexAt(p).row());
-		DetailedStudySession *ds = new DetailedStudySession;
 		ds->on_joinButton_clicked();
 	}
 	else if (right && right->text().contains("Leave"))
 	{
 		set_selected_session(ui.sessionTable->indexAt(p).row());
-		DetailedStudySession *ds = new DetailedStudySession;
 		ds->on_leaveButton_clicked();
 	}
 }
@@ -93,7 +98,7 @@ ViewSessions::~ViewSessions()
 	
 }
 
-ViewSessions* ViewSessions::Instance()
+ViewSessions* ViewSessions::get_instance()
 {
 	if (instance == NULL)
 		instance = new ViewSessions();
@@ -115,14 +120,13 @@ int ViewSessions::populate_table()
 	td = TableData::get_instance();
 	db = DatabaseHandler::get_instance();
 
-	titles << "Host" << "Subject" << "Start time" << "End time" << "Date" << "Location";
+	//titles << "Host" << "Subject" << "Start time" << "End time" << "Date" << "Location";
 	
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->clearContents();
 	ui.sessionTable->setRowCount(0);
 	ui.sessionTable->setAlternatingRowColors(true);
 	
-
 
 	for (it = td->listSessions.begin(); it != td->listSessions.end(); it++)
 	{
@@ -167,7 +171,6 @@ Session ViewSessions::get_selected_session()
 void ViewSessions::set_selected_session(int r)
 {
 	QTableWidgetItem *t = ui.sessionTable->item(r, 6);
-
     selected_session = td->find_session(t->text().toStdString());
 }
 
@@ -175,11 +178,13 @@ void ViewSessions::on_detailsButton_clicked()
 {
 	QTableWidgetItem *t;
 	
+	// Valid row entry
 	if (get_row_selected() == -1 || get_row_selected() > ui.sessionTable->rowCount())
 	{
 		return;
 	}
 
+	// Check null item
 	if ((t = ui.sessionTable->item(get_row_selected(), 6)) == 0)
 	{
 		er->display_error("No session selected");
@@ -210,12 +215,17 @@ void ViewSessions::on_sessionTable_doubleClicked()
 	on_detailsButton_clicked();
 }
 
-void ViewSessions::on_refreshButton_clicked()
+void ViewSessions::force_refresh()
+{
+	on_refreshButton_clicked(true);
+}
+
+void ViewSessions::on_refreshButton_clicked(bool force_refresh)
 {
 	ui.refreshLabel->setText("REFRESHING");
 	int row, amt_before, amt_after, difference;
 
-	if (last_updated == db->get_date_updated_sessions())
+	if (!(last_updated != db->get_date_updated_sessions() || force_refresh))
 	{
 		ui.refreshLabel->setText("DONE REFRESHING");
 		return;
@@ -259,13 +269,11 @@ void ViewSessions::on_refreshButton_clicked()
 
 void ViewSessions::on_logoutButton_clicked()
 {
-	//er->display_error("i am working");
 	ac->log_off();
 	close();
 	Login *log = Login::get_instance();
 	
 	log->show();
-	//close();
 }
 
 void ViewSessions::set_row_selected(int r)
