@@ -7,8 +7,6 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 	StudyMeet w;
 
-	//w.show();
-
 	int r = a.exec();
 
 	AccountSingleton *ac = AccountSingleton::get_instance();
