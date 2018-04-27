@@ -25,8 +25,6 @@ public:
 	~Session();
 	
 	void send_session_to_database(Session);
-	void add_account_to_sessionlist(Account);
-	void remove_account_from_sessionlist(Account);
 	string get_sessionID();
 	string get_timeend();
 	string get_subject();
@@ -37,6 +35,5 @@ public:
 	int get_hostId();
 	int get_currentNumberOfPeople();
 	int get_limitNumberOfPeople();
-	list<Account> get_listofpeople();
 };
 

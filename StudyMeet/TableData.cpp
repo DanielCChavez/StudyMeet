@@ -47,8 +47,6 @@ int TableData::get_data()
 	DatabaseHandler* handler = DatabaseHandler::get_instance();
 	handler->load_all_sessions(listSessions);
 
-	//displaySessions = listSessions;
-
 	return 0;
 }
 

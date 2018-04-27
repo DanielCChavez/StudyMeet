@@ -114,8 +114,6 @@ int ViewSessions::populate_table()
 
 	td = TableData::get_instance();
 	db = DatabaseHandler::get_instance();
-
-	//titles << "Host" << "Subject" << "Start time" << "End time" << "Date" << "Location";
 	
 	ui.Usernamelabel->setText(QString::fromStdString(ac->get_fullname()));
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
