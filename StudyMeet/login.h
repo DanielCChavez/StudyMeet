@@ -23,6 +23,7 @@ private:
 	DatabaseHandler *db;
 	ErrorHandler *er;
 	AccountSingleton *ac;
+	void clear_fields();
 
 public slots:
 	void on_loginButton_clicked();

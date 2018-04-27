@@ -6,26 +6,29 @@
 #include "DatabaseHandler.h"
 #include "ErrorHandler.h"
 #include "AccountSingleton.h"
+#include "viewsessions.h"
 
 class DetailedStudySession : public QWidget, public Ui::DetailedStudySession
 {
 	Q_OBJECT
 
 public:
-	DetailedStudySession(QWidget *parent = 0);
+	static DetailedStudySession* get_instance();
 	~DetailedStudySession();
 	void populate_fields();
 protected:
-
+	static DetailedStudySession *instance;
 public slots :
 	void on_leaveButton_clicked();
 	void on_deleteButton_clicked();
 	void on_joinButton_clicked();
 	
 private:
+	DetailedStudySession(QWidget *parent = 0);
 	DatabaseHandler *db;
 	ErrorHandler *er;
 	AccountSingleton *ac;
+	ViewSessions *vs;
 };
 
 #endif // DETAILEDSTUDYSESSION_H

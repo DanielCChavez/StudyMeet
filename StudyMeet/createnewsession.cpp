@@ -37,7 +37,7 @@ CreateNewSession::~CreateNewSession()
 
 }
 
-CreateNewSession* CreateNewSession::Instance()
+CreateNewSession* CreateNewSession::get_instance()
 {
 	if (instance == NULL)
 		instance = new CreateNewSession();

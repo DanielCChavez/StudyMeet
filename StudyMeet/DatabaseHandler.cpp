@@ -86,6 +86,16 @@ int DatabaseHandler::add_to_database(Account acc)
 int DatabaseHandler::add_to_database(Session s)
 {
 	int result;
+	std::string date_created_str;
+	QDate date_created;
+	QTime midnight;
+	QDateTime expiration_date;
+	
+	midnight = QTime(23, 59, 59, 59);
+	date_created_str = s.get_date();
+	date_created = QDate(stoi(date_created_str.substr(6, 4)), stoi(date_created_str.substr(0, 2)),
+		stoi(date_created_str.substr(3, 2)));
+	expiration_date = QDateTime(date_created.addDays(1), midnight);
 
 	//Check local sessID, must be empty
 	//First, sync local account with DB account
@@ -113,16 +123,8 @@ int DatabaseHandler::add_to_database(Session s)
 	query.bindValue(":topic", s.get_subject().c_str());
 	query.bindValue(":location", s.get_location().c_str());
 	query.bindValue(":description", s.get_description().c_str());
-	//query.bindValue(":date", s.get_date().c_str());
-	std::string dt = s.get_date();
-	QDate d(stoi(dt.substr(6, 4)), stoi(dt.substr(0, 2)), stoi(dt.substr(3, 2)));
-	query.bindValue(":date", d);
-
-	std::string dtime = "";
-	QTime mn(23, 59, 59, 59);
-
-	QDateTime tm(d.addDays(1), mn);
-	query.bindValue(":expiration", tm);
+	query.bindValue(":date", date_created);
+	query.bindValue(":expiration", expiration_date);
 
 
 	if (!query.exec())
@@ -673,7 +675,6 @@ int DatabaseHandler::date_updated_sessions()
 	{
 		dt = query.value(0).toDateTime();
 	}
-	//error_window->display_error(dt.toString());
 	return 0;
 }
 

@@ -13,10 +13,10 @@ ViewSessions* ViewSessions::instance = NULL;
 ViewSessions::ViewSessions(QWidget *parent)
 	: QWidget(parent)
 {
+	ui.setupUi(this);
+
 	QStringList titles;
 	QString timeStart, timeEnd, date, subject, id, location;
-	int row;
-	list<Session>::iterator it;
 
 	er = ErrorHandler::get_instance();
 	db = DatabaseHandler::get_instance();
@@ -26,17 +26,12 @@ ViewSessions::ViewSessions(QWidget *parent)
 	row_selected = -1;
 	last_updated = QDateTime::currentDateTime().addDays(-1);
 
-	ui.setupUi(this);
-
 	
 	titles << "Host" << "Subject" << "Start time" <<"End time" << "Date" << "Location";
 
-	
-	//ui.Usernamelabel->setText(QString::fromStdString(ac->get_fullname()));
 	ui.sessionTable->setContextMenuPolicy(Qt::CustomContextMenu);
 	ui.sessionTable->setHorizontalHeaderLabels(titles);
 	ui.sessionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
-
 
 	context.addAction("Join");
 	context.addAction("Leave");
@@ -79,7 +74,7 @@ void ViewSessions::showContextMenu(const QPoint& p)
 {
 	QPoint gpos = ui.sessionTable->mapToGlobal(p);
 	QAction *right = context.exec(gpos);
-	DetailedStudySession *ds = new DetailedStudySession;
+	DetailedStudySession *ds = DetailedStudySession::get_instance();
 	
 	if (right && right->text().contains("Join"))
 	{
@@ -194,14 +189,14 @@ void ViewSessions::on_detailsButton_clicked()
 	
 	set_selected_session(get_row_selected());
 	
-	DetailedStudySession *ds = new DetailedStudySession;
+	DetailedStudySession *ds = DetailedStudySession::get_instance();
 	ds->show();
 	set_row_selected(-1);
 }
 
 void ViewSessions::on_createSessionButton_clicked()
 {
-	CreateNewSession *cs = CreateNewSession::Instance();
+	CreateNewSession *cs = CreateNewSession::get_instance();
 	cs->show();
 	set_row_selected(-1);
 }
@@ -223,12 +218,12 @@ void ViewSessions::force_refresh()
 
 void ViewSessions::on_refreshButton_clicked(bool force_refresh)
 {
-	ui.refreshLabel->setText("REFRESHING");
 	int row, amt_before, amt_after, difference;
 
+	// If database has not been updated no need to refresh, unless
+	// force refresh is true
 	if (!(last_updated != db->get_date_updated_sessions() || force_refresh))
 	{
-		ui.refreshLabel->setText("DONE REFRESHING");
 		return;
 	}
 	last_updated = db->get_date_updated_sessions();
@@ -265,7 +260,6 @@ void ViewSessions::on_refreshButton_clicked(bool force_refresh)
 	{
 		ui.sessionTable->clearSelection();
 	}
-	ui.refreshLabel->setText("DONE REFRESHING");
 }
 
 void ViewSessions::on_logoutButton_clicked()
@@ -291,8 +285,8 @@ void ViewSessions::on_mySessionButton_clicked()
 	}
 
 	Session s = td->find_session_sessid(ac->get_sessionID());
+	DetailedStudySession *ds = DetailedStudySession::get_instance();
 	selected_session = s;
-	DetailedStudySession *ds = new DetailedStudySession;
-	ds->show();
 	set_row_selected(-1);
+	ds->show();
 }

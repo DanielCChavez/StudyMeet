@@ -11,10 +11,13 @@ class CreateAccountWindow : public QWidget, public Ui::CreateAccountWindow
 	Q_OBJECT
 
 public:
-	CreateAccountWindow(QWidget *parent = 0);
+	static CreateAccountWindow* get_instance();
 	~CreateAccountWindow();
-
+	void clear_fields();
+protected:
+	static CreateAccountWindow *instance;
 private:
+	CreateAccountWindow(QWidget *parent = 0);
 	ErrorHandler *er;
 	DatabaseHandler *db;
 	

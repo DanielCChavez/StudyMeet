@@ -13,13 +13,8 @@ StudyMeet::StudyMeet(QWidget *parent)
 {
 	ui.setupUi(this);
 
-	//WelcomeWindow *ww = WelcomeWindow::get_instance();
 	Login *login_window = Login::get_instance();
-
-	//ww->setWindowModality(Qt::WindowModality::ApplicationModal);
 	login_window->setWindowModality(Qt::WindowModality::ApplicationModal);
-	//ww->show();
-	//ww->close();
 	login_window->show();
 }
 

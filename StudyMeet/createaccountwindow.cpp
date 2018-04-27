@@ -4,6 +4,7 @@
 
 using namespace std;
 
+CreateAccountWindow* CreateAccountWindow::instance = NULL;
 
 CreateAccountWindow::CreateAccountWindow(QWidget *parent)
 	: QWidget(parent)
@@ -13,11 +14,32 @@ CreateAccountWindow::CreateAccountWindow(QWidget *parent)
 	db = DatabaseHandler::get_instance();
 }
 
+CreateAccountWindow* CreateAccountWindow::get_instance()
+{
+	if (instance == NULL)
+		instance = new CreateAccountWindow();
+
+	instance->clear_fields();
+
+	return instance;
+}
+
 CreateAccountWindow::~CreateAccountWindow()
 {
 
 }
 
+void CreateAccountWindow::clear_fields()
+{
+	usernameEdit->clear();
+	passwordEdit->clear();
+	confirmpasswordEdit->clear();
+	firstNameEdit->clear();
+	lastNameEdit->clear();
+	gradeLevelEdit->clear();
+	// Move cursor back to 'username' field
+	QTimer::singleShot(0, usernameEdit, SLOT(setFocus()));
+}
 
 void CreateAccountWindow::on_createAccountButton_clicked()
 {
@@ -51,6 +73,7 @@ void CreateAccountWindow::on_createAccountButton_clicked()
 		return;
 	}
 
+	// Creating an ID
 	srand(time(NULL));
 	id = rand() % 10000;
 	

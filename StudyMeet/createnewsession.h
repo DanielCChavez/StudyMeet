@@ -12,14 +12,14 @@ class CreateNewSession : public QWidget, public Ui::CreateNewSession
 	Q_OBJECT
 
 public:
-	CreateNewSession(QWidget *parent = 0);
 	~CreateNewSession();
-	static CreateNewSession* Instance(); 
+	static CreateNewSession* get_instance(); 
 
 protected:
 	static CreateNewSession* instance; 
 
 private:
+	CreateNewSession(QWidget *parent = 0);
 	void clear_fields();
 	ErrorHandler *er;
 	DatabaseHandler *db;

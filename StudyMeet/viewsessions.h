@@ -15,7 +15,6 @@ class ViewSessions : public QWidget
 	Q_OBJECT
 
 public:
-	ViewSessions(QWidget *parent = 0);
 	~ViewSessions();
 	static ViewSessions*  get_instance();
 	Session get_selected_session();
@@ -37,6 +36,7 @@ public slots:
 	void showContextMenu(const QPoint& p);
 	void on_mySessionButton_clicked();
 private:
+	ViewSessions(QWidget *parent = 0);
 	Ui::ViewSessions ui;
 	Session selected_session;
 	int hid;
@@ -48,7 +48,7 @@ private:
 	QMenu context;
 	QDateTime last_updated;
 protected:
-	static ViewSessions * instance; 
+	static ViewSessions *instance; 
 };	
 
 #endif // VIEWSESSIONS_H

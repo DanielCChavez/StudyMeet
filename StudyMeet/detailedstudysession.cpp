@@ -1,7 +1,7 @@
 #include "detailedstudysession.h"
-#include "viewsessions.h"
-#include "viewsessions.h"
 #include "TableData.h"
+
+DetailedStudySession* DetailedStudySession::instance = NULL;
 
 DetailedStudySession::DetailedStudySession(QWidget *parent)
 	: QWidget(parent)
@@ -10,20 +10,28 @@ DetailedStudySession::DetailedStudySession(QWidget *parent)
 	er = ErrorHandler::get_instance();
 	db = DatabaseHandler::get_instance();
 	ac = AccountSingleton::get_instance();
-	populate_fields();
+	vs = ViewSessions::get_instance();
+}
+
+DetailedStudySession* DetailedStudySession::get_instance()
+{
+	if (instance == NULL)
+		instance = new DetailedStudySession();
+
+
+	instance->populate_fields();
+
+	return instance;
 }
 
 DetailedStudySession::~DetailedStudySession()
 {
-
+	
 }
 
 void DetailedStudySession::populate_fields()
 {
-	ViewSessions *vs;
 	Session se;
-
-	vs = ViewSessions::get_instance();
 	se = vs->get_selected_session();
 
 	hostEdit->setText(QString::number(se.get_hostId()));
@@ -39,11 +47,9 @@ void DetailedStudySession::populate_fields()
 
 void DetailedStudySession::on_leaveButton_clicked()
 {
-	ViewSessions *vs;
 	Session se;
 	int check;
 
-	vs = ViewSessions::get_instance();
 	se = vs->get_selected_session();
 	check = -1;
 
@@ -60,14 +66,10 @@ void DetailedStudySession::on_leaveButton_clicked()
 
 void DetailedStudySession::on_deleteButton_clicked()
 {
-	ViewSessions *vs;
 	Session se;
-	TableData *td;
 	int check;
 
-	vs = ViewSessions::get_instance();
 	se = vs->get_selected_session();
-	td = TableData::get_instance();
 	check = -1;
 
 
@@ -94,13 +96,10 @@ void DetailedStudySession::on_deleteButton_clicked()
 
 void DetailedStudySession::on_joinButton_clicked()
 {
-	ViewSessions *vs;
 	Session se;
-	int check, join;
+	int join;
 
-	vs = ViewSessions::get_instance();
 	se = vs->get_selected_session();
-	check = -1;
 	join = -1;
 
 	join = db->join_session(ac->get_accountID(), se.get_sessionID());
