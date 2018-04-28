@@ -32,9 +32,11 @@ DetailedStudySession::~DetailedStudySession()
 void DetailedStudySession::populate_fields()
 {
 	Session se;
+	Account a;
 	se = vs->get_selected_session();
+	db->get_account(se.get_hostId(), a);
 
-	hostEdit->setText(QString::number(se.get_hostId()));
+	hostEdit->setText(QString::fromStdString(a.get_fullName()));
 	subjectEdit->setText(QString::fromStdString(se.get_subject()));
 	startTimeEdit->setText(QString::fromStdString(se.get_timestart()));
 	endTimeEdit->setText(QString::fromStdString(se.get_timeend()));

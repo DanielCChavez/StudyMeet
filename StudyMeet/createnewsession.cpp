@@ -69,7 +69,7 @@ void CreateNewSession::on_PublishSessionButton_clicked()
 	// Grab GUI text field entries
 	subject = subjectBox->currentText().toStdString();
 	timeStart = timeStartEdit->text().toStdString();
-	timeEnd = timeEndEdit->time().toString().toStdString();
+	timeEnd = timeEndEdit->text().toStdString();
 	date = (dateEdit->date().toString("MM/dd/yyyy")).toStdString();
 	description = DesciptionEdit->toPlainText().toStdString();
 	location = LocationEdit->text().toStdString();

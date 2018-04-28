@@ -11,5 +11,7 @@ int main(int argc, char *argv[])
 
 	AccountSingleton *ac = AccountSingleton::get_instance();
 	ac->log_off();
+	
+	
 	return r;
 }

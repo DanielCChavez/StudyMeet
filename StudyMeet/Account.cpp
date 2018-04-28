@@ -13,7 +13,8 @@ Account::Account()
 	accountID = 0;
 }
 
-Account::Account(string name, string pword, string fname, string lname, string dCreated, string glevel, string sessID, int accID)
+Account::Account(string name, string pword, string fname, 
+	string lname, string dCreated, string glevel, string sessID, int accID)
 {
 	username = name;
 	password = pword;

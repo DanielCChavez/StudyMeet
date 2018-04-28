@@ -53,7 +53,11 @@ ViewSessions::ViewSessions(QWidget *parent)
 	ui.filterByComboBox->addItem(tr("Astronomy"));
 	ui.filterByComboBox->addItem(tr("Statistics"));
 	
+
+	// Testing purposes
 	ui.refreshButton->hide();
+	ui.refreshBox->hide();
+	ui.refreshLabel->hide();
 	
 	// Right clicking on session entries opens context menu
 	connect(ui.sessionTable, SIGNAL(customContextMenuRequested(const QPoint &)),
@@ -283,8 +287,8 @@ void ViewSessions::on_mySessionButton_clicked()
 	}
 
 	Session s = td->find_session_sessid(ac->get_sessionID());
-	DetailedStudySession *ds = DetailedStudySession::get_instance();
 	selected_session = s;
+	DetailedStudySession *ds = DetailedStudySession::get_instance();
 	set_row_selected(-1);
 	ds->show();
 }

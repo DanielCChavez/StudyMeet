@@ -28,6 +28,7 @@ void AccountSingleton::set_account(std::string uname, std::string pword)
 {
 	DatabaseHandler *db = DatabaseHandler::get_instance();
 	db->get_account(uname, pword, logged_in);
+	db->sync_account(this);
 	db->log_on(this);
 }
 
