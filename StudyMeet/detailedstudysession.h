@@ -18,17 +18,18 @@ public:
 	void populate_fields();
 protected:
 	static DetailedStudySession *instance;
-public slots :
-	void on_leaveButton_clicked();
-	void on_deleteButton_clicked();
-	void on_joinButton_clicked();
-	
 private:
 	DetailedStudySession(QWidget *parent = 0);
 	DatabaseHandler *db;
 	ErrorHandler *er;
 	AccountSingleton *ac;
 	ViewSessions *vs;
+public slots :
+	void on_leaveButton_clicked();
+	void on_deleteButton_clicked();
+	void on_joinButton_clicked();
+
+
 };
 
 #endif // DETAILEDSTUDYSESSION_H

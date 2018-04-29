@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'createnewsession.ui'
 **
-** Created by: Qt User Interface Compiler version 5.6.3
+** Created by: Qt User Interface Compiler version 5.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -127,16 +127,16 @@ public:
 
     void retranslateUi(QWidget *CreateNewSession)
     {
-        CreateNewSession->setWindowTitle(QApplication::translate("CreateNewSession", "CreateNewSession", Q_NULLPTR));
-        timeEndLabel->setText(QApplication::translate("CreateNewSession", "Time End:", Q_NULLPTR));
-        SubjectLabel->setText(QApplication::translate("CreateNewSession", "Subject", Q_NULLPTR));
-        timeStartLabel->setText(QApplication::translate("CreateNewSession", "Time Start", Q_NULLPTR));
-        LocationLabel->setText(QApplication::translate("CreateNewSession", "Location", Q_NULLPTR));
-        sizeofSessionLabel->setText(QApplication::translate("CreateNewSession", "Size", Q_NULLPTR));
-        DescriptionLabel->setText(QApplication::translate("CreateNewSession", "Description:", Q_NULLPTR));
-        PublishSessionButton->setText(QApplication::translate("CreateNewSession", "Publish", Q_NULLPTR));
-        CancelButton->setText(QApplication::translate("CreateNewSession", "Cancel", Q_NULLPTR));
-        DateLabel->setText(QApplication::translate("CreateNewSession", "Date", Q_NULLPTR));
+        CreateNewSession->setWindowTitle(QApplication::translate("CreateNewSession", "CreateNewSession", 0));
+        timeEndLabel->setText(QApplication::translate("CreateNewSession", "Time End:", 0));
+        SubjectLabel->setText(QApplication::translate("CreateNewSession", "Subject", 0));
+        timeStartLabel->setText(QApplication::translate("CreateNewSession", "Time Start", 0));
+        LocationLabel->setText(QApplication::translate("CreateNewSession", "Location", 0));
+        sizeofSessionLabel->setText(QApplication::translate("CreateNewSession", "Size", 0));
+        DescriptionLabel->setText(QApplication::translate("CreateNewSession", "Description:", 0));
+        PublishSessionButton->setText(QApplication::translate("CreateNewSession", "Publish", 0));
+        CancelButton->setText(QApplication::translate("CreateNewSession", "Cancel", 0));
+        DateLabel->setText(QApplication::translate("CreateNewSession", "Date", 0));
         subjectBox->setCurrentText(QString());
     } // retranslateUi
 
