@@ -1,19 +1,18 @@
 #include "studymeet.h"
 #include <QtWidgets/QApplication>
-
-
-//test comment
-
-
-/*
-	push to myb
-*/
+#include "AccountSingleton.h"
 
 int main(int argc, char *argv[])
 {
+
 	QApplication a(argc, argv);
 	StudyMeet w;
 
-	w.show();
-	return a.exec();
+	int r = a.exec();
+
+	AccountSingleton *ac = AccountSingleton::get_instance();
+	ac->log_off();
+	
+	
+	return r;
 }

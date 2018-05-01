@@ -2,6 +2,8 @@
 #define STUDYMEET_H
 
 #include <QtWidgets/QMainWindow>
+#include "detailedstudysession.h"
+#include "viewsessions.h"
 #include "ui_studymeet.h"
 
 class StudyMeet : public QMainWindow
@@ -13,12 +15,11 @@ public:
 	~StudyMeet();
 
 public slots:
-	void on_heyButton_clicked();
-	//id on_exitButton_clicked();
+	void on_toVSWButton_clicked();
+	void on_loggedInAsButton_clicked();
 
 private:
 	Ui::StudyMeetClass ui;
-
 };
 
 #endif // STUDYMEET_H

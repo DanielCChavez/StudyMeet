@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>582</width>
+    <width>659</width>
     <height>590</height>
    </rect>
   </property>
@@ -14,134 +14,59 @@
    <string>StudyMeet</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QPushButton" name="toVSWButton">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>70</y>
-      <width>185</width>
-      <height>308</height>
+      <x>100</x>
+      <y>140</y>
+      <width>271</width>
+      <height>31</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>98</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
-           <property name="font">
-            <font>
-             <pointsize>24</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Hi</string>
-           </property>
-           <property name="textFormat">
-            <enum>Qt::PlainText</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QPushButton" name="heyButton">
-           <property name="text">
-            <string>Hey</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>228</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
+    <property name="text">
+     <string>To View Session Window</string>
+    </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QPushButton" name="loggedInAsButton">
     <property name="geometry">
      <rect>
-      <x>-30</x>
-      <y>0</y>
-      <width>601</width>
-      <height>71</height>
+      <x>160</x>
+      <y>50</y>
+      <width>161</width>
+      <height>23</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>418</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="exitButton">
-         <property name="text">
-          <string>exit</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <spacer name="verticalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>348</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
+    <property name="text">
+     <string>Who Am I logged In As?</string>
+    </property>
    </widget>
-   <zorder>layoutWidget</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>heyButton</zorder>
+   <widget class="QLabel" name="studyMeetLogo">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>270</y>
+      <width>491</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Images/StudyMeetPrototype1.png</pixmap>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>582</width>
-     <height>21</height>
+     <width>659</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
@@ -159,27 +84,11 @@
  <resources>
   <include location="studymeet.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>exitButton</sender>
-   <signal>clicked()</signal>
-   <receiver>StudyMeetClass</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>433</x>
-     <y>51</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>440</x>
-     <y>107</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <signal>signal1()</signal>
   <slot>slot1()</slot>
   <slot>on_heyButton_clicked()</slot>
+  <slot>slot2()</slot>
  </slots>
 </ui>
